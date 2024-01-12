@@ -61,11 +61,13 @@ const Home = () => {
     console.log(item.id)
     setCart(userData.orders.find(i => i.id == selectedItem.currentKey).cart)
   }
-
+  console.log(userData)
 
   return (
     <PrivateRoute >
+        <Typography variant="h1">{`Welcome back ${userData?.firstName} ${userData?.lastName}`}</Typography>
         <Typography variant="h2">Your past orders</Typography>
+        <Button>Invite user</Button>
     {/* <div>
       <div>
 

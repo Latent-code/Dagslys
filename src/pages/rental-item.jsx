@@ -78,10 +78,10 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
   }
   return (
     <div>
-      <Breadcrumb url={location.pathname} name={pageItem.brentRentalItem.displayname}></Breadcrumb>
-      <Typography variant="h2">{pageItem.brentRentalItem.displayname}</Typography>
+      <Breadcrumb url={location.pathname} name={pageItem.brentRentalItem?.displayname}></Breadcrumb>
+      <Typography variant="h2">{pageItem.brentRentalItem?.displayname}</Typography>
       <div style={inlineFlex}>
-        {pageItem.brentRentalItem.childFile?.childImageSharp.gatsbyImageData != null ? (
+        {pageItem.brentRentalItem?.childFile?.childImageSharp.gatsbyImageData != null ? (
           <ImageContainer>
             <GatsbyImage
               image={
@@ -114,8 +114,8 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
 
       {/* <h5>{pageItem.brentRentalItem.shop_description_short}</h5> */}
       <div style={{marginTop: "2rem"}}>
-        {console.log(pageItem.brentRentalItem.shop_description_long)}
-        <p dangerouslySetInnerHTML={{ __html: pageItem.brentRentalItem.shop_description_long }} />
+        {console.log(pageItem.brentRentalItem?.shop_description_long)}
+        <p dangerouslySetInnerHTML={{ __html: pageItem.brentRentalItem?.shop_description_long }} />
       </div>
       {/* <p>{}</p> */}
     </div>
@@ -127,7 +127,7 @@ export default EquipmentItem
 export const pageQuery = graphql`
 query BrentItemQuery ($id: Int) {
   brentRentalItem(rentmanId: {eq: $id}) {
-    displayname
+      displayname
       id
       urlPath
       image

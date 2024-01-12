@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-// import firebase from "gatsby-plugin-firebase
+
 import { firebase } from "../utils/firebase";
 import { addUser } from "../utils/firestoreCRUD";
 
@@ -29,25 +29,35 @@ export const AppContext = createContext({
   auth: null,
 });
 
+
+
 const AppProvider = ({ children }) => {
   const databaseName = "dagslys";
+  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const handleClosePopup = (reason) =>
+  reason !== "clickaway"
+    ? setIsPopupOpen({ open: false, message: "none", severity: "success" })
+    : null;
+
+
+  const [isPopupOpen, setIsPopupOpen] = useState({
+    open: false,
+    message: "",
+    severity: "",
+    closePopup: handleClosePopup,
+  });
 
   const isBrowser = typeof window !== "undefined";
   let auth;
   let db;
-  const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null);
   if (isBrowser) {
     auth = getAuth(firebase);
     db = getFirestore(firebase);
   }
-
-  const handleCloseModal = (reason) =>
-    reason !== "clickaway"
-      ? setIsModalOpen({ open: false, message: "none", severity: "success" })
-      : null;
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addUserInfo = () => {
     setIsModalOpen(true);
@@ -70,12 +80,8 @@ const AppProvider = ({ children }) => {
       }
       const userItems = [];
       querySnapshot.forEach((doc) => {
-        // console.log(doc.collection(db, "savedOrders"))
-        // doc.ref.collection("savedOrders").get().then((querySnapshot) => {
-        //   console.log(querySnapshot)
-        // });
+
         setUserData(doc.data());
-        // console.log(doc.data())
         userItems.push(doc.data());
       });
     });
@@ -87,18 +93,7 @@ const AppProvider = ({ children }) => {
     };
   }, [databaseName, user]);
 
-  const handleClosePopup = (reason) =>
-    reason !== "clickaway"
-      ? setIsPopupOpen({ open: false, message: "none", severity: "success" })
-      : null;
 
-  // State til Alert Popup. Inkludert handleClose fuknsjonen
-  const [isPopupOpen, setIsPopupOpen] = useState({
-    open: false,
-    message: "",
-    severity: "",
-    closePopup: handleClosePopup,
-  });
 
   useEffect(() => {
     if (!auth) return;
@@ -158,7 +153,6 @@ const AppProvider = ({ children }) => {
     return !!user;
   };
 
-  // console.log(isLoggedIn())
 
   const output = {
     user: user,

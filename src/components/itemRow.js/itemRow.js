@@ -1,26 +1,13 @@
 import React, { useState, useContext } from "react"
 import {
-  Button,
-  DateRangePicker,
   TextField,
-  TableView,
   Flex,
-  Text,
-  Form,
-  Dialog,
-  Column,
   Link,
   MenuTrigger,
-  Divider,
-  ListView,
   Item,
-  TableBody,
-  TableHeader,
-  Row,
   Cell,
   Menu,
   ActionButton,
-  NumberField,
 } from "@adobe/react-spectrum"
 import { navigate } from "gatsby"
 import ItemCounter from "../itemCounter/itemCounter"

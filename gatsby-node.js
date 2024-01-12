@@ -48,6 +48,17 @@ exports.onCreateWebpackConfig = ({ actions, plugins, ...args }) => {
  *
  */
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type BrentRentalItem implements Node {
+      title: String!
+      childFile: File
+    }
+  `;
+  createTypes(typeDefs);
+};
+
 exports.createPages = async gatsbyUtilities => {
   // Query our posts from the GraphQL server
   // const posts = await getPosts(gatsbyUtilities)
@@ -83,8 +94,8 @@ exports.createPages = async gatsbyUtilities => {
       items.splice(index, 1)
     }
 
-    item.parentFolderId = parseInt(item.folder.split("/").slice(-1))
-    completeMenuArr.push(item)
+      item.parentFolderId = parseInt(item.folder.split("/").slice(-1))
+      completeMenuArr.push(item)
   })
 
   folders.test.data.data.map((item, index) => {
@@ -161,7 +172,8 @@ exports.createPages = async gatsbyUtilities => {
   })
 
 
-
+  console.log("TEST1",editItems)
+  console.log("TEST2",editFolders)
 
     createIndividualBlogPostPages(editItems, gatsbyUtilities)
 
@@ -360,6 +372,8 @@ exports.sourceNodes = async ({
   const items1 = await getRentalItems(100, 0)
   const items2 = await getRentalItems(100, 100)
   const items3 = await getRentalItems(100, 200)
+
+  // console.log("REIEL",items1.test.data.data)
   const items = [
     ...items1.test.data.data,
     ...items2.test.data.data,
@@ -376,12 +390,14 @@ exports.sourceNodes = async ({
       items.splice(index, 1)
     }
 
-    item.parentFolderId = parseInt(item.folder.split("/").slice(-1))
-    completeMenuArr.push(item)
+
+      item.parentFolderId = parseInt(item.folder.split("/").slice(-1))
+      completeMenuArr.push(item)
   })
 
   folders.test.data.data.map((item, index) => {
     if (
+
       item.itemtype === "contact" ||
       item.itemtype === "vehicle" ||
       item.itemtype === "user"
@@ -451,7 +467,7 @@ exports.sourceNodes = async ({
       editItems.push(item)
     }
   })
-  console.log(editItems)
+  console.log("MENU",finalMenu)
 
   // finalMenu.flat().forEach(item => {
   //   console.log(item)
@@ -504,33 +520,37 @@ exports.sourceNodes = async ({
   })
 
   editItems.forEach((item, index) => {
-    images.map(img => {
-      if (img.id === parseInt(item.image?.split("/").slice(-1))) {
-        const imgObj = createImageObjectFromURL(img.url)
-        const nodeData = turnImageObjectIntoGatsbyNode(imgObj, item)
+    console.log("test3",item.displayname)
+    if(images) {
 
-        createNode({
-          ...item,
-          rentmanId: item.id,
-          children: [],
-          childRentalItems: item.children,
-          id: createNodeId(item.id),
-          title: item.displayname,
-          pageLinkBrent: item.name
+      images.map(img => {
+        if (img.id === parseInt(item.image?.split("/").slice(-1))) {
+          const imgObj = createImageObjectFromURL(img.url)
+          const nodeData = turnImageObjectIntoGatsbyNode(imgObj, item)
+          
+          createNode({
+            ...item,
+            rentmanId: item.id,
+            children: [],
+            childRentalItems: item.children,
+            id: createNodeId(item.id),
+            title: item.displayname,
+            pageLinkBrent: item.name
             .toString()
             .replaceAll(" ", "-")
             .toLowerCase(),
-          menuParentBrent: item.parent,
-          internal: {
-            type: "BrentRentalItem",
-            contentDigest: createContentDigest(item),
-          },
-          imageContent: nodeData,
-        })
-        images.slice(index, 1)
-      }
-    })
-    createNode({
+            menuParentBrent: item.parent,
+            internal: {
+              type: "BrentRentalItem",
+              contentDigest: createContentDigest(item),
+            },
+            imageContent: nodeData,
+          })
+          images.slice(index, 1)
+        }
+      })
+    }
+      createNode({
       ...item,
       id: createNodeId(item.id),
       childRentalItems: item.children,
@@ -561,7 +581,7 @@ async function getRentalItems(limit, offset) {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `https://api.rentman.net/equipment?limit=${limit}&offset=${offset}`,
+    url: `https://api.rentman.net/equipment?folder[isnull]=false&in_shop[isnull]=false&limit=${limit}&offset=${offset}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

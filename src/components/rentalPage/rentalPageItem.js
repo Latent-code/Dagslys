@@ -4,8 +4,6 @@ import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { CartContext } from "../../context/cartContext"
 import { AppContext } from "../../context/appContext"
 import ItemCounter from "../itemCounter/itemCounter"
-import { Flex } from "@adobe/react-spectrum"
-import noImage from "../../images/no-image.png"
 import { useTheme } from "@mui/material"
 
 
@@ -16,11 +14,8 @@ const RentalPageItem = ({ menuChildren }) => {
   const theme = useTheme();
 
   const menuPostContainer = {
-    // borderBottom: "1px solid grey",
     backgroundColor: `${theme.palette.primary.main}`,
     border: "1px solid rgb(116 116 116 / 38%)",
-    // borderLeft: "1px solid grey",
-    // borderRight: "1px solid grey",
     padding: "5px 0",
   }
   const imageStyle = {
@@ -45,25 +40,12 @@ const RentalPageItem = ({ menuChildren }) => {
   }
 
   const cssGridChild = {
-    // boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
     backgroundColor: `${theme.palette.primary.main}`,
-    /* border-radius: 1rem 1rem 1rem 1rem; */
     border: "1px solid rgb(116 116 116 / 38%)",
     width: "200px",
     height: "auto",
     cursor: "pointer",
-
-    // display: "flex",
-    // flexDirection: "column",
-    // height: "251px",
-    // gridTemplateColumns: "repeat(8, minmax(10px, 1fr))",
-    // boxDhadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-    // backgroundColor: "white",
-    // /* border-radius: 1rem 1rem 1rem 1rem; */
-    // border: "1px solid rgba(0, 0, 0, 0.383)",
   }
-
-  // console.log(menuChildren)
 
   //Check if cart changes, update number for itemCounter
   useEffect(() => {
@@ -92,18 +74,8 @@ const RentalPageItem = ({ menuChildren }) => {
 
   return (
     <div>
-      {/* {menuChildren.map(item => {
-        // console.log(Object.hasOwn(item, "children"), item)
-        // console.log(item)
-        {
-          return Object.hasOwn(item, "children") ? (
-              <RentalPageItem menuChildren={item.children} />
-          ) : ( */}
-      
       <div>
         <div
-          // onClick={e => navigate("/rental" + menuChildren.urlPath + "/")}
-          // onClick={() => addToCart(menuChildren)}
           key={menuChildren.id}
           className="page-flex-child hover-orange"
           style={cssGridChild}
@@ -143,9 +115,6 @@ const RentalPageItem = ({ menuChildren }) => {
           <></>
         )}
       </div>
-      {/* )
-        }
-      })} */}
     </div>
   )
 }

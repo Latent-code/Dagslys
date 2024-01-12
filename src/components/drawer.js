@@ -282,7 +282,7 @@ function ResponsiveDrawer(props, cameraQuery) {
             borderBottom: "1px solid #dbdbdb",
           }}
           onClick={e => {
-            navigate("/rental")
+            navigate("/")
           }}
         >
           <CustomizedListItemText

@@ -1,14 +1,7 @@
-import React, { createContext, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Link } from "gatsby"
 import { Helmet } from "react-helmet"
-import Header from "../components/header"
-import mobileHeader from "../components/mobileHeader"
-import MobileHeader from "../components/mobileHeader"
 import ResponsiveDrawer from "./drawer"
-import HandleApi from "./handleApi/handleApi"
-import { Router } from "@reach/router"
-import PrivateRoute from "./privateRoute/privateRoute"
 
 const Layout = ({ pageResources, children, mobile, location }) => {
   const data = useStaticQuery(graphql`
@@ -77,23 +70,13 @@ const Layout = ({ pageResources, children, mobile, location }) => {
       setIsNonexistent(false)
     }
   })
-
-  // fetch( {
-  //   method: "GET",
-  //   body: {
-  //     "my-url": "https://api.rentman.net/equipment?limit=$10&offset=10"
-  //   }}).then(res => console.log("FETCH API CORS PROXY",res))
-
   return (
     <React.Fragment>
-      {/* <Router>
-        <PrivateRoute path="/user/checkout"></PrivateRoute>
-        <PrivateRoute path="/user/home"></PrivateRoute> */}
         <Helmet
-          title={"Brent rental"}
+          title={"Dagslys rental portal"}
           meta={[
-            { name: "description", content: "A rental house in Oslo" },
-            { name: "keywords", content: "rental, camera, video, equipment" },
+            { name: "description", content: "Norways biggest light rental" },
+            { name: "keywords", content: "rental, lights, oslo, equipment" },
           ]}
         ></Helmet>
         { isNonexistent ? (
@@ -103,8 +86,6 @@ const Layout = ({ pageResources, children, mobile, location }) => {
             <ResponsiveDrawer
               setMenuOpen={setOpen}
               menuOpen={open}
-              // data={data.allWpPost.edges}
-              // menuData={modifiedMenuData}
               content={children}
               location={location}
               is404={isNonexistent}
@@ -115,17 +96,6 @@ const Layout = ({ pageResources, children, mobile, location }) => {
             </ResponsiveDrawer>
           </div>
         )}
-
-        <div
-          id="content2"
-          style={{
-            margin: "0 auto",
-            maxWidth: 870,
-            padding: "0px 1.0875rem 1.45rem",
-            paddingTop: 0,
-          }}
-        ></div>
-      {/* </Router> */}
     </React.Fragment>
   )
 }

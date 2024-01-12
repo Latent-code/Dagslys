@@ -1,34 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-// import Button from "@mui/material/Button"
-import ClickAwayListener from "@mui/material/ClickAwayListener"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import autoAnimate from "@formkit/auto-animate"
 
-import Grow from "@mui/material/Grow"
-import Paper from "@mui/material/Paper"
-import Popper from "@mui/material/Popper"
-import MenuItem from "@mui/material/MenuItem"
-import MenuList from "@mui/material/MenuList"
-import Stack from "@mui/material/Stack"
-import { IconButton, Badge } from "@mui/material"
+import { Badge } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import {
-  Dialog,
   Text,
   ListView,
   ActionButton,
-  Divider,
-  Menu,
   Item,
-  Button,
   Flex,
   Link,
-  Cell,
-  TableHeader,
-  Column,
 } from "@adobe/react-spectrum"
 
-import { CartContext, clearCart } from "../../context/cartContext"
+import { CartContext } from "../../context/cartContext"
 import { navigate } from "gatsby"
 import {useTheme} from "@mui/material/styles"
 
@@ -48,15 +33,6 @@ const menu = {
   height: "auto",
 
 }
-const cartStyle = {
-  // color: "black",
-  // position: "absolute",
-  // top: "65px",
-  // width: "250px",
-  // display: "flex",
-  // flexDirection: "column",
-  // backgroundColor: "red",
-}
 
 const CartMenu = ({ exceptionRef }) => {
   const theme = useTheme()
@@ -67,16 +43,11 @@ const CartMenu = ({ exceptionRef }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   const modal = {
-    // color: "black",
     right: open ? "calc(0px - 2rem)" : "-550px",
     transition: "right 0.5s",
     position: "absolute",
     top: "65px",
-    // padding: "2rem",
     width: "400px",
-    // display: "flex",
-    // flexDirection: "column",
-    // backgroundColor: "white",
     height: "500px",
     overflow: "auto",
     maxWidth: "100vw",
@@ -91,8 +62,6 @@ const CartMenu = ({ exceptionRef }) => {
     setOpen(false)
     navigate("/user/checkout")
   }
-  // console.log(typeof cart)
-  // Her må vi ha et mellomrom!!!!!! !! ! ! ! ! !  ! ! ! ! ! !
   const modalContent = (
     <ListView >
       {Object.keys(cart).length !== 0 ? cart.map(item => {
@@ -119,29 +88,6 @@ const CartMenu = ({ exceptionRef }) => {
       </Item>
     </ListView>
   )
-  // const modalContent = (
-  //   <TableView style={cartStyle}>
-  //     <TableHeader>
-  //       <Column width={1}></Column>
-  //       <Column width={320}></Column>
-  //     </TableHeader>
-  //     <TableBody>
-  //       {cart.map(item => {
-  //         return (
-  //           <Row>
-  //             <Cell>{item.quantity}</Cell>
-  //             <Cell>{item.name}</Cell>
-  //           </Row>
-  //         )
-  //       })}
-  //       <Row>
-  //         <Cell>agag</Cell>
-  //         <Cell>asdasd</Cell>
-  //       </Row>
-  //     </TableBody>
-  //   </TableView>
-  // )
-
   const handleOpen = () => {
     setOpen(!open)
   }

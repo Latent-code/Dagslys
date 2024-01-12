@@ -2,21 +2,6 @@ import React, { useEffect } from "react"
 import { Breadcrumbs, Item } from "@adobe/react-spectrum"
 import { navigate } from "gatsby"
 
-const secondFlex = {
-  margin: ".5em 0 .5em 0",
-  display: "flex",
-  alignItems: "flex-start",
-  flexDirection: "row",
-  position: "relative",
-  left: "-12px",
-  flexWrap: "wrap",
-}
-const inlineFlex = {
-  display: "inline-flex",
-  alignItems: "baseline",
-  flexWrap: "nowrap",
-}
-
 const BreadcrumbV2 = ({ url, name }) => {
 
   let [folderUrl, setFolderUrl] = React.useState(null);

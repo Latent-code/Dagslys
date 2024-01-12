@@ -35,13 +35,13 @@ module.exports = {
       // See https://www.gatsbyjs.com/plugins/gatsby-plugin-manifest/?=gatsby-plugin-manifest
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Brent AS`,
-        short_name: `Brent`,
+        name: `Dagslys AS`,
+        short_name: `Dagslys`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/B-Brent.png` ,
+        icon: `content/assets/Dagslys-favicon.png` ,
       },
     },
     {

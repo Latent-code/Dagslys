@@ -1,12 +1,6 @@
 import React, { useContext, forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { styled, css } from "@mui/system";
-import { Modal as BaseModal } from "@mui/base/Modal";
-// import { TextField, Button } from "@mui/material";
-import { Input } from "@mui/base/Input";
-import { FormControl } from "@mui/base/FormControl";
-
 import {
   ActionButton,
   TextField,
@@ -20,25 +14,17 @@ import {
   Form,
 } from "@adobe/react-spectrum";
 
-// import MuiAlert from "@mui/material/Alert"
-
 import { AppContext } from "../../context/appContext";
 
-// const Alert = forwardRef(function Alert(props, ref) {
-//   return <MuiAlert elevation={6} ref={ref} variant="filled" severity="warning" {...props} />
-// })
-
-// Alert popup. types available (severity): error, warning, info, success
 export default function CustomizedModal() {
   const { isModalOpen, setIsModalOpen, addUser, databaseName, user } =
     useContext(AppContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState(user.email);
 
   const handlleSubmit = () => {
     addUser({
-      email: email,
+      email: user?.email,
       brentCollection: databaseName,
       firstName: firstName,
       lastName: lastName,
@@ -90,7 +76,7 @@ export default function CustomizedModal() {
                     <TextField
                       autoFocus
                       label="Email Address"
-                      value={email}
+                      value={user?.email}
                       isRequired
                       name="email"
                       onKeyDown={e => handleKeyDown(e)}

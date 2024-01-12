@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react"
+import React, { useEffect } from "react"
 import { graphql, navigate, useStaticQuery } from "gatsby"
 import Loading from "../loading/loading"
 

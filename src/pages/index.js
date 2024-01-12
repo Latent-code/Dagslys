@@ -266,7 +266,7 @@ const CamerasPage = ({ location }) => {
       {!isLoading ? (
         <>
           <div>
-            <Seo title="Brent rental equipment" />
+            <Seo title="Dagslys Rental" />
             <Breadcrumb url={location.pathname} name={"Home"}></Breadcrumb>
             <Typography variant="h2">All equipment</Typography>
             <Line position={"flex-start"}></Line>

@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
 
 import { AppContext } from "../../context/appContext"
-import { addSavedOrders, getAllData } from "../../utils/firestoreCRUD"
+import { addSavedOrders} from "../../utils/firestoreCRUD"
 
 import {
   View,
   Text,
   ActionButton,
-  ButtonGroup,
   useDragAndDrop,
   TableView,
   TableHeader,
@@ -19,13 +18,8 @@ import {
   Flex,
   DialogTrigger,
   Dialog,
-  Modal,
   Heading,
-  Button,
-  Divider,
   Content,
-  ListBox,
-  Item,
 } from "@adobe/react-spectrum"
 
 import { Typography } from "@mui/material"
@@ -108,10 +102,6 @@ function Orders(props) {
 
 function SavedOrders(props) {
   let { list, columns, setSelectedKeys } = props
-  // let [selectedKeys, setSelectedKeys] = useState()
-
-  // console.log(selectedKeys)
-
   let { dragAndDropHooks } = useDragAndDrop({
     acceptedDragTypes: ["custom-app-type-copy-default"],
     getDropOperation: () => "copy",
@@ -149,7 +139,7 @@ function SavedOrders(props) {
   return (
     <TableView
       flex
-      aria-label="Droppable TableView in default copy operation example"
+      aria-label="Droppable table"
       width="100%"
       maxHeight="size-6000"
       selectionMode="single"
@@ -294,27 +284,6 @@ export const DraggableOrderTable = () => {
                     </TableView>
                   </Content>
                 </Dialog>
-
-                {/* <Dialog>
-                  <Heading>Order content</Heading>
-                  <Divider />
-                  <Content>
-                    {test ? (
-                      test.map(item => (
-                        <Content key={item.id}>
-                          <Text>
-                            {item.quantity} - {item.name}
-                          </Text>
-                          <Divider size="S" />
-                        </Content>
-                      ))
-                    ) : (
-                      <>
-                        <Text>No content</Text>
-                      </>
-                    )}
-                  </Content>
-                </Dialog> */}
               </DialogTrigger>
             ) : (
               <ActionButton isDisabled={true} onPress={handleView}>
