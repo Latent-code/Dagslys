@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.dagslys.no/en/">
-    <img alt="Dagslys" src="https://www.dagslys.no/wp-content/uploads/2019/02/dagslys-logo2.png" width="200" />
+    <img alt="Dagslys" src="https://www.dagslys.no/wp-content/uploads/2019/02/dagslys-logo2.png" width="400" />
   </a>
 </p>
 <h1 align="center">
@@ -14,8 +14,7 @@
   Cope example to .env file
 
     ```shell
-    # 
-    git clone https://github.com/mountains-no/nooten
+    git clone https://github.com/Latent-code/Dagslys.git
     cd dagslys
     ```
 
