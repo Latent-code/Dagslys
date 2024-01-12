@@ -132,6 +132,8 @@ const Menu = ({ setMenu, menu }) => {
 
   console.log(menu)
 
+
+
   return (
     <div>
       {!isLoading ? (
@@ -167,3 +169,20 @@ const Menu = ({ setMenu, menu }) => {
 }
 
 export default Menu
+
+
+const Recursive = ({ item }) => {
+  console.log(item);
+  return (
+    <>
+      {item.map((m) => {
+        return (
+          <li>
+            {m.displayname}
+            {m.children && <Recursive item={m.children} />}
+          </li>
+        );
+      })}
+    </>
+  );
+};

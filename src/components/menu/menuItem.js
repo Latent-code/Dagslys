@@ -1,148 +1,120 @@
-import React, { Component, useState, useEffect, useCallback } from "react"
-import { navigate } from "gatsby"
-import { useLocation } from "@reach/router"
+import React, { useState, useEffect } from "react";
+import { navigate, useLocation } from "@reach/router";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import Collapse from "@mui/material/Collapse";
+import { Link } from "gatsby";
 
-import { styled } from "@mui/material/styles"
-
-import ListItemButton from "@mui/material/ListItemButton"
-import ListItemText from "@mui/material/ListItemText"
-
-import ExpandLess from "@mui/icons-material/ExpandLess"
-import ExpandMore from "@mui/icons-material/ExpandMore"
-import Collapse from "@mui/material/Collapse"
-
-const CustomizedListItemText = styled(ListItemText)`
-  & .MuiTypography-root {
-    font-size: 0.9rem;
-  }
-`
-const CustomizedListItemButton = styled(ListItemButton)`
-  :hover {
-    color: #FFD115;
-  }
-`
-
-const MenuItem = ({ item, key }) => {
-  const [isVisible, setIsVisible] = useState(false)
-  const location = useLocation()
+const MenuItem = ({ item }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+  const encodedPath = encodeURIComponent(item.urlPath);
 
   const expand = () => {
-    setIsVisible(!isVisible)
-  }
-
-  // console.log(isVisible)
-  // console.log(item)
+    setIsVisible(!isVisible);
+  };
 
   const handleParentClick = (e, item) => {
-    // console.log(item)
-    // console.log(location.pathname)
-    if (
-      item.urlPath + "/" === location.pathname
-    ) {
-      expand()
+    console.log("Item URL Path:", item.urlPath);
+    console.log("Location Path:", decodeURI(location.pathname));
+  
+    if (item.urlPath + "/" === decodeURI(location.pathname)) {
+      expand();
     } else {
-      navigate(item.urlPath)
+      navigate(item.urlPath);
     }
-  }
+  };
+  
 
-  const checkItemForPageChild = useCallback(item => {
-    if (item.urlPath + "/" === location.pathname) {
-      setIsVisible(true)
+  const checkItemForPageChild = (item, currentPath) => {
+    if (item.urlPath + "/" === currentPath) {
+      setIsVisible(true);
     } else if (item.children?.length > 0) {
-      item.children.map(i => {
-        checkItemForPageChild(i)
-      })
+      item.children.forEach((i) => {
+        checkItemForPageChild(i, currentPath);
+      });
     }
-  })
+  };
 
   useEffect(() => {
-    checkItemForPageChild(item)
-  }, [location])
+    checkItemForPageChild(item, decodeURI(location.pathname));
+  }, [location.pathname, item]);
 
-  // GET ELEMENTS AND ADD A NEW PROPERTY WITH THE PATH OF THE ELEMENT CONSISTING OF THE RENTMAN ID AND PARENT ID
-  // https://stackoverflow.com/questions/54338616/how-to-get-parent-path-all-the-way-to-the-last-child-in-javascript
-  console.log(item.displayname)
   return (
     <>
-      {Object.hasOwn(item, "children") ? (
+      {Object.prototype.hasOwnProperty.call(item, "children") ? (
         <>
-        {/* {console.log(item)} */}
-          <CustomizedListItemButton
+        <Link to={item.urlPath}>
+
+          <ListItemButton
             sx={{
               alignItems: "flex-end",
               borderBottom: "1px solid #dbdbdb",
             }}
-            onClick={e => {
-              handleParentClick(e, item)
+            onClick={(e) => {
+              handleParentClick(e, item);
             }}
-            key={item.id}
           >
-            <CustomizedListItemText
+            <ListItemText
               sx={{ marginTop: "0px", marginBottom: "0px" }}
               primary={item.displayname}
-            ></CustomizedListItemText>
+            ></ListItemText>
             {isVisible ? (
               <ExpandLess
                 sx={{ width: "0.9em !important", height: "0.9em" }}
                 className="expand-icon"
-                key={item.id}
               />
             ) : (
               <ExpandMore
                 sx={{ width: "0.9em !important", height: "0.9em" }}
                 className="expand-icon"
-                key={item.id + "more"}
               />
             )}
-          </CustomizedListItemButton>
+          </ListItemButton>
+          </Link>
           {item.children?.length > 0 ? (
             <Collapse
               sx={{ paddingLeft: "0.5rem" }}
               in={isVisible}
               timeout="auto"
               unmountOnExit
-              key={item.displayname + "collapse"}
             >
-              {isVisible ? (
-                item.children.map(child => {
-                  // console.log(child)
-                  return (
-                    <div
-                      key={child.displayname + child.id + "next"}
-                      style={{ paddingLeft: 10 }}
-                    >
-                      {console.log(child)}
-                      <MenuItem item={child} />
-                    </div>
-                  )
-                })
-              ) : (
-                <>REIEL</>
-              )}
+              {isVisible &&
+                item.children.map((child) => (
+                  <div
+                    key={child.displayname + child.id + "next"}
+                    style={{ paddingLeft: 10 }}
+                  >
+                    <MenuItem item={child} />
+                  </div>
+                ))}
             </Collapse>
           ) : (
             <></>
           )}
         </>
       ) : (
-        // <div>{item.displayname}</div>
-        <CustomizedListItemButton
+        <Link to={item.urlPath}>
+        <ListItemButton
           sx={{
             alignItems: "flex-end",
             borderBottom: "1px solid #dbdbdb",
           }}
-          onClick={e => {
-            handleParentClick(e, item)
+          onClick={(e) => {
+            handleParentClick(e, item);
           }}
         >
-          <CustomizedListItemText
+          <ListItemText
             sx={{ marginTop: "0px", marginBottom: "0px" }}
             primary={item.displayname}
-          ></CustomizedListItemText>
-        </CustomizedListItemButton>
+          ></ListItemText>
+        </ListItemButton>
+        </Link>
       )}
     </>
-  )
-}
+  );
+};
 
-export default MenuItem
+export default MenuItem;
