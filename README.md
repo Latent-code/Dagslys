@@ -1,10 +1,10 @@
 <p align="center">
   <a href="https://www.dagslys.no/en/">
-    <img alt="Dagslys" src="https://www.dagslys.no/wp-content/uploads/2019/02/dagslys-logo2.png" width="60" />
+    <img alt="Dagslys" src="https://www.dagslys.no/wp-content/uploads/2019/02/dagslys-logo2.png" width="200" />
   </a>
 </p>
 <h1 align="center">
-  BRENT WEBSITE
+  Dagslys rental portal
 </h1>
 
 ## 🚀 Quick start
