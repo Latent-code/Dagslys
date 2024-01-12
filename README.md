@@ -11,13 +11,11 @@
 
 1.  **Clone this monorepo**
 
-    Cope example to .env file
-
     ```shell
     git clone https://github.com/Latent-code/Dagslys.git
     cd dagslys
     ```
-    
+
 2.  **Install dependencies**
 
     ```shell
