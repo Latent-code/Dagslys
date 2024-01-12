@@ -63,6 +63,14 @@ const Layout = ({ pageResources, children, mobile, location }) => {
 
   // const modifiedMenuData = sort(data.allWpMenuItem.nodes)
 
+  const link = [  {
+    as: 'font',
+    crossorigin: 'anonymous',
+    href: '/fonts/Inter.woff2',
+    rel: 'preload',
+    type: 'font/woff2',
+  },]
+
   useEffect(() => {
     if (pageResources?.page.path === "/404.html") {
       setIsNonexistent(true)
@@ -73,6 +81,7 @@ const Layout = ({ pageResources, children, mobile, location }) => {
   return (
     <React.Fragment>
         <Helmet
+        link={link}
           title={"Dagslys rental portal"}
           meta={[
             { name: "description", content: "Norways biggest light rental" },
@@ -83,6 +92,13 @@ const Layout = ({ pageResources, children, mobile, location }) => {
           <div>{children}</div>
         ) : (
           <div style={{backgroundColor: "#171E22"}}>
+                <link
+      as="font"
+      crossorigin="anonymous"
+      href="/fonts/Inter.woff2"
+      rel="preload"
+      type="font/woff2"
+    />
             <ResponsiveDrawer
               setMenuOpen={setOpen}
               menuOpen={open}

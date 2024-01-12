@@ -40,8 +40,14 @@ const outerTheme = createTheme({
     },
   },
   typography: {
+    "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
     allVariants: {
       color: "white"
+      
+    },
+    h1: {
+      margin: ".5em 0",
+      fontSize: "3em",
     },
     h2: {
       margin: ".5em 0",

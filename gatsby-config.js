@@ -47,6 +47,7 @@ module.exports = {
     {
       resolve: `gatsby-omni-font-loader`,
       options: {
+        mode: "async",
         enableListener: true,
         preconnect: [
           `https://fonts.googleapis.com`,
@@ -54,12 +55,14 @@ module.exports = {
         ],
         web: [
           {
-            name: `DM Sans`,
-            file: `https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap`,
+            name: `Poppins`,
+            file: `https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap`,
+            
           },
         ],
       },
     },
+     
     {
       // This plugin must be placed last in your list of plugins to ensure that it can query all the GraphQL data
       resolve: `gatsby-plugin-algolia`,
