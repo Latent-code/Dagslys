@@ -1,176 +1,328 @@
-import * as React from "react"
+import React, { useContext, useEffect, useState } from "react"
+import { graphql, useStaticQuery, navigate } from "gatsby"
+import { Link } from "gatsby"
+import Layout from "../components/layout"
+import Seo from "../components/seo"
+import ResponsiveDrawer from "../components/drawer"
+import { Button, Typography } from "@mui/material"
+import Line from "../components/line/line"
 
-const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-const headingAccentStyles = {
-  color: "#663399",
-}
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-const listStyles = {
-  marginBottom: 96,
-  paddingLeft: 0,
-}
-const listItemStyles = {
-  fontWeight: 300,
-  fontSize: 24,
-  maxWidth: 560,
-  marginBottom: 30,
-}
 
-const linkStyle = {
-  color: "#8954A8",
-  fontWeight: "bold",
-  fontSize: 16,
-  verticalAlign: "5%",
-}
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
+import { CartContext } from "../context/cartContext"
 
-const docLinkStyle = {
-  ...linkStyle,
-  listStyleType: "none",
-  marginBottom: 24,
-}
+import ItemCounter from "../components/itemCounter/itemCounter"
 
-const descriptionStyle = {
-  color: "#232129",
-  fontSize: 14,
-  marginTop: 10,
-  marginBottom: 0,
-  lineHeight: 1.25,
-}
+// import { firebase } from "../utils/firebase"
+// import {
+//   getAuth,
+//   createUserWithEmailAndPassword,
+//   signInWithEmailAndPassword,
+// } from "firebase/auth"
 
-const docLink = {
-  text: "Documentation",
-  url: "https://www.gatsbyjs.com/docs/",
-  color: "#8954A8",
-}
+// import { getAuth } from "firebase/auth";
 
-const badgeStyle = {
-  color: "#fff",
-  backgroundColor: "#088413",
-  border: "1px solid #088413",
-  fontSize: 11,
-  fontWeight: "bold",
-  letterSpacing: 1,
-  borderRadius: 4,
-  padding: "4px 6px",
-  display: "inline-block",
-  position: "relative",
-  top: -2,
-  marginLeft: 10,
-  lineHeight: 1,
-}
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/getting-started/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
-  },
-  {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
-  },
-  {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
-  },
-  {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
-]
+import Breadcrumb from "../components/breadcrumb/breadcrumb"
+import Loading from "../components/loading/loading"
+import RentalPageItem from "../components/rentalPage/rentalPageItem"
 
-const IndexPage = () => {
+// import { AppContext } from "../context/appContext"
+
+const CamerasPage = ({ location }) => {
+  const { cart, addItemToCart, addToCart } = useContext(CartContext)
+
+  // console.log(cart)
+
+  // const {user, handleUserChange, handleSignOut, handleSignIn} = useContext(AppContext)
+  // const auth = getAuth(firebase)
+
+  // console.log(useContext(AppContext))
+
+  const data = useStaticQuery(graphql`
+    query {
+      allBrentRentalItem {
+        nodes {
+          displayname
+          id
+          image
+          name
+          rentmanId
+          shop_description_long
+          shop_description_short
+          title
+          in_shop
+          folder
+          pageLinkBrent
+          code
+          urlPath
+          shop_featured
+          price
+          childFile {
+            childImageSharp {
+              gatsbyImageData(
+                quality: 100
+                placeholder: DOMINANT_COLOR
+                layout: FULL_WIDTH
+              )
+            }
+          }
+        }
+      }
+      allBrentRentalFolder {
+        nodes {
+          displayname
+          id
+          name
+          rentmanId
+          title
+          urlPath
+          path
+          itemtype
+          pageLinkBrent
+          menuParentBrent
+          order
+        }
+      }
+
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
+  const menuPostContainer = {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "0 6em",
+  }
+  const imageStyle = {
+    margin: "1rem 1rem 1rem 1rem",
+    display: "flex",
+    height: "120px",
+    width: "auto",
+  }
+  const textStyle = {
+    margin: "1rem 1rem 1rem 1rem",
+    fontWeight: 300,
+    fontSize: "0.8em",
+    display: "flex",
+    width: "auto",
+    height: "50px",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  }
+
+  const headerButtonStyle = {
+    marginTop: "1rem",
+    color: "#FFD115",
+  }
+
+  const cssGridChild = {
+    boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+    backgroundColor: "white",
+    /* border-radius: 1rem 1rem 1rem 1rem; */
+    border: "1px solid rgba(0, 0, 0, 0.383)",
+    width: "200px",
+    height: "200px",
+    cursor: "pointer",
+
+    // display: "flex",
+    // flexDirection: "column",
+    // height: "251px",
+    // gridTemplateColumns: "repeat(8, minmax(10px, 1fr))",
+    // boxDhadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+    // backgroundColor: "white",
+    // /* border-radius: 1rem 1rem 1rem 1rem; */
+    // border: "1px solid rgba(0, 0, 0, 0.383)",
+  }
+
+  // LOADING IF NOT REASDY
+  const [isLoading, setIsLoading] = useState(true)
+  const [menu, setMenu] = useState()
+  const [children, setChildren] = useState([])
+
+  const hiddenItems = [251, 45, 46, 47]
+  const FolderData = data.allBrentRentalFolder.nodes
+  const RentalData = data.allBrentRentalItem.nodes
+
+  const test = RentalData.filter(item => item.in_shop === true)
+
+  const menuParentChildrenArr = [[], [], [], [], [], [], [], [], [], []]
+
+  useEffect(() => {
+    fixMenu()
+    // signInWithEmailAndPassword(auth, "reiel@reiel.no", "reielreiel")
+    // .then(userCredential => {
+    //   setUser(userCredential.user);
+    //   // console.log(userCredential)
+    //   // return(userCredential)
+    // })
+    // .catch(error => {
+    //   const errorCode = error.code
+    //   const errorMessage = error.message
+
+    //   let message = error.message.replace("Firebase:", "")
+
+    //   // toast({
+    //   //   message: `${message}`,
+    //   //   color: 'danger'
+    //   // });
+    //   console.log(errorMessage, errorCode)
+    // })
+    // signInWithEmailAndPassword("reiel@reiel.no", "reielreiel")
+  }, [])
+
+  const fixMenu = () => {
+    let completeMenuArr = []
+    // Change folder and parent to a number, not string
+    RentalData.map((item, index) => {
+      if (!item.in_shop) {
+        RentalData.splice(index, 1)
+      } else if (
+        item.path?.startsWith("import") ||
+        item.path?.startsWith("Import")
+      ) {
+        RentalData.splice(index, 1)
+      }
+      item.parentFolderId = parseInt(item.folder.split("/").slice(-1))
+      completeMenuArr.push(item)
+    })
+    FolderData.map((item, index) => {
+      if (
+        item.itemtype === "contact" ||
+        item.itemtype === "vehicle" ||
+        item.itemtype === "user"
+      ) {
+        FolderData.splice(index, 1)
+      } else if (
+        item.displayname.startsWith("import-") ||
+        item.displayname.startsWith("Import-")
+      ) {
+      } else if (hiddenItems.includes(item.rentmanId)) {
+        FolderData.splice(index, 1)
+      } else {
+        if (item.menuParentBrent != null) {
+          item.parentFolderId = parseInt(
+            item.menuParentBrent?.split("/").slice(-1),
+          )
+          completeMenuArr.push(item)
+        } else {
+          item.parentFolderId = null
+          completeMenuArr.push(item)
+        }
+      }
+    })
+
+    const menuSort = (function (data, root) {
+        var t = {}
+        data.forEach(o => {
+          Object.assign((t[o.rentmanId] = t[o.rentmanId] || {}), o)
+          ;((t[o.parentFolderId] ??= {}).children ??= []).push(t[o.rentmanId])
+        })
+        return t[root].children
+      })(completeMenuArr, null),
+      shop = (r, { children = [], ...o }) => {
+        children = children.reduce(shop, [])
+        const sub = children.length ? { children } : {}
+        if (o.in_shop || sub.children) r.push({ ...o, ...sub })
+        return r
+      }
+    let finalMenu = menuSort.reduce(shop, [])
+    setMenu(sort(finalMenu)) // Layout menu setter
+    setIsLoading(false)
+
+    recursiveFixMenu(finalMenu)
+  }
+
+  const recursiveFixMenu = rentmanData => {
+    const recursive = (data, arr) => {
+      data.map(item => {
+        if (item.children) {
+          recursive(item.children, arr)
+        } else {
+          arr.push(item)
+        }
+      })
+    }
+    rentmanData.map((i, index) => {
+      recursive(i.children, menuParentChildrenArr[index])
+    })
+    setChildren(menuParentChildrenArr)
+  }
+
+  const sort = arr => {
+    // SORT THE MENU BASED ON ORDER IN RENTMAN
+    return arr.sort((a, b) => a.order - b.order)
+  }
+  if (menu) {
+    // console.log(sort(menu))
+  }
   return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.js</code> to see this page
-        update in real-time. 😎
-      </p>
-      <ul style={listStyles}>
-        <li style={docLinkStyle}>
-          <a
-            style={linkStyle}
-            href={`${docLink.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-          >
-            {docLink.text}
-          </a>
-        </li>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
-    </main>
+    <>
+      {!isLoading ? (
+        <>
+          <div>
+            <Seo title="Brent rental equipment" />
+            <Breadcrumb url={location.pathname} name={"Home"}></Breadcrumb>
+            <Typography variant="h2">All equipment</Typography>
+            <Line position={"flex-start"}></Line>
+            <div style={menuPostContainer}>
+              {menu.map((item, index) => {
+                // HVIS VI ØNSKER UTEN KNAPP PÅ DENNE:
+                if (item.rentmanId === 320) {
+                  return (
+                    <div key={item.id}>
+                      <div onClick={() => addToCart(item)}>Packages</div>
+                      <div className="page-flex">
+                        {children[index].map(rentalItem => {
+                          return (
+                            <RentalPageItem
+                              key={rentalItem.id}
+                              menuChildren={rentalItem}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                } else {
+                  return (
+                    <div key={item.id}>
+                      <Button
+                        onClick={e => navigate(item.urlPath)}
+                        style={headerButtonStyle}
+                        variant="text"
+                      >
+                        {item.displayname}
+                      </Button>
+                      <div className="page-flex">
+                        {children[index].map(rentalItem => {
+                          return (
+                            <RentalPageItem
+                              key={rentalItem.id}
+                              menuChildren={rentalItem}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                }
+              })}
+            </div>
+          <Loading></Loading>
+          </div>
+        </>
+        ) : (
+        <Loading></Loading>
+      )}
+    </>
   )
 }
 
-export default IndexPage
+export default CamerasPage
 
-export const Head = () => <title>Home Page</title>

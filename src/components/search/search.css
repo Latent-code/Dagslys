@@ -1,0 +1,118 @@
+.ais-SearchBox {
+  position: relative;
+  z-index: 99999;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: "15px 15px 0px 0px";
+
+}
+
+.ais-SearchBox-form {
+  justify-content: flex-start;
+  display: flex;
+  width: 100%;
+}
+
+.ais-SearchBox-input {
+  width: 100%;
+  height: 40px;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid lightgray;
+  color: white;
+  border-radius: 10px;
+  outline-width: 0;
+  background-color: #171E22;
+
+}
+
+.ais-hits-item {
+  padding-left: 15px;
+  border-bottom: 1px solid lightgray
+}
+
+.ais-SearchBox-submit {
+  display: none;
+}
+.ais-SearchBox-reset {
+  display: none;
+}
+
+.ais-Hits {
+  overflow: scroll;
+  width: 100%;
+  max-height: 30vh;
+}
+.ais-Hits-list {
+  list-style-type: none;
+}
+
+.searchHighlight {
+  font-size:small;
+  color: initial;
+  font-weight: 400;
+  text-align: start;
+  color: white;
+
+}
+.searchHighlightHighlighted {
+  background-color: #171E22; 
+  color: #FFD115; 
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.searchContainer {
+  width: 50vw;
+  max-width: 1300px;
+  position: relative;
+}
+
+.searchHitContainer {
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #171E22;
+    border-radius: 0 0 15px 15px;
+    /* z-index: 9999; */
+    width: inherit;
+    justify-content: center;
+    padding: 1rem;
+    /* flex-grow: 2; */
+    box-sizing: border-box;
+    top: 38px;
+    left: 0;
+    border: 1px solid lightgray;
+}
+
+.searchBox {
+  width: 100%;
+}
+
+.activeSearch {
+  border-radius: 10px 10px 0 0 !important;
+}
+
+/* Small screens */
+@media only screen and (max-width: 800px) {
+  .searchContainer {
+    width: 100% !important;
+  }
+  .search-result-image {
+    display: none !important;
+  }
+
+  .ais-Hits {
+    width: 100% !important;
+  }
+}

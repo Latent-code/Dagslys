@@ -1,0 +1,108 @@
+.page-flex-header {
+  display: flex;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  column-gap: 8px;
+  row-gap: 8px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.page-flex {
+  display: flex;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  column-gap: 10px;
+  row-gap: 15px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.page-flex-child {
+  grid-template-columns: repeat(8, minmax(10px, 1fr));
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  background-color: #171E22;
+  /* border-radius: 1rem 1rem 1rem 1rem; */
+  border: 1px solid rgba(0, 0, 0, 0.383);
+  width: 250px;
+  height: 250px;
+}
+
+.hover-orange:hover {
+  border-color: #FFD115 !important;
+}
+
+.main-menu {
+  margin-bottom: 15px;
+  
+}
+.main-menu-child {
+  padding: 10px;
+  grid-template-columns: repeat(8, minmax(10px, 1fr));
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: #171E22;
+  /* border-radius: 1rem 1rem 1rem 1rem; */
+  border: 1px solid rgba(0, 0, 0, 0.383);
+  width: 250px;
+  height: auto;
+  margin: 0px;
+}
+.sub-menu {
+  margin-bottom: 15px;
+  
+}
+.sub-menu-child {
+  padding: 10px;
+  grid-template-columns: repeat(8, minmax(10px, 1fr));
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: #171E22;
+  /* border-radius: 1rem 1rem 1rem 1rem; */
+  border: 1px solid rgba(0, 0, 0, 0.383);
+  width: 250px;
+  height: auto;
+}
+
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
+  display: unset;
+}
+
+
+/* Tablets */
+@media only screen and (max-width: 786px) {
+  .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
+    display: unset;
+  }
+
+  .gatsby-image-wrapper {
+    height: 250px !important;
+  }
+  .item-image-class{
+    height: auto !important;
+  }
+
+  .page-flex-child {
+    width: 150px !important;
+    height: 140px !important;
+    overflow: hidden !important;
+  }
+  #searchHitContainer {
+    width: 100% !important;
+  }
+  .searchHitComtainer {
+    
+    width: 100% !important; 
+  }
+
+  .page-item-text {
+    height: auto !important;
+  }
+
+}
+
+
+/* Phones */
+@media only screen and (max-width: 900px) {
+  .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-hyum1k-MuiToolbar-root {
+    display: unset;
+  }
+}

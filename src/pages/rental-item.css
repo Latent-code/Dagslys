@@ -1,0 +1,24 @@
+.flex {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+/* Tablets */
+@media only screen and (max-width: 786px) {
+  .flex {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+  }
+
+  div.gatsby-image-wrapper {
+    max-width: 80vw !important;
+  }
+
+
+}
+
+
+/* Phones */
+@media only screen and (max-width: 600px) {}

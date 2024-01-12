@@ -1,0 +1,296 @@
+.container-visible {
+  display: block !important;
+}
+
+.container-hidden {
+  display: none !important;
+}
+
+.fullscreen-image-container {
+  display: none;
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: #000000bd;
+  backdrop-filter: blur(3px);
+}
+
+.fullscreen-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+}
+
+
+.formatting {
+  margin: 0 auto;
+  max-width: 870px;
+  padding: "0px 1.0875rem 1.45rem";
+  padding-top: 0;
+}
+
+
+.orange {
+  color: "#FFD115";
+}
+
+.section-header {
+  padding: 3rem 0 4rem 0;
+}
+
+#line {
+  height: 1px;
+  /* background-color: rgb(168, 168, 168); */
+  background-color: "#FFD115";
+  z-index: 9999999999;
+}
+
+#myScrollbar {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #171E22;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.welcome-image {
+  position: fixed;
+  /* width: 80%; */
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  min-width: 120px;
+}
+
+
+.color {
+  /* background-color: white; */
+}
+
+.header_container {
+  background-color: #171E22;
+}
+
+.sticky {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+}
+
+#myHeader {
+  /* background-color: white; */
+  z-index: 999;
+}
+
+.welcome-image-static {
+  align-self: center;
+  height: 50%;
+
+  /* transition: all .5s linear; */
+}
+
+.welcome-image-container {
+  /* mobile version needs this?
+
+  /* margin-left: 3rem;
+  margin-right: 3rem; */
+  /* transition: all .1s linear; */
+}
+
+.header-visible {
+  visibility: visible !important;
+}
+
+.text-header {
+  font-size: large;
+  margin-bottom: 2rem;
+  /* color: #EB5930; */
+  font-weight: 900;
+  line-height: 2rem;
+}
+
+
+.list-itmes-comtainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-items {
+  position: relative;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 1.2em;
+}
+
+.list-items li::before {
+  content: "▾";
+  position: absolute;
+  left: 0;
+  font-style: italic;
+  color: #FFD115;
+}
+
+.people-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 12rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  border-bottom: 1px solid red;
+}
+
+.person {
+  display: flex;
+  flex-direction: row;
+  gap: 3.5rem;
+  margin-top: 0rem;
+  margin-bottom: 5rem;
+  min-width: 470px;
+  width: 550px;
+}
+
+.person-text {
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.person-image-container {
+  position: relative;
+}
+
+.person-image {
+  max-height: 15rem;
+  position: relative;
+  z-index: 1;
+  /* padding: 10rem 10rem 10rem 10rem; */
+  /* overflow: hidden; */
+}
+
+.person-graphic {
+  position: absolute;
+  left: -110px;
+  width: 300px;
+  z-index: 0;
+  filter: brightness(1) invert(.7) sepia(.9)hue-rotate(318deg) saturate(300%) blur(5px);
+}
+
+.person-graphic-paal {
+  transform: rotate(90deg);
+}
+
+.person-graphic-stian {
+  left: -51px;
+  transform: rotate(253deg);
+}
+
+.person-image-inner {
+  position: absolute;
+  height: 100px;
+  z-index: 1;
+  left: -50px;
+}
+
+.no-spacing {
+  padding: 0;
+  margin: 0;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  width: 100%;
+  background-color: #FFD115;
+
+}
+
+.footer-image {
+  width: 100%;
+}
+
+
+
+/* Tablets */
+@media only screen and (max-width: 786px) {
+
+  .fullscreen-image {
+    height: 30%;
+  }
+
+  .list-itmes-comtainer {
+    flex-direction: column;
+  }
+
+  .formatting {
+    margin: 20px;
+  }
+
+  .contact-details {
+    margin-top: 2rem !important;
+    margin-bottom: 6rem;
+  }
+
+  .welcome-image-container {
+    padding: 0px 1.0875rem 0;
+    height: 40px;
+  }
+
+
+  .people-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .person {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5rem;
+    gap: 1.5rem;
+  }
+
+  .person-graphic {
+    display: none;
+  }
+
+  .person-text h3 {
+    margin-top: 0px;
+  }
+
+  .contact-details {
+    margin-top: 8rem;
+    flex-direction: column;
+  }
+
+}
+
+
+/* Phones */
+@media only screen and (max-width: 600px) {}
