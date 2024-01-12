@@ -249,11 +249,10 @@ export const DraggableOrderTable = () => {
           />
           <Flex justifyContent="flex-end" gap="size-200">
             {/* <ActionButton>Edit</ActionButton> */}
-            <ActionButton onPress={handleRemove}>Delete</ActionButton>
+            <ActionButton isDisabled={!selectedKeys?.size >= 1} onPress={handleRemove}>Delete</ActionButton>
 
-            {selectedKeys?.size >= 1 ? (
               <DialogTrigger isDismissable type="modal">
-                <ActionButton onPress={handleView}>View order</ActionButton>
+                <ActionButton isDisabled={!selectedKeys?.size >= 1} onPress={handleView}>View order</ActionButton>
 
                 <Dialog>
                   <Heading>Order content</Heading>
@@ -285,12 +284,7 @@ export const DraggableOrderTable = () => {
                   </Content>
                 </Dialog>
               </DialogTrigger>
-            ) : (
-              <ActionButton isDisabled={true} onPress={handleView}>
-                View order
-              </ActionButton>
-            )}
-            <ActionButton onPress={handleOrderClick}>
+            <ActionButton isDisabled={!selectedKeys?.size >= 1} onPress={handleOrderClick}>
               Add selected project to cart
             </ActionButton>
           </Flex>

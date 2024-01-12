@@ -23,6 +23,7 @@
     ```
 
 3.  **Populate the .env file.**
+
     Copy example to .env file
 
     ```shell
@@ -30,6 +31,7 @@
     ```
 
 4.  **Run Vercel develop / gatsby develop**
+
     Navigate into your new site’s directory and start it up.
 
     ```shell

@@ -130,6 +130,8 @@ const Menu = ({ setMenu, menu }) => {
     }
   }, [])
 
+  console.log(menu)
+
   return (
     <div>
       {!isLoading ? (

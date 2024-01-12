@@ -67,7 +67,6 @@ const Home = () => {
     <PrivateRoute >
         <Typography variant="h1">{`Welcome back ${userData?.firstName} ${userData?.lastName}`}</Typography>
         <Typography variant="h2">Your past orders</Typography>
-        <Button>Invite user</Button>
     {/* <div>
       <div>
 

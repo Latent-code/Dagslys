@@ -22,7 +22,7 @@ const CustomizedListItemButton = styled(ListItemButton)`
   }
 `
 
-const MenuItem = ({ menuData, item, key }) => {
+const MenuItem = ({ item, key }) => {
   const [isVisible, setIsVisible] = useState(false)
   const location = useLocation()
 
@@ -61,11 +61,12 @@ const MenuItem = ({ menuData, item, key }) => {
 
   // GET ELEMENTS AND ADD A NEW PROPERTY WITH THE PATH OF THE ELEMENT CONSISTING OF THE RENTMAN ID AND PARENT ID
   // https://stackoverflow.com/questions/54338616/how-to-get-parent-path-all-the-way-to-the-last-child-in-javascript
-
+  console.log(item.displayname)
   return (
     <>
       {Object.hasOwn(item, "children") ? (
         <>
+        {/* {console.log(item)} */}
           <CustomizedListItemButton
             sx={{
               alignItems: "flex-end",
@@ -104,17 +105,19 @@ const MenuItem = ({ menuData, item, key }) => {
             >
               {isVisible ? (
                 item.children.map(child => {
+                  // console.log(child)
                   return (
                     <div
                       key={child.displayname + child.id + "next"}
                       style={{ paddingLeft: 10 }}
                     >
-                      <MenuItem menuData={menuData} item={child} />
+                      {console.log(child)}
+                      <MenuItem item={child} />
                     </div>
                   )
                 })
               ) : (
-                <></>
+                <>REIEL</>
               )}
             </Collapse>
           ) : (
