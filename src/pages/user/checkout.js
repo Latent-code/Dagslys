@@ -263,9 +263,9 @@ const Checkout = () => {
             deleteProjectRequest(id);
           });
       })
-    ).then((result) => {
+    ).then(result => {
       addOrder({
-        brentCollection: "brent",
+        collection: "dagslys",
         userEmail: user.email,
         id: id,
         contact_name: userData.firstName + " " + userData.lastName,
@@ -986,21 +986,25 @@ const Checkout = () => {
             />
           </Flex>
           <TextField
+                    isDisabled
+
             label="Email"
-            value={email}
-            onChange={setEmail}
+            value={user?.email}
             isRequired={true}
           />
           <TextField
+                    isDisabled
+
             label="First Name"
-            value={firstName}
-            onChange={setFirstName}
+            value={userData?.firstName}
+            // onChange={setFirstName}
             isRequired={true}
           />
           <TextField
+          isDisabled
             label="Last Name"
-            value={lastName}
-            onChange={setLastName}
+            value={userData?.lastName}
+            isRequired={true}
           />
           <TextField
             label="Project name"

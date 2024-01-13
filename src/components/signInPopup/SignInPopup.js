@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useContext } from "react"
 import { AppContext } from "../../context/appContext"
 import {
   ActionButton,
@@ -69,7 +69,7 @@ export default function SignInPopup({ handleSignIn }) {
                       <ActionButton type="reset" onClick={close}>
                         Cancel
                       </ActionButton>
-                      <ActionButton onClick={close}>Request account</ActionButton>
+                      <ActionButton isDisabled onClick={close}>Request account</ActionButton>
                       <ActionButton
                         // type="submit"
                         onClick={(e) => {
@@ -87,44 +87,6 @@ export default function SignInPopup({ handleSignIn }) {
           </Dialog>
         )}
       </DialogTrigger>
-
-      {/* <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Book your own equipment after you log in.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-            value={email}
-            onChange={onEmailChange}
-          />
-          <TextField
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-            value={password}
-            onChange={onPasswordChange}
-            onKeyDown={e => test(e)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <ActionButton onClick={handleClose}>Request account</ActionButton>
-          <ActionButton onClick={handleClose}>Cancel</ActionButton>
-          <ActionButton type="submit" onClick={handleClickSignIn}>
-            Sign in
-          </ActionButton>
-        </DialogActions>
-      </Dialog> */}
     </React.Fragment>
   )
 }

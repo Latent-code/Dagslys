@@ -37,7 +37,7 @@ import { database } from "./firebase"
 // price: getCartTotal(),
 
 export const addOrder = async ({
-  brentCollection,
+  collection,
   userEmail,
   id,
   contact_name,
@@ -56,7 +56,7 @@ export const addOrder = async ({
   price,
   cart,
 }) => {
-  const userOrderRef = doc(database, brentCollection, userEmail)
+  const userOrderRef = doc(database, collection, userEmail)
   try {
     await updateDoc(userOrderRef, {
       orders: arrayUnion({
@@ -97,6 +97,7 @@ export const addUser = async ({
     }).then(updateDoc(doc(database, brentCollection, email), {
       discount: "0",
       email: email,
+      isAdmin: false,
       firstName: firstName ? firstName : "No name registered",
       lastName: lastName ? lastName : "",
       orders: [],
@@ -147,7 +148,7 @@ export const deleteSavedOrder = async ({
   userEmail,
   object
 }) => {
-  const itemRef = doc(database, 'brent', 'test@test.com'); // USER_EMAIL is document ID
+  const itemRef = doc(database, 'dagslys', 'test@test.com'); // USER_EMAIL is document ID
   await updateDoc(itemRef, {
     savedOrders: {...object}
   });
