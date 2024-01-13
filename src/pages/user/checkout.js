@@ -573,38 +573,8 @@ const Checkout = () => {
     }
   };
 
-  // const fetchDataForItem = async item => {
-  //   if (!item) {
-  //     // Handle null value (or missing item) here
-  //     console.error("Null or missing item:", item)
-  //     return null // Or replace with default values
-  //   }
-  //   const endpoint = `https://api.rentman.net/projectequipment/${item.id}`
-  //   const limit = "undefined" // Replace with the actual limit if needed
-  //   const offset = "undefined" // Replace with the actual offset if needed
+  
 
-  //   const response = await getData(endpoint, limit, offset)
-
-  //   // Ensure that the response has the expected structure
-  //   if (response && response.body && response.body.data) {
-  //     const equipmentData = {
-  //       ...response.body.data,
-  //       equipment: item.rentmanId, // Add equipment property
-  //     }
-
-  //     return equipmentData
-  //   } else {
-  //     console.error(`Error fetching data for item with ID ${item.id}`)
-  //     setIsPopupOpen({
-  //       open: true,
-  //       message:
-  //       `Error fetching data for item: ${item.name}`,
-  //       severity: "error",
-  //       closePopup: handleClosePopup,
-  //     })
-  //     return null // or handle the error as needed
-  //   }
-  // }
   const fetchDataFromEquipmentId = async (item) => {
     // console.log(item)
     if (!item) {
@@ -710,6 +680,7 @@ const Checkout = () => {
     return result;
   };
   const fetchDataForAllItems = async () => {
+
     const fetchDataPromises = cart.map(fetchDataFromEquipmentId);
     const allData = await Promise.all(fetchDataPromises);
 

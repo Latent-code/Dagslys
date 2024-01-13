@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import { Helmet } from "react-helmet"
-import ResponsiveDrawer from "./drawer"
+import React, { useEffect } from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import { Helmet } from "react-helmet";
+import ResponsiveDrawer from "./drawer";
 
 const Layout = ({ pageResources, children, mobile, location }) => {
   const data = useStaticQuery(graphql`
@@ -51,69 +51,71 @@ const Layout = ({ pageResources, children, mobile, location }) => {
         }
       }
     }
-  `)
+  `);
 
-  const [open, setOpen] = React.useState()
-  const [isNonexistent, setIsNonexistent] = React.useState(true)
+  const [open, setOpen] = React.useState();
+  const [isNonexistent, setIsNonexistent] = React.useState(true);
 
-  const sort = arr => {
+  const sort = (arr) => {
     // SORT THE MENU BASED ON ORDER IN WORDPRESS ADMIN
-    return arr.sort((a, b) => a.order - b.order)
-  }
+    return arr.sort((a, b) => a.order - b.order);
+  };
 
   // const modifiedMenuData = sort(data.allWpMenuItem.nodes)
 
-  const link = [  {
-    as: 'font',
-    crossorigin: 'anonymous',
-    href: '/fonts/Inter.woff2',
-    rel: 'preload',
-    type: 'font/woff2',
-  },]
+  // const link = [
+  //   {
+  //     as: "font",
+  //     crossOrigin: "anonymous",
+  //     href: "/fonts/Inter.woff2",
+  //     rel: "preload",
+  //     type: "font/woff2",
+  //   },
+  // ];
 
   useEffect(() => {
     if (pageResources?.page.path === "/404.html") {
-      setIsNonexistent(true)
+      setIsNonexistent(true);
     } else {
-      setIsNonexistent(false)
+      setIsNonexistent(false);
     }
-  })
+  });
   return (
     <React.Fragment>
-        <Helmet
-        link={link}
-          title={"Dagslys rental portal"}
-          meta={[
-            { name: "description", content: "Norways biggest light rental" },
-            { name: "keywords", content: "rental, lights, oslo, equipment" },
-          ]}
-        ></Helmet>
-        { isNonexistent ? (
-          <div>{children}</div>
-        ) : (
-          <div style={{backgroundColor: "#171E22"}}>
-                <link
-      as="font"
-      crossorigin="anonymous"
-      href="/fonts/Inter.woff2"
-      rel="preload"
-      type="font/woff2"
-    />
-            <ResponsiveDrawer
-              setMenuOpen={setOpen}
-              menuOpen={open}
-              content={children}
-              location={location}
-              is404={isNonexistent}
-              test={data.allBrentRentalItem}
-              test2={data.allBrentRentalFolder}
-            >
-              {children}
-            </ResponsiveDrawer>
-          </div>
-        )}
+      <Helmet
+        // link={link}
+        title={"Dagslys rental portal"}
+        meta={[
+          { name: "description", content: "Norways biggest light rental" },
+          { name: "keywords", content: "rental, lights, oslo, equipment" },
+        ]}
+      ></Helmet>
+      {isNonexistent ? (
+        <div>{children}</div>
+      ) : (
+        <div style={{ backgroundColor: "#171E22" }}>
+          {/* <link
+            as="font"
+            crossOrigin="anonymous"
+            href="/fonts/Inter.woff2"
+            rel="preload"
+            type="font/woff2"
+          /> */}
+          <ResponsiveDrawer
+            setMenuOpen={setOpen}
+            menuOpen={open}
+            content={children}
+            location={location}
+            is404={isNonexistent}
+            test={data.allBrentRentalItem}
+            test2={data.allBrentRentalFolder}
+          >
+            {children}
+          </ResponsiveDrawer>
+        </div>
+      )}
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -314,7 +314,6 @@ const CamerasPage = ({ location }) => {
                 }
               })}
             </div>
-          <Loading></Loading>
           </div>
         </>
         ) : (

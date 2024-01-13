@@ -423,7 +423,7 @@ function ResponsiveDrawer(props, cameraQuery) {
               width: "100%",
               backgroundColor: "#171E22",
               color: "white",
-              // backgroundColor: "white",
+              display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
@@ -432,7 +432,7 @@ function ResponsiveDrawer(props, cameraQuery) {
             <div>Dagslys AS</div>
             <div>Gjerdrums vei 6, 0484 Oslo, Norway</div>
             <div>booking @ dagslys.no</div>
-            <div style={{position: "absolute", left: 10, bottom: 10}}>Website: Latent</div>
+            <div style={{position: "absolute", left: 10, bottom: 10, color: "#171E22"}}>Website: Latent</div>
           </div>
         </>
       ) : (

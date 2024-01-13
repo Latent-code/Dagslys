@@ -11,7 +11,7 @@ const CartProvider = ({ children }) => {
   const isBrowser = typeof window !== "undefined"
   // Get cart from local storage..
   const [cart, setCart] = useState(
-    isBrowser ? JSON.parse(localStorage.getItem("Brent-cart")) || [] : [],
+    isBrowser ? JSON.parse(localStorage.getItem("Dagslys-cart")) || [] : [],
   )
   const { setIsPopupOpen, handleClosePopup, userData } = useContext(AppContext)
   const [processedItemIds, setProcessedItemIds] = useState(new Set())
@@ -19,7 +19,7 @@ const CartProvider = ({ children }) => {
   // Save cart to local storage to keep for refresh..
   useEffect(() => {
     if (isBrowser) {
-      localStorage.setItem("Brent-cart", JSON.stringify(cart))
+      localStorage.setItem("Dagslys-cart", JSON.stringify(cart))
     }
   }, [cart])
 

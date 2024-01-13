@@ -71,8 +71,6 @@ const AppProvider = ({ children }) => {
       where("email", "==", user ? user.email : "")
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log(querySnapshot.empty);
-
       if (querySnapshot.empty && user) {
         
         addUser({ email: user.email, brentCollection: databaseName });

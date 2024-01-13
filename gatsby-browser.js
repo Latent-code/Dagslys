@@ -18,18 +18,18 @@ import CartProvider from "./src/context/cartContext";
 
 const outerTheme = createTheme({
   palette: {
-    type: 'light',
-          // palette values for dark mode
-          primary: {main: '#FFD115', contrastText: '#fff'},
-          // divider: deepOrange[700],
-          background: {
-            default: {main: '#171E22', contrastText: '#fff'},
-            paper: {main: '#504f4f', contrastText: '#fff'},
-          },
-          text: {
-            primary: '#fff',
-            secondary: {main: '#fff', contrastText: '#fff'},
-          },
+    type: "light",
+    // palette values for dark mode
+    primary: { main: "#FFD115", contrastText: "#fff" },
+    // divider: deepOrange[700],
+    background: {
+      default: { main: "#171E22", contrastText: "#fff" },
+      paper: { main: "#504f4f", contrastText: "#fff" },
+    },
+    text: {
+      primary: "#fff",
+      secondary: { main: "#fff", contrastText: "#fff" },
+    },
     primary: {
       main: "#171E22",
     },
@@ -38,36 +38,37 @@ const outerTheme = createTheme({
     },
   },
   typography: {
-    "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Poppins", "Helvetica", "Arial", sans-serif`,
     allVariants: {
-      color: "white"
-      
+      color: "white",
     },
     h1: {
       margin: ".5em 0",
+      fontWeight: "100",
       fontSize: "3em",
     },
     h2: {
       margin: ".5em 0",
-      fontSize: "3em",
+      fontWeight: "200",
+      fontSize: "2.5em",
     },
     h3: {
       margin: ".5em 0",
-      fontSize: "3em"
+      fontSize: "2em",
     },
   },
 });
 
 export function wrapPageElement({ element, props }) {
   return (
-      <ThemeProvider theme={outerTheme}>
-    <Provider theme={darkTheme}>
+    <ThemeProvider theme={outerTheme}>
+      <Provider theme={darkTheme}>
         <AppProvider>
           <CartProvider>
             <Layout {...props}>{element}</Layout>
           </CartProvider>
         </AppProvider>
-    </Provider>
-      </ThemeProvider>
+      </Provider>
+    </ThemeProvider>
   );
 }

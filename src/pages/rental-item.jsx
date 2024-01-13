@@ -95,6 +95,7 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
         ) : (
           <StaticImage
             src="../images/no-image.png"
+            alt="no image present"
             style={imageStyle}
             imgStyle={{ objectFit: "contain" }}
           ></StaticImage>
@@ -114,7 +115,6 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
 
       {/* <h5>{pageItem.brentRentalItem.shop_description_short}</h5> */}
       <div style={{marginTop: "2rem"}}>
-        {console.log(pageItem.brentRentalItem?.shop_description_long)}
         <p dangerouslySetInnerHTML={{ __html: pageItem.brentRentalItem?.shop_description_long }} />
       </div>
       {/* <p>{}</p> */}
