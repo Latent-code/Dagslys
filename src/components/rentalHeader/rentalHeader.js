@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { AppContext } from "../context/appContext"
+import { AppContext } from "../../context/appContext"
 
 import { navigate } from "gatsby"
 import {
@@ -9,13 +9,13 @@ import {
 } from "@adobe/react-spectrum"
 
 
-import CustomizedSnackbars from "./alert/alert"
-import CartMenu from "./cart/cartMenu"
+import CustomizedSnackbars from "../alert/alert"
+import CartMenu from "../cart/cartMenu"
 
-import CustomizedModal from "./modal/modal"
-import SearchBar from "./search/searchBar"
-import dagslysLogo from "../images/dagslys-logo.png"
-import SignInPopup from "./signInPopup/SignInPopup"
+import CustomizedModal from "../modal/modal"
+import SearchBar from "../search/searchBar"
+import dagslysLogo from "../../images/dagslys-logo.png"
+import SignInPopup from "../signInPopup/SignInPopup"
 import "./rentalHeader.css"
 
 const RentalHeader = ({ location, setMenuOpen }) => {

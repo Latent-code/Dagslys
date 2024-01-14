@@ -8,7 +8,6 @@ import ListItemText from "@mui/material/ListItemText"
 import ExpandLess from "@mui/icons-material/ExpandLess"
 import ExpandMore from "@mui/icons-material/ExpandMore"
 import Collapse from "@mui/material/Collapse"
-import FlattenMenu from "./flattenMenu"
 
 import { styled } from "@mui/material/styles"
 import { ConnectingAirportsOutlined } from "@mui/icons-material"
@@ -170,7 +169,6 @@ export default function DrawerItem({ element }) {
   //   setIsVisible(!isVisible)
   // }
 
-  // const menu = FlattenMenu(data.allWpMenuItem.nodes)
 
   // //TODO:  DET ER HER MAN FIKSER AT MENYEN ER ÅPEN!!
   // useEffect(() => {

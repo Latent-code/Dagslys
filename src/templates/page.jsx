@@ -4,24 +4,14 @@ import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { navigate } from "gatsby"
 import Breadcrumb from "../components/breadcrumb/breadcrumb"
 import Loading from "../components/loading/loading"
-import {  Typography } from "@mui/material"
+import { Typography, Button } from "@mui/material"
 import { ActionButton } from "@adobe/react-spectrum"
 import ItemCounter from "../components/itemCounter/itemCounter"
 import RentalPageItem from "../components/rentalPage/rentalPageItem"
 
-// We're using Gutenberg so we need the block styles
-// these are copied into this project due to a conflict in the postCSS
-// version used by the Gatsby and @wordpress packages that causes build
-// failures.
-// @todo update this once @wordpress upgrades their postcss version
-import "../css/@wordpress/block-library/build-style/style.css"
-import "../css/@wordpress/block-library/build-style/theme.css"
-
 import Seo from "../components/seo"
 
 import "./page.css"
-import FlattenMenu from "../components/flattenMenu"
-import PageContent from "../components/pageContent"
 import Line from "../components/line/line"
 
 
@@ -44,9 +34,22 @@ const Page = ({ pageContext, location }) => {
     overflow: "hidden",
   }
 
+  const rentalItemFlex = {
+    display: "flex",
+    columnGap: "10px",
+    rowGap: "15px",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexWrap: "wrap",
+  }
+
+
   const headerButtonStyle = {
     marginTop: "1rem",
     color: "#FFD115",
+    // fontSize: "2em",
+    marginTop: "3em",
+    marginBottom: "1em",
   }
 
   const cssGridChild = {
@@ -128,7 +131,7 @@ const Page = ({ pageContext, location }) => {
   let FolderData = data.allBrentRentalFolder.nodes
   let RentalData = data.allBrentRentalItem.nodes
 
-
+  console.log(RentalData)
 
   const fixMenu = () => {
     // Change folder and parent to a number, not string
@@ -196,7 +199,6 @@ const Page = ({ pageContext, location }) => {
     let rentalItems = []
     let rentalFolders = []
     RentalData.forEach((item) => {
-      // console.log(item)
       if (item.parentFolderId === currentPageId) {
         rentalItems.push(item)
       }
@@ -206,6 +208,8 @@ const Page = ({ pageContext, location }) => {
         rentalFolders.push(item)
       }
     })
+
+    console.log(rentalItems)
 
     setPageItems(rentalItems.sort((a, b) => a.displayname.localeCompare(b.displayname)))
     setPageCategories(rentalFolders.sort((a, b) => a.displayname.localeCompare(b.displayname)))
@@ -223,8 +227,8 @@ const Page = ({ pageContext, location }) => {
           <Breadcrumb url={location.pathname} name={pageContext.page.name}></Breadcrumb>
           <Typography variant="h2">{pageContext.page.name}</Typography>
           <Seo title={pageContext.page.name} description={pageContext.page.name} />
-          <div style={{}}>
-            {pageCategories ? pageCategories.map(item => {
+          <div>
+            {pageCategories ? pageCategories.map((item, index) => {
               if (item.parentFolderId === currentPageId) {
 
                 return (
@@ -243,10 +247,48 @@ const Page = ({ pageContext, location }) => {
             })
               : <></>
             }
+
           </div>
           <Line position={"flex-start"}></Line>
+          <div >
+            {pageCategories ? pageCategories.map((item, index) => {
+              console.log(item)
+              return (
+                <>
+
+                  <Button
+                    onClick={e => navigate(item.urlPath)}
+                    sx={headerButtonStyle}
+                    variant="outlined"
+                    color="secondary"
+
+                  >
+                    {item.displayname}
+                  </Button>
+                  <div style={rentalItemFlex}>
+                    {RentalData ? RentalData.map(i => {
+                      if (item.rentmanId === i.parentFolderId) {
+                        return (
+                          <div className="page-flex" key={i.id}
+                          >
+                            <RentalPageItem
+                              menuChildren={i}
+                            />
+                            {/* <ItemCounter /> */}
+                          </div>
+                        )
+                      }
+                    })
+                      : <></>
+                    }
+                  </div>
+                </>
+              )
+            })
+              : <></>
+            }
+          </div>
           <div className="page-flex-header main-menu">
-            {/* <PageContent element={data.allWpMenuItem.nodes}></PageContent> */}
             {pageItems ? pageItems.map(item => {
               if (item.parentFolderId === currentPageId) {
                 return (

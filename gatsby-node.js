@@ -172,29 +172,16 @@ exports.createPages = async gatsbyUtilities => {
   })
 
 
-  console.log("TEST1",editItems)
-  console.log("TEST2",editFolders)
-
-    createIndividualBlogPostPages(editItems, gatsbyUtilities)
+    createIndividualItemPages(editItems, gatsbyUtilities)
 
     createIndividualFolderPages(editFolders, gatsbyUtilities)
 
 
-
-  // If there are no posts in WordPress, don't do anything
-
-  // If there are posts, create pages for them
-  // await createIndividualBlogPostPages({ posts, gatsbyUtilities })
-  // await createIndividualPages({ pages, gatsbyUtilities })
-
-  // And a paginated archive
-  // await createBlogPostArchive({ posts, gatsbyUtilities })
 }
-
 /**
  * This function creates all the individual blog pages in this site
  */
-const createIndividualBlogPostPages = async (test, gatsbyUtilities) => {
+const createIndividualItemPages = async (test, gatsbyUtilities) => {
   Promise.all(
     test.map(post => {
       // createPage is an action passed to createPages
@@ -467,7 +454,7 @@ exports.sourceNodes = async ({
       editItems.push(item)
     }
   })
-  console.log("MENU",finalMenu)
+  // console.log("MENU",finalMenu)
 
   // finalMenu.flat().forEach(item => {
   //   console.log(item)
@@ -520,7 +507,7 @@ exports.sourceNodes = async ({
   })
 
   editItems.forEach((item, index) => {
-    console.log("test3",item.displayname)
+    // console.log("test3",item.displayname)
     if(images) {
 
       images.map(img => {
@@ -644,65 +631,3 @@ async function fetchImageFromFile() {
       console.log(error)
     })
 }
-
-// async function getPages({ graphql, reporter }) {
-//   const graphqlResult = await graphql(/* GraphQL */ `
-//     query WpPages {
-//       allWpPage {
-//         edges {
-//           page: node {
-//             id
-//             uri
-//             title
-//           }
-//           next {
-//             id
-//           }
-//           previous {
-//             id
-//           }
-//         }
-//       }
-//     }
-//   `)
-
-//   if (graphqlResult.errors) {
-//     reporter.panicOnBuild(
-//       `There was an error loading your blog posts`,
-//       graphqlResult.errors,
-//     )
-//     return
-//   }
-//   return graphqlResult.data.allWpPage.edges
-// }
-
-// async function getPosts({ graphql, reporter }) {
-//   const graphqlResult = await graphql(/* GraphQL */ `
-//     query WpPosts {
-//       allWpPost(sort: { date: DESC }) {
-//         edges {
-//           previous {
-//             id
-//           }
-//           post: node {
-//             id
-//             uri
-//           }
-//           next {
-//             id
-//           }
-//         }
-//       }
-//     }
-//   `)
-
-//   if (graphqlResult.errors) {
-//     reporter.panicOnBuild(
-//       `There was an error loading your blog posts`,
-//       graphqlResult.errors,
-//     )
-//     return
-//   }
-
-//   return graphqlResult.data.allWpPost.edges
-// }

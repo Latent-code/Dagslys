@@ -30,17 +30,17 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import ArrowRightIcon from "@mui/icons-material/ArrowRight"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import SearchIcon from "@mui/icons-material/Search"
-import RentalHeader from "./rentalHeader"
-import Loading from "./loading/loading"
+import RentalHeader from "../rentalHeader/rentalHeader"
+import Loading from "../loading/loading"
 
 
-import brent from "../images/brent_welcome.png"
+import dagslys from "../../images/dagslys-logo.png"
 import DrawerItem from "./DrawerItem"
-import Menu from "./menu/menu"
+import Menu from "../menu/menu"
 import { navigate, useStaticQuery, graphql } from "gatsby"
 
 import "./drawer.css"
-import CartMenu from "./cart/cartMenu"
+import CartMenu from "../cart/cartMenu"
 
 const CustomizedListItemText = styled(ListItemText)`
   & .MuiTypography-root {
@@ -263,6 +263,8 @@ function ResponsiveDrawer(props, cameraQuery) {
        </List>
     </div>
   )
+
+  console.log(children)
   const mobileDrawer = (
     <div
       className="mobileSidebar"
@@ -353,13 +355,13 @@ function ResponsiveDrawer(props, cameraQuery) {
                 },
               }}
             >
-              {/* Adding brent logo to top mobile bar */}
+              {/* Adding dagslys logo to top mobile bar */}
               <div className="flex-menu">
                 <img
                   className="rental-logo"
                   onClick={() => navigate("/")}
-                  src={brent}
-                  alt="brent logo"
+                  src={dagslys}
+                  alt="dagslys logo"
                 ></img>
               </div>
               {drawer}

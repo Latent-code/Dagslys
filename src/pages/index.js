@@ -3,7 +3,7 @@ import { graphql, useStaticQuery, navigate } from "gatsby"
 import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import ResponsiveDrawer from "../components/drawer"
+import ResponsiveDrawer from "../components/drawer/drawer"
 import { Button, Typography } from "@mui/material"
 import Line from "../components/line/line"
 
@@ -261,6 +261,8 @@ const CamerasPage = ({ location }) => {
   if (menu) {
     // console.log(sort(menu))
   }
+
+  console.log(children)
   return (
     <>
       {!isLoading ? (
@@ -273,23 +275,23 @@ const CamerasPage = ({ location }) => {
             <div style={menuPostContainer}>
               {menu.map((item, index) => {
                 // HVIS VI ØNSKER UTEN KNAPP PÅ DENNE:
-                if (item.rentmanId === 320) {
-                  return (
-                    <div key={item.id}>
-                      <div onClick={() => addToCart(item)}>Packages</div>
-                      <div className="page-flex">
-                        {children[index].map(rentalItem => {
-                          return (
-                            <RentalPageItem
-                              key={rentalItem.id}
-                              menuChildren={rentalItem}
-                            />
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )
-                } else {
+                // if (item.rentmanId === 320) {
+                //   return (
+                //     <div key={item.id}>
+                //       <div onClick={() => addToCart(item)}>Packages</div>
+                //       <div className="page-flex">
+                //         {children[index].map(rentalItem => {
+                //           return (
+                //             <RentalPageItem
+                //               key={rentalItem.id}
+                //               menuChildren={rentalItem}
+                //             />
+                //           )
+                //         })}
+                //       </div>
+                //     </div>
+                //   )
+                // } else {
                   return (
                     <div key={item.id}>
                       <Button
@@ -311,7 +313,7 @@ const CamerasPage = ({ location }) => {
                       </div>
                     </div>
                   )
-                }
+                // }
               })}
             </div>
           </div>

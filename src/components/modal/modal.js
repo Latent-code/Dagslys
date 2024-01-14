@@ -71,7 +71,7 @@ export default function CustomizedModal() {
                       isRequired
                       name="password"
                       onChange={setLastName}
-                      // onKeyDown={(e) => test(e)}
+                      onKeyDown={e => handleKeyDown(e)}
                     />
                     <TextField
                       autoFocus
@@ -79,8 +79,7 @@ export default function CustomizedModal() {
                       value={user?.email}
                       isRequired
                       name="email"
-                      onKeyDown={e => handleKeyDown(e)}
-
+                      isDisabled
                     />
                   </Flex>
                   <ButtonGroup align="end">

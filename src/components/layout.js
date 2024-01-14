@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { Helmet } from "react-helmet";
-import ResponsiveDrawer from "./drawer";
+import ResponsiveDrawer from "./drawer/drawer";
 
 const Layout = ({ pageResources, children, mobile, location }) => {
   const data = useStaticQuery(graphql`
@@ -61,18 +61,6 @@ const Layout = ({ pageResources, children, mobile, location }) => {
     return arr.sort((a, b) => a.order - b.order);
   };
 
-  // const modifiedMenuData = sort(data.allWpMenuItem.nodes)
-
-  // const link = [
-  //   {
-  //     as: "font",
-  //     crossOrigin: "anonymous",
-  //     href: "/fonts/Inter.woff2",
-  //     rel: "preload",
-  //     type: "font/woff2",
-  //   },
-  // ];
-
   useEffect(() => {
     if (pageResources?.page.path === "/404.html") {
       setIsNonexistent(true);
@@ -83,7 +71,6 @@ const Layout = ({ pageResources, children, mobile, location }) => {
   return (
     <React.Fragment>
       <Helmet
-        // link={link}
         title={"Dagslys rental portal"}
         meta={[
           { name: "description", content: "Norways biggest light rental" },
@@ -94,13 +81,6 @@ const Layout = ({ pageResources, children, mobile, location }) => {
         <div>{children}</div>
       ) : (
         <div style={{ backgroundColor: "#171E22" }}>
-          {/* <link
-            as="font"
-            crossOrigin="anonymous"
-            href="/fonts/Inter.woff2"
-            rel="preload"
-            type="font/woff2"
-          /> */}
           <ResponsiveDrawer
             setMenuOpen={setOpen}
             menuOpen={open}
