@@ -1,70 +1,27 @@
 import React, {
-  Component,
-  useCallback,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
 import axios from "axios";
 
-import { CartContext } from "../../context/cartContext";
 import { AppContext } from "../../context/appContext";
 import {
   Button,
-  ActionButton,
   Content,
-  DatePicker,
   Flex,
   Text,
-  Form,
-  Dialog,
-  Column,
-  Link,
-  Header,
-  Divider,
-  ButtonGroup,
-  TableView,
-  TableBody,
-  TableHeader,
-  Row,
-  Cell,
-  useCollator,
-  useAsyncList,
-  NumberField,
 } from "@adobe/react-spectrum";
 
 import { Typography } from "@mui/material";
 import { DraggableOrderTable } from "../../components/draggableTable/draggableTable";
-import { parseDate } from "@internationalized/date";
-import { useDateFormatter } from "@adobe/react-spectrum";
-import { navigate } from "gatsby";
+
 import PrivateRoute from "../../components/privateRoute/privateRoute";
 
 const Home = () => {
-  const { userData, isLoggedIn, setIsPopupOpen, handleClosePopup } =
+  const { userData, setIsPopupOpen, handleClosePopup } =
     useContext(AppContext);
-  const { cart, setCart } = useContext(CartContext);
   const [isPending, setIsPending] = useState(false);
-
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [projectId, setProjectId] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState();
-  const [projectName, setProjectName] = useState();
-  const [lastName, setLastName] = useState();
-  const [firstName, setFirstName] = useState();
-  const [start, setStart] = useState(parseDate("2021-01-01"));
-  const [end, setEnd] = useState(parseDate("2021-01-01"));
-  const [remark, setRemark] = useState();
-
-  const handleOrderClick = (item) => {
-    console.log(userData.orders);
-    console.log(item.id);
-    setCart(userData.orders.find((i) => i.id == selectedItem.currentKey).cart);
-  };
-  console.log(userData);
 
   const buildHooks = () => {
     setIsPending(true);

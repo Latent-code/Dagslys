@@ -131,8 +131,6 @@ const Page = ({ pageContext, location }) => {
   let FolderData = data.allBrentRentalFolder.nodes
   let RentalData = data.allBrentRentalItem.nodes
 
-  console.log(RentalData)
-
   const fixMenu = () => {
     // Change folder and parent to a number, not string
     RentalData.map((item, index) => {
@@ -209,8 +207,6 @@ const Page = ({ pageContext, location }) => {
       }
     })
 
-    console.log(rentalItems)
-
     setPageItems(rentalItems.sort((a, b) => a.displayname.localeCompare(b.displayname)))
     setPageCategories(rentalFolders.sort((a, b) => a.displayname.localeCompare(b.displayname)))
   }, [])
@@ -252,7 +248,6 @@ const Page = ({ pageContext, location }) => {
           <Line position={"flex-start"}></Line>
           <div >
             {pageCategories ? pageCategories.map((item, index) => {
-              console.log(item)
               return (
                 <div key={item.rentmanId}>
 

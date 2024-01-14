@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import React, { Component, useContext } from "react"
 import { Highlight } from "react-instantsearch-hooks-web"
 import { Button } from "@mui/material"
 import { navigate } from "gatsby"
-
+import { AppContext } from "../../context/appContext"
 
 const mainStyle = {
   display: "flex",
@@ -13,6 +13,7 @@ const contentStyle = {
 }
 
 const SearchHitPreview = (hits, mouseEnter, setOpen, setIsSearchdEmpty) => {
+  const { selectedIndex, setSelectedIndex } = useContext(AppContext);
   const hit = hits.hit
 
   const hoverHit = () => {
@@ -25,6 +26,7 @@ const SearchHitPreview = (hits, mouseEnter, setOpen, setIsSearchdEmpty) => {
         style={contentStyle}
         onClick={() => {
           console.log(hit)
+          setSelectedIndex(hit.id)
           setIsSearchdEmpty(true)
           setOpen(false)
           navigate(`${hit.urlPath}`)

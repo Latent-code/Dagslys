@@ -22,9 +22,6 @@ const MenuItem = ({ item}) => {
   const handleParentClick = (e, item) => {
     setSelectedIndex(item.id);
 
-    console.log("Item URL Path:", item.urlPath);
-    console.log("Location Path:", decodeURI(location.pathname));
-
     if (item.urlPath + "/" === decodeURI(location.pathname)) {
       expand();
     } else {
@@ -126,7 +123,6 @@ const MenuItem = ({ item}) => {
         </>
       ) : (
         <Link to={item.urlPath}>
-          {selectedIndex === item.id ? console.log(selectedIndex === item.id) : <></>}
           <ListItemButton
             color="secondary"
             selected={selectedIndex === item.id}

@@ -1,11 +1,7 @@
 import React, {
-  Component,
-  useCallback,
   useContext,
   useEffect,
   useState,
-  useRef,
-  createRef,
 } from "react";
 
 import { CartContext } from "../../context/cartContext";
@@ -22,7 +18,6 @@ import {
   Link,
   MenuTrigger,
   Divider,
-  ListView,
   Item,
   TableBody,
   TableHeader,
@@ -30,13 +25,11 @@ import {
   Cell,
   Menu,
   ActionButton,
-  NumberField,
   useDialogContainer,
   Heading,
   Content,
   DialogContainer,
   ButtonGroup,
-  AlertDialog,
 } from "@adobe/react-spectrum";
 
 import { Typography } from "@mui/material";
@@ -45,20 +38,16 @@ import { parseAbsoluteToLocal } from "@internationalized/date";
 import MoreSmallListVert from "@spectrum-icons/workflow/MoreSmallListVert";
 
 import PrivateRoute from "../../components/privateRoute/privateRoute";
-
-import { parseDate } from "@internationalized/date";
 import { useDateFormatter } from "@adobe/react-spectrum";
 import { navigate } from "gatsby";
 import { addOrder } from "../../utils/firestoreCRUD";
 import { AppContext } from "../../context/appContext";
 import ItemCounter from "../../components/itemCounter/itemCounter";
-import ItemRow from "../../components/itemRow.js/itemRow";
 import Loading from "../../components/loading/loading";
 
 import "./user.css";
 
 const Checkout = () => {
-  let formatter = useDateFormatter({ dateStyle: "full" });
   const {
     cart,
     setCart,
@@ -71,14 +60,8 @@ const Checkout = () => {
 
   const { user, userData, setIsPopupOpen, handleClosePopup } =
     useContext(AppContext);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [projectId, setProjectId] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState();
   const [projectName, setProjectName] = useState();
-  const [lastName, setLastName] = useState();
-  const [firstName, setFirstName] = useState();
-
   const [remark, setRemark] = useState("");
   const [projectRemark, setProjectRemark] = useState("");
   const [date, setDate] = useState({
@@ -110,10 +93,10 @@ const Checkout = () => {
     // location_mailing_postalcode: "string",
     // location_mailing_city: "string",
     // location_mailing_street: "string",
-    contact_name: firstName + " " + lastName,
-    contact_person_lastname: lastName,
-    contact_person_email: email,
-    contact_person_first_name: firstName,
+    contact_name: userData.firstName + " " + userData.lastName,
+    contact_person_lastname: userData.lastName,
+    contact_person_email: userData.email,
+    contact_person_first_name: userData.firstName,
     usageperiod_end: date.end.toDate().toISOString(),
     usageperiod_start: date.start.toDate().toISOString(),
     in: new Date(
@@ -297,7 +280,6 @@ const Checkout = () => {
   }
 
   async function createProjectRequest() {
-    setConfirmOpen(false);
     setIsLoading(true);
 
     const url =
@@ -319,7 +301,7 @@ const Checkout = () => {
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setProjectId(result.data.id);
+
         addItemsToProject(result.data.id, cart);
         setIsLoading(false);
       })

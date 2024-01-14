@@ -258,11 +258,7 @@ const CamerasPage = ({ location }) => {
     // SORT THE MENU BASED ON ORDER IN RENTMAN
     return arr.sort((a, b) => a.order - b.order)
   }
-  if (menu) {
-    // console.log(sort(menu))
-  }
-
-  console.log(children)
+ 
   return (
     <>
       {!isLoading ? (

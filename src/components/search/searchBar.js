@@ -87,7 +87,6 @@ const SearchBar = ({}) => {
 
         setOpen(false)
         setHoverImage(null)
-        console.log(searchInput)
         // searchInput.value = ""
         searchInput.classList.remove("activeSearch")
       }
