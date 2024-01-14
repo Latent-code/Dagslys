@@ -242,6 +242,9 @@ function ResponsiveDrawer(props, cameraQuery) {
              "&.Mui-selected": {
                backgroundColor: theme.palette.background.default.selected,
              },
+             ":hover": {
+              backgroundColor: theme.palette.background.default.selected,
+            }
              // "&.Mui-focusVisible": {
              //   backgroundColor: "#2e8b57"
              // },

@@ -9,12 +9,11 @@ import { Link } from "gatsby";
 import { useTheme } from "@mui/material";
 import { AppContext } from "../../context/appContext";
 const MenuItem = ({ item}) => {
-  const { selectedIndex, setSelectedIndex } = useContext(AppContext);
   const theme = useTheme()
+  const { selectedIndex, setSelectedIndex } = useContext(AppContext);
+
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
-  const encodedPath = encodeURIComponent(item.urlPath);
-  // const [selectedIndex, setSelectedIndex] = useState(null);
 
   const expand = () => {
     setIsVisible(!isVisible);
@@ -33,8 +32,6 @@ const MenuItem = ({ item}) => {
     }
   };
 
-  console.log(selectedIndex);
-
   const checkItemForPageChild = (item, currentPath) => {
     if (item.urlPath + "/" === currentPath) {
       setIsVisible(true);
@@ -48,7 +45,7 @@ const MenuItem = ({ item}) => {
   useEffect(() => {
     checkItemForPageChild(item, decodeURI(location.pathname));
   }, [location.pathname, item]);
-console.log(theme)
+
   return (
     <>
       {Object.prototype.hasOwnProperty.call(item, "children") ? (
@@ -64,6 +61,9 @@ console.log(theme)
                 },
                 "&& .MuiTouchRipple-child": {
                   backgroundColor: theme.palette.secondary.main,
+                },
+                ":hover": {
+                  backgroundColor: theme.palette.background.default.selected,
                 }
                 // "&.Mui-focusVisible": {
                 //   backgroundColor: "#2e8b57"
@@ -115,8 +115,6 @@ console.log(theme)
                     style={{ paddingLeft: 10 }}
                   >
                     <MenuItem
-                      selectedIndex={selectedIndex}
-                      setSelectedIndex={setSelectedIndex}
                       item={child}
                     />
                   </div>
@@ -140,6 +138,9 @@ console.log(theme)
               },
               "&& .MuiTouchRipple-child": {
                 backgroundColor: theme.palette.secondary.main,
+              },
+              ":hover": {
+                backgroundColor: theme.palette.background.default.selected,
               }
             }}
             onClick={(e) => {
