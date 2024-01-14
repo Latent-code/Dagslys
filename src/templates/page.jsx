@@ -254,7 +254,7 @@ const Page = ({ pageContext, location }) => {
             {pageCategories ? pageCategories.map((item, index) => {
               console.log(item)
               return (
-                <>
+                <div key={item.rentmanId}>
 
                   <Button
                     onClick={e => navigate(item.urlPath)}
@@ -282,7 +282,7 @@ const Page = ({ pageContext, location }) => {
                       : <></>
                     }
                   </div>
-                </>
+                </div>
               )
             })
               : <></>

@@ -804,7 +804,7 @@ const Checkout = () => {
             {isTableLoading && (
               <div style={flex}>
                 <div>
-                  <Loading size={"10%"} />
+                  <Loading size={"10%"} inline={true} />
                 </div>
               </div>
             )}
