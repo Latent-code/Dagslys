@@ -57,11 +57,15 @@
 
 ### Haster:
 
+- [ ] Bilder på mobil, height må testes til Auto
+
 - [ ] La brukere skrive inn mengden ting de ønsker å Booke...!!!!!!
 
-- [ ] Implementere Adobe React-spectrum - [x] App Provider i SSR og Browser på plass - [x] Import på plass - [ ] Endre alt fra MUI til React-Spectrum
+- [ ] Implementere Adobe React-spectrum
+  - [x] App Provider i SSR og Browser på plass
+  - [x] Import på plass
+  - [ ] Endre alt fra MUI til React-Spectrum
 
-- [ ] Fikse design på kategorier i "page.js" ser ikke helt topp ut... - [ ] Skille mellom knappene, lenger linje?
 
 ### Todo:
 
@@ -83,12 +87,27 @@
 
 ### API:
 
-- [ ] Lage nytt opplegg med API fra Rentman. - [x] koble til API og lage pages derfra - [x] Få inn bildene som GatsbyImageSharp i graphiql: https://mcro.tech/blog/gatsby-image-sharp/#:~:text=For%20generating%20ImageSharp%20from%20URL,and%20create%20a%20new%20ImageSharp. - [X] Timecode | Sync åpner seg ikke, aner ikke hvorfor. DET ER FORDI NAVNET INNEHOLDER | mellom. - [x] Gatsby-Node - Lage pages av alle folders, slik at vi kan få oversikt over f.eks kameraer, lyd, osv. Lage en side for hver kategori, Media, Support, Grip, Microphones osv. - [X] Fikse lenker, slik at Super Clamps havner på rental/lighting/grip/superclamps. - [X] Fikse Breadcrumbs, bruke location.pathname og lage linker derfra basert på et array. - [ ] Fikse searchBar med bilder osv. etter nye endringer. - [ ] Se over hvor ting kommer fra. Nå bør alt komme fra graphiql - [ ] Lagre scrollpossisjon når man navigerer. - [ ] Gå over hva som skal ligge ute og ikke. - [ ] Nå kan man egentlig hente ut children fra graphiQL, så kan endre en del i menyen osv. ligger under childRentalItems i graphiql - [ ] Sjekke opp Vercel SWR : https://swr.vercel.app/ - [ ] Lage nytt opplegg med API fra Rentman.
+- [ ] Lage nytt opplegg med API fra Rentman.
+  - [x] koble til API og lage pages derfra
+  - [x] Få inn bildene som GatsbyImageSharp i graphiql: https://mcro.tech/blog/gatsby-image-sharp/#:~:text=For%20generating%20ImageSharp%20from%20URL,and%20create%20a%20new%20ImageSharp.
+  - [X] Timecode | Sync åpner seg ikke, aner ikke hvorfor. DET ER FORDI NAVNET INNEHOLDER | mellom.
+  - [x] Gatsby-Node - Lage pages av alle folders, slik at vi kan få oversikt over f.eks kameraer, lyd, osv. Lage en side for hver kategori, Media, Support, Grip, Microphones osv.
+  - [X] Fikse lenker, slik at Super Clamps havner på rental/lighting/grip/superclamps.
+  - [X] Fikse Breadcrumbs, bruke location.pathname og lage linker derfra basert på et array.
+  - [ ] Fikse searchBar med bilder osv. etter nye endringer.
+  - [ ] Se over hvor ting kommer fra. Nå bør alt komme fra graphiql
+  - [ ] Lagre scrollpossisjon når man navigerer.
+  - [ ] Gå over hva som skal ligge ute og ikke.
+  - [ ] Nå kan man egentlig hente ut children fra graphiQL, så kan endre en del i menyen osv. ligger under childRentalItems i graphiql
+  - [ ] Sjekke opp Vercel SWR : https://swr.vercel.app/
+- [ ] Lage nytt opplegg med API fra Rentman.
 
 - [ ] React children? https://www.smashingmagazine.com/2021/08/react-children-iteration-methods/
 
 ### DONE:
 
+- [x] Fikse design på kategorier i "page.js" ser ikke helt topp ut...
+- [x] Skille mellom knappene, lenger linje?
 - [x] Legge inn Snackbar som sier success/failed osv.
 - [x] Aktiv 100 stativ dukker ikke opp!????
 - [x] Lage en handlekurv på sikt? https://useshoppingcart.com/ / https://www.gatsbyjs.com/tutorial/ecommerce-tutorial/

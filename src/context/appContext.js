@@ -30,7 +30,6 @@ export const AppContext = createContext({
 });
 
 
-
 const AppProvider = ({ children }) => {
   const databaseName = "dagslys";
   const [user, setUser] = useState(null);

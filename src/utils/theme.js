@@ -1,5 +1,19 @@
 import { createTheme } from "@mui/material";
-const theme = createTheme({
+
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 0, // Phone
+    md: 768, // Tablet/Laptop
+    lg: 1500, // Desktop
+    xl: 2000
+  }
+};
+
+let theme = createTheme()
+
+
+theme = createTheme({
   palette: {
     type: "light",
     // palette values for dark mode
@@ -28,16 +42,43 @@ const theme = createTheme({
     h1: {
       margin: ".5em 0",
       fontWeight: "100",
-      fontSize: "3em",
+      // fontSize: "3em",
+      [theme.breakpoints.down('md')]: {
+        fontSize: '2em', //11px
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '2.5em', //11px
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '3em', //11px
+      },
     },
     h2: {
       margin: ".5em 0",
       fontWeight: "200",
-      fontSize: "2.5em",
+      // fontSize: "2.5em",
+      [theme.breakpoints.down('md')]: {
+        fontSize: '1.5em', //11px
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '2em', //11px
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '2.5em', //11px
+      },
     },
     h3: {
       margin: ".5em 0",
-      fontSize: "2em",
+      // fontSize: "2em",
+      [theme.breakpoints.down('md')]: {
+        fontSize: '1em', //11px
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.5em', //11px
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '2em', //11px
+      },
     },
   },
 });

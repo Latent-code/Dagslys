@@ -245,7 +245,7 @@ export const DraggableOrderTable = () => {
             list={targetList}
             columns={columns}
           />
-          <Flex justifyContent="flex-end" gap="size-200">
+          <Flex wrap="wrap" justifyContent="flex-end" gap="size-200">
             {/* <ActionButton>Edit</ActionButton> */}
             <ActionButton
               isDisabled={!selectedKeys?.size >= 1}
