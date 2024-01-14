@@ -35,6 +35,8 @@ const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState("root");
+
 
 
   const handleClosePopup = (reason) =>
@@ -166,7 +168,9 @@ const AppProvider = ({ children }) => {
     userData,
     isLoggedIn,
     addUser,
-    databaseName
+    databaseName,
+    selectedIndex,
+    setSelectedIndex
   };
 
   return <AppContext.Provider value={output}>{children}</AppContext.Provider>;

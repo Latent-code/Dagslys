@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { graphql, navigate, useStaticQuery } from "gatsby"
 import Loading from "../loading/loading"
 
@@ -52,6 +52,8 @@ const Menu = ({ setMenu, menu }) => {
 
   const [isLoading, setIsLoading] = React.useState(true)
   const hiddenItems = [251, 45, 46, 47]
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
   let completeMenuArr = []
 
   let FolderData = graphiqlData.allBrentRentalFolder.nodes
@@ -147,6 +149,8 @@ const Menu = ({ setMenu, menu }) => {
                         onClick={e => handleClick(e, item)}
                         menuData={FolderData}
                         item={item}
+                        selectedIndex={selectedIndex}
+                        setSelectedIndex={setSelectedIndex}
                       ></MenuItem>
                     </div>
                   )

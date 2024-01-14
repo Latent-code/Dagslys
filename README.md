@@ -56,6 +56,7 @@
 ## TODO´s
 
 ### Haster:
+- [ ] Meny items har blå ikon og bakgrunn på trykk. Det kom etter Gatsby Link ble lagt inn for å løse navigering... FIX!
 
 - [ ] Bilder på mobil, height må testes til Auto
 

@@ -1,7 +1,7 @@
 import * as React from "react"
-import { useEffect, useCallback, createRef } from "react"
-import { useContext } from "react"
+import { useEffect, useContext, createRef } from "react"
 import { styled } from "@mui/material/styles"
+import { useTheme } from "@mui/material";
 
 import PropTypes from "prop-types"
 import AppBar from "@mui/material/AppBar"
@@ -32,6 +32,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import SearchIcon from "@mui/icons-material/Search"
 import RentalHeader from "../rentalHeader/rentalHeader"
 import Loading from "../loading/loading"
+import { AppContext } from "../../context/appContext"
 
 
 import dagslys from "../../images/dagslys-logo.png"
@@ -46,6 +47,9 @@ const CustomizedListItemText = styled(ListItemText)`
   & .MuiTypography-root {
     font-size: 0.9rem;
   }
+  :hover {
+    color: #FFD115;
+  }
 `
 const CustomizedListItemButton = styled(ListItemButton)`
   :hover {
@@ -56,6 +60,8 @@ const CustomizedListItemButton = styled(ListItemButton)`
 const drawerWidth = 300
 
 function ResponsiveDrawer(props, cameraQuery) {
+  const theme = useTheme()
+  const {setSelectedIndex, selectedIndex} = useContext(AppContext)
   const { window, data, menuData, children, menuOpen, location } = props
   const [isLoading, setIsLoading] = React.useState(true)
 
@@ -229,11 +235,26 @@ function ResponsiveDrawer(props, cameraQuery) {
     >
       <List>
         <CustomizedListItemButton
-          sx={{
-            alignItems: "flex-end",
-            borderBottom: "1px solid #dbdbdb",
-          }}
+           selected={selectedIndex === "root"}
+           sx={{
+             alignItems: "flex-end",
+             borderBottom: "1px solid #dbdbdb",
+             "&.Mui-selected": {
+               backgroundColor: theme.palette.background.default.selected,
+             },
+             // "&.Mui-focusVisible": {
+             //   backgroundColor: "#2e8b57"
+             // },
+             // "&.MuiListItemButton-root": {
+             //   backgroundColor: "#2e8b57"
+             // },
+             // ":hover": {
+             //   backgroundColor: "#2e8b57"
+             // }
+           }}
+           color="secondary"
           onClick={e => {
+            setSelectedIndex("root")
             navigate("/")
           }}
         >

@@ -17,19 +17,26 @@ theme = createTheme({
   palette: {
     type: "light",
     // palette values for dark mode
-    primary: { main: "#FFD115", contrastText: "#fff" },
+    primary: { 
+      main: "#504f4f", 
+      contrastText: "#fff" 
+    },
     // divider: deepOrange[700],
     background: {
-      default: { main: "#171E22", contrastText: "#fff" },
+      default: { 
+        main: "#171E22", 
+        selected: "#ffd11554",
+        contrastText: "#fff" 
+      },
       paper: { main: "#504f4f", contrastText: "#fff" },
     },
     text: {
       primary: "#fff",
       secondary: { main: "#fff", contrastText: "#fff" },
     },
-    primary: {
-      main: "#171E22",
-    },
+    // primary: {
+    //   main: "#504f4f",
+    // },
     secondary: {
       main: "#FFD115",
     },

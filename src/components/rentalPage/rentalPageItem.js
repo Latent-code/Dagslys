@@ -14,7 +14,7 @@ const RentalPageItem = ({ menuChildren }) => {
   const theme = useTheme();
 
   const menuPostContainer = {
-    backgroundColor: `${theme.palette.primary.main}`,
+    backgroundColor: `${theme.palette.background.default.main}`,
     border: "1px solid rgb(116 116 116 / 38%)",
     padding: "5px 0",
   }
@@ -40,7 +40,7 @@ const RentalPageItem = ({ menuChildren }) => {
   }
 
   const cssGridChild = {
-    backgroundColor: `${theme.palette.primary.main}`,
+    backgroundColor: `${theme.palette.background.main}`,
     border: "1px solid rgb(116 116 116 / 38%)",
     width: "200px",
     height: "auto",

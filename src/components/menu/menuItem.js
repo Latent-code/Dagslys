@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { navigate, useLocation } from "@reach/router";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -6,27 +6,34 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import { Link } from "gatsby";
-
-const MenuItem = ({ item }) => {
+import { useTheme } from "@mui/material";
+import { AppContext } from "../../context/appContext";
+const MenuItem = ({ item}) => {
+  const { selectedIndex, setSelectedIndex } = useContext(AppContext);
+  const theme = useTheme()
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const encodedPath = encodeURIComponent(item.urlPath);
+  // const [selectedIndex, setSelectedIndex] = useState(null);
 
   const expand = () => {
     setIsVisible(!isVisible);
   };
 
   const handleParentClick = (e, item) => {
+    setSelectedIndex(item.id);
+
     console.log("Item URL Path:", item.urlPath);
     console.log("Location Path:", decodeURI(location.pathname));
-  
+
     if (item.urlPath + "/" === decodeURI(location.pathname)) {
       expand();
     } else {
       navigate(item.urlPath);
     }
   };
-  
+
+  console.log(selectedIndex);
 
   const checkItemForPageChild = (item, currentPath) => {
     if (item.urlPath + "/" === currentPath) {
@@ -41,38 +48,57 @@ const MenuItem = ({ item }) => {
   useEffect(() => {
     checkItemForPageChild(item, decodeURI(location.pathname));
   }, [location.pathname, item]);
-
+console.log(theme)
   return (
     <>
       {Object.prototype.hasOwnProperty.call(item, "children") ? (
         <>
-        <Link to={item.urlPath}>
-
-          <ListItemButton
-            sx={{
-              alignItems: "flex-end",
-              borderBottom: "1px solid #dbdbdb",
-            }}
-            onClick={(e) => {
-              handleParentClick(e, item);
-            }}
-          >
-            <ListItemText
-              sx={{ marginTop: "0px", marginBottom: "0px" }}
-              primary={item.displayname}
-            ></ListItemText>
-            {isVisible ? (
-              <ExpandLess
-                sx={{ width: "0.9em !important", height: "0.9em" }}
-                className="expand-icon"
-              />
-            ) : (
-              <ExpandMore
-                sx={{ width: "0.9em !important", height: "0.9em" }}
-                className="expand-icon"
-              />
-            )}
-          </ListItemButton>
+          <Link to={item.urlPath}>
+            <ListItemButton
+              selected={selectedIndex === item.id}
+              sx={{
+                alignItems: "flex-end",
+                borderBottom: "1px solid #dbdbdb",
+                "&.Mui-selected": {
+                  backgroundColor: theme.palette.background.default.selected,
+                },
+                "&& .MuiTouchRipple-child": {
+                  backgroundColor: theme.palette.secondary.main,
+                }
+                // "&.Mui-focusVisible": {
+                //   backgroundColor: "#2e8b57"
+                // },
+                // "&.MuiListItemButton-root": {
+                //   backgroundColor: "#2e8b57"
+                // },
+                // ":hover": {
+                //   backgroundColor: "#2e8b57"
+                // }
+              }}
+              color="secondary"
+              onClick={(e) => {
+                handleParentClick(e, item);
+              }}
+            >
+              <ListItemText
+                sx={{ marginTop: "0px", marginBottom: "0px" }}
+                primary={item.displayname}
+                color="secondary"
+              ></ListItemText>
+              {isVisible ? (
+                <ExpandLess
+                  sx={{ width: "0.9em !important", height: "0.9em" }}
+                  className="expand-icon"
+                  color="secondary"
+                />
+              ) : (
+                <ExpandMore
+                  sx={{ width: "0.9em !important", height: "0.9em" }}
+                  className="expand-icon"
+                  color="secondary"
+                />
+              )}
+            </ListItemButton>
           </Link>
           {item.children?.length > 0 ? (
             <Collapse
@@ -80,6 +106,7 @@ const MenuItem = ({ item }) => {
               in={isVisible}
               timeout="auto"
               unmountOnExit
+              color="secondary"
             >
               {isVisible &&
                 item.children.map((child) => (
@@ -87,7 +114,11 @@ const MenuItem = ({ item }) => {
                     key={child.displayname + child.id + "next"}
                     style={{ paddingLeft: 10 }}
                   >
-                    <MenuItem item={child} />
+                    <MenuItem
+                      selectedIndex={selectedIndex}
+                      setSelectedIndex={setSelectedIndex}
+                      item={child}
+                    />
                   </div>
                 ))}
             </Collapse>
@@ -97,20 +128,29 @@ const MenuItem = ({ item }) => {
         </>
       ) : (
         <Link to={item.urlPath}>
-        <ListItemButton
-          sx={{
-            alignItems: "flex-end",
-            borderBottom: "1px solid #dbdbdb",
-          }}
-          onClick={(e) => {
-            handleParentClick(e, item);
-          }}
-        >
-          <ListItemText
-            sx={{ marginTop: "0px", marginBottom: "0px" }}
-            primary={item.displayname}
-          ></ListItemText>
-        </ListItemButton>
+          {selectedIndex === item.id ? console.log(selectedIndex === item.id) : <></>}
+          <ListItemButton
+            color="secondary"
+            selected={selectedIndex === item.id}
+            sx={{
+              alignItems: "flex-end",
+              borderBottom: "1px solid #dbdbdb",
+              "&.Mui-selected": {
+                backgroundColor: theme.palette.background.default.selected,
+              },
+              "&& .MuiTouchRipple-child": {
+                backgroundColor: theme.palette.secondary.main,
+              }
+            }}
+            onClick={(e) => {
+              handleParentClick(e, item);
+            }}
+          >
+            <ListItemText
+              sx={{ marginTop: "0px", marginBottom: "0px" }}
+              primary={item.displayname}
+            ></ListItemText>
+          </ListItemButton>
         </Link>
       )}
     </>
