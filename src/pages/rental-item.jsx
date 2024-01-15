@@ -48,10 +48,6 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
 
   const pageItem = data
 
-  console.log(location)
-  console.log(pageItem)
-
-
   useEffect(() => {
     const isItemInCart = cart.find(
       cartItem => cartItem.rentmanId === pageItem.brentRentalItem.rentmanId,
@@ -72,7 +68,7 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
   const removeItem = () => {
     removeFromCart(pageItem.brentRentalItem)
   }
-  console.log(pageItem)
+
   return (
     <div>
       <SEO 

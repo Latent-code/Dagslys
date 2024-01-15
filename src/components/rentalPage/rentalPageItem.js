@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material"
 
 const RentalPageItem = ({ menuChildren }) => {
   const { cart, addToCart, removeFromCart } = useContext(CartContext)
-  const { user } = useContext(AppContext)
+  const { user, setSelectedIndex } = useContext(AppContext)
   const [quantity, setQuantity] = useState()
   const theme = useTheme();
 
@@ -71,6 +71,10 @@ const RentalPageItem = ({ menuChildren }) => {
   const removeItem = () => {
     removeFromCart(menuChildren)
   }
+  const handleNavigate = (item) => {
+    setSelectedIndex(item.id)
+    navigate(item.urlPath)
+  }
 
   return (
     <div>
@@ -80,7 +84,7 @@ const RentalPageItem = ({ menuChildren }) => {
           className="page-flex-child hover-orange"
           style={cssGridChild}
         >
-          <div onClick={e => navigate(menuChildren.urlPath + "/")}>
+          <div onClick={e => handleNavigate(menuChildren)}>
             {menuChildren.childFile?.childImageSharp.gatsbyImageData != null ? (
               <GatsbyImage
                 image={menuChildren.childFile.childImageSharp.gatsbyImageData}

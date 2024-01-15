@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { navigate } from "gatsby"
@@ -8,6 +8,7 @@ import { Typography, Button } from "@mui/material"
 import { ActionButton } from "@adobe/react-spectrum"
 import ItemCounter from "../components/itemCounter/itemCounter"
 import RentalPageItem from "../components/rentalPage/rentalPageItem"
+import { AppContext } from "../context/appContext"
 
 import SEO from "../components/seo"
 
@@ -16,23 +17,6 @@ import Line from "../components/line/line"
 
 
 const Page = ({ pageContext, location }) => {
-
-  const imageStyle = {
-    margin: "1rem 1rem 1rem 1rem",
-    display: "flex",
-    height: "120px",
-    width: "auto",
-  }
-  const textStyle = {
-    margin: "1rem 1rem 1rem 1rem",
-    fontWeight: 300,
-    fontSize: "0.8em",
-    display: "flex",
-    width: "auto",
-    height: "50px",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-  }
 
   const rentalItemFlex = {
     display: "flex",
@@ -43,7 +27,6 @@ const Page = ({ pageContext, location }) => {
     flexWrap: "wrap",
   }
 
-
   const headerButtonStyle = {
     marginTop: "1rem",
     color: "#FFD115",
@@ -51,26 +34,6 @@ const Page = ({ pageContext, location }) => {
     marginTop: "3em",
     marginBottom: "1em",
   }
-
-  const cssGridChild = {
-    boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-    backgroundColor: "white",
-    /* border-radius: 1rem 1rem 1rem 1rem; */
-    border: "1px solid rgba(0, 0, 0, 0.383)",
-    width: "200px",
-    height: "200px",
-    cursor: "pointer",
-
-    // display: "flex",
-    // flexDirection: "column",
-    // height: "251px",
-    // gridTemplateColumns: "repeat(8, minmax(10px, 1fr))",
-    // boxDhadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-    // backgroundColor: "white",
-    // /* border-radius: 1rem 1rem 1rem 1rem; */
-    // border: "1px solid rgba(0, 0, 0, 0.383)",
-  }
-
 
   const data = useStaticQuery(graphql`
   query rentmanData {
@@ -117,6 +80,7 @@ const Page = ({ pageContext, location }) => {
   }
   `)
 
+  const { setSelectedIndex } = useContext(AppContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [menu, setMenu] = useState()
@@ -212,10 +176,11 @@ const Page = ({ pageContext, location }) => {
   }, [])
 
 
-  const handleClick = (e, item) => {
-    navigate("/rental" + item.urlPath)
+  const handleClick = item => {
+    setSelectedIndex(item.id)
+    navigate(item.urlPath)
   }
-  console.log(pageContext)
+
   return (
     <div>
       {
@@ -236,7 +201,7 @@ const Page = ({ pageContext, location }) => {
                     marginEnd="size-150"
                     marginBottom="size-150"
                     key={item.id}
-                    onClick={e => navigate(item.urlPath)}
+                    onClick={e => handleClick(item)}
                     style={headerButtonStyle}
                     variant="outlined"
                   >
@@ -256,7 +221,7 @@ const Page = ({ pageContext, location }) => {
                 <div key={item.rentmanId}>
 
                   <Button
-                    onClick={e => navigate(item.urlPath)}
+                    onClick={e => handleClick(item)}
                     sx={headerButtonStyle}
                     variant="outlined"
                     color="secondary"

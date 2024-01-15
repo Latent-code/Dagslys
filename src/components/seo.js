@@ -31,9 +31,6 @@ const SEO = ({ title, description, image, slug, children }) => {
   // const metaDescription = description || wp.generalSettings?.description
   // const defaultTitle = wp.generalSettings?.title
   const { siteMetadata } = site;
-  console.log("favicon", favicon);
-  console.log("site", site);
-  console.log("siteMetadata", siteMetadata);
 
   return (
     <Helmet
