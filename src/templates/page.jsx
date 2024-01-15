@@ -9,7 +9,7 @@ import { ActionButton } from "@adobe/react-spectrum"
 import ItemCounter from "../components/itemCounter/itemCounter"
 import RentalPageItem from "../components/rentalPage/rentalPageItem"
 
-import Seo from "../components/seo"
+import SEO from "../components/seo"
 
 import "./page.css"
 import Line from "../components/line/line"
@@ -215,14 +215,18 @@ const Page = ({ pageContext, location }) => {
   const handleClick = (e, item) => {
     navigate("/rental" + item.urlPath)
   }
-
+  console.log(pageContext)
   return (
     <div>
       {
         <div>
           <Breadcrumb url={location.pathname} name={pageContext.page.name}></Breadcrumb>
           <Typography variant="h2">{pageContext.page.name}</Typography>
-          <Seo title={pageContext.page.name} description={pageContext.page.name} />
+          <SEO
+            title={pageContext.page.name}
+            description={pageContext.page.name}
+            slug={pageContext.pageLinkBrent}
+            />
           <div>
             {pageCategories ? pageCategories.map((item, index) => {
               if (item.parentFolderId === currentPageId) {

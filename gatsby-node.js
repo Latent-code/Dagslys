@@ -80,10 +80,26 @@ exports.createPages = async gatsbyUtilities => {
   const items1 = await getRentalItems(100, 0)
   const items2 = await getRentalItems(100, 100)
   const items3 = await getRentalItems(100, 200)
+  const items4 = await getRentalItems(100, 0)
+  const items5 = await getRentalItems(100, 100)
+  const items6 = await getRentalItems(100, 200)
+  const items7 = await getRentalItems(100, 200)
+  const items8 = await getRentalItems(100, 200)
+  const items9 = await getRentalItems(100, 200)
+  const items10 = await getRentalItems(100, 200)
+  const items11 = await getRentalItems(100, 200)
   const items = [
     ...items1.test.data.data,
     ...items2.test.data.data,
     ...items3.test.data.data,
+    ...items4.test.data.data,
+    ...items5.test.data.data,
+    ...items6.test.data.data,
+    ...items7.test.data.data,
+    ...items8.test.data.data,
+    ...items9.test.data.data,
+    ...items10.test.data.data,
+    ...items11.test.data.data,
   ]
 
   let completeMenuArr = []
@@ -354,17 +370,42 @@ exports.sourceNodes = async ({
     return { id, image: id, url }
   }
 
-  const images = await fetchImageFromFile()
   const folders = await getRentmanFolders(200, 0)
+  const images1 = await fetchImageFromFile(50, 0)
+  const images2 = await fetchImageFromFile(50, 50)
+  const images3 = await fetchImageFromFile(50, 100)
+  const images4 = await fetchImageFromFile(50, 150)
+  const images5 = await fetchImageFromFile(50, 200)
   const items1 = await getRentalItems(100, 0)
   const items2 = await getRentalItems(100, 100)
   const items3 = await getRentalItems(100, 200)
-
-  // console.log("REIEL",items1.test.data.data)
+  const items4 = await getRentalItems(100, 0)
+  const items5 = await getRentalItems(100, 100)
+  const items6 = await getRentalItems(100, 200)
+  const items7 = await getRentalItems(100, 200)
+  const items8 = await getRentalItems(100, 200)
+  const items9 = await getRentalItems(100, 200)
+  const items10 = await getRentalItems(100, 200)
+  const items11 = await getRentalItems(100, 200)
+  const images = [
+    ...images1,
+    ...images2,
+    ...images3,
+    ...images4,
+    ...images5,
+  ]
   const items = [
     ...items1.test.data.data,
     ...items2.test.data.data,
     ...items3.test.data.data,
+    ...items4.test.data.data,
+    ...items5.test.data.data,
+    ...items6.test.data.data,
+    ...items7.test.data.data,
+    ...items8.test.data.data,
+    ...items9.test.data.data,
+    ...items10.test.data.data,
+    ...items11.test.data.data,
   ]
 
   let completeMenuArr = []
@@ -610,13 +651,13 @@ async function getRentmanFolders(limit, offset) {
     })
 }
 
-async function fetchImageFromFile() {
+async function fetchImageFromFile(limit, offset) {
   const token = process.env.GATSBY_RENTMAN_API
 
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `https://api.rentman.net/files`,
+    url: `https://api.rentman.net/files?type[neq]=application/pdf&limit=${limit}&offset=${offset}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

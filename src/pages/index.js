@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from "react"
-import { graphql, useStaticQuery, navigate } from "gatsby"
-import { Link } from "gatsby"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import ResponsiveDrawer from "../components/drawer/drawer"
-import { Button, Typography } from "@mui/material"
-import Line from "../components/line/line"
+import React, { useContext, useEffect, useState } from "react";
+import { graphql, useStaticQuery, navigate } from "gatsby";
+import { Link } from "gatsby";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import ResponsiveDrawer from "../components/drawer/drawer";
+import { Button, Typography } from "@mui/material";
+import Line from "../components/line/line";
 
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
+import { CartContext } from "../context/cartContext";
 
-import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
-import { CartContext } from "../context/cartContext"
-
-import ItemCounter from "../components/itemCounter/itemCounter"
+import ItemCounter from "../components/itemCounter/itemCounter";
 
 // import { firebase } from "../utils/firebase"
 // import {
@@ -24,14 +23,14 @@ import ItemCounter from "../components/itemCounter/itemCounter"
 
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-import Breadcrumb from "../components/breadcrumb/breadcrumb"
-import Loading from "../components/loading/loading"
-import RentalPageItem from "../components/rentalPage/rentalPageItem"
+import Breadcrumb from "../components/breadcrumb/breadcrumb";
+import Loading from "../components/loading/loading";
+import RentalPageItem from "../components/rentalPage/rentalPageItem";
 
 // import { AppContext } from "../context/appContext"
 
 const CamerasPage = ({ location }) => {
-  const { cart, addItemToCart, addToCart } = useContext(CartContext)
+  const { cart, addItemToCart, addToCart } = useContext(CartContext);
 
   // console.log(cart)
 
@@ -92,19 +91,19 @@ const CamerasPage = ({ location }) => {
         }
       }
     }
-  `)
+  `);
 
   const menuPostContainer = {
     display: "flex",
     flexWrap: "wrap",
     gap: "0 6em",
-  }
+  };
   const imageStyle = {
     margin: "1rem 1rem 1rem 1rem",
     display: "flex",
     height: "120px",
     width: "auto",
-  }
+  };
   const textStyle = {
     margin: "1rem 1rem 1rem 1rem",
     fontWeight: 300,
@@ -114,12 +113,12 @@ const CamerasPage = ({ location }) => {
     height: "50px",
     textOverflow: "ellipsis",
     overflow: "hidden",
-  }
+  };
 
   const headerButtonStyle = {
     marginTop: "1rem",
     color: "#FFD115",
-  }
+  };
 
   const cssGridChild = {
     boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
@@ -138,23 +137,23 @@ const CamerasPage = ({ location }) => {
     // backgroundColor: "white",
     // /* border-radius: 1rem 1rem 1rem 1rem; */
     // border: "1px solid rgba(0, 0, 0, 0.383)",
-  }
+  };
 
   // LOADING IF NOT REASDY
-  const [isLoading, setIsLoading] = useState(true)
-  const [menu, setMenu] = useState()
-  const [children, setChildren] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
+  const [menu, setMenu] = useState();
+  const [children, setChildren] = useState([]);
 
-  const hiddenItems = [251, 45, 46, 47]
-  const FolderData = data.allBrentRentalFolder.nodes
-  const RentalData = data.allBrentRentalItem.nodes
+  const hiddenItems = [251, 45, 46, 47];
+  const FolderData = data.allBrentRentalFolder.nodes;
+  const RentalData = data.allBrentRentalItem.nodes;
 
-  const test = RentalData.filter(item => item.in_shop === true)
+  const test = RentalData.filter((item) => item.in_shop === true);
 
-  const menuParentChildrenArr = [[], [], [], [], [], [], [], [], [], []]
+  const menuParentChildrenArr = [[], [], [], [], [], [], [], [], [], []];
 
   useEffect(() => {
-    fixMenu()
+    fixMenu();
     // signInWithEmailAndPassword(auth, "reiel@reiel.no", "reielreiel")
     // .then(userCredential => {
     //   setUser(userCredential.user);
@@ -174,97 +173,100 @@ const CamerasPage = ({ location }) => {
     //   console.log(errorMessage, errorCode)
     // })
     // signInWithEmailAndPassword("reiel@reiel.no", "reielreiel")
-  }, [])
+  }, []);
 
   const fixMenu = () => {
-    let completeMenuArr = []
+    let completeMenuArr = [];
     // Change folder and parent to a number, not string
     RentalData.map((item, index) => {
       if (!item.in_shop) {
-        RentalData.splice(index, 1)
+        RentalData.splice(index, 1);
       } else if (
         item.path?.startsWith("import") ||
         item.path?.startsWith("Import")
       ) {
-        RentalData.splice(index, 1)
+        RentalData.splice(index, 1);
       }
-      item.parentFolderId = parseInt(item.folder.split("/").slice(-1))
-      completeMenuArr.push(item)
-    })
+      item.parentFolderId = parseInt(item.folder.split("/").slice(-1));
+      completeMenuArr.push(item);
+    });
     FolderData.map((item, index) => {
       if (
         item.itemtype === "contact" ||
         item.itemtype === "vehicle" ||
         item.itemtype === "user"
       ) {
-        FolderData.splice(index, 1)
+        FolderData.splice(index, 1);
       } else if (
         item.displayname.startsWith("import-") ||
         item.displayname.startsWith("Import-")
       ) {
       } else if (hiddenItems.includes(item.rentmanId)) {
-        FolderData.splice(index, 1)
+        FolderData.splice(index, 1);
       } else {
         if (item.menuParentBrent != null) {
           item.parentFolderId = parseInt(
-            item.menuParentBrent?.split("/").slice(-1),
-          )
-          completeMenuArr.push(item)
+            item.menuParentBrent?.split("/").slice(-1)
+          );
+          completeMenuArr.push(item);
         } else {
-          item.parentFolderId = null
-          completeMenuArr.push(item)
+          item.parentFolderId = null;
+          completeMenuArr.push(item);
         }
       }
-    })
+    });
 
     const menuSort = (function (data, root) {
-        var t = {}
-        data.forEach(o => {
-          Object.assign((t[o.rentmanId] = t[o.rentmanId] || {}), o)
-          ;((t[o.parentFolderId] ??= {}).children ??= []).push(t[o.rentmanId])
-        })
-        return t[root].children
+        var t = {};
+        data.forEach((o) => {
+          Object.assign((t[o.rentmanId] = t[o.rentmanId] || {}), o);
+          ((t[o.parentFolderId] ??= {}).children ??= []).push(t[o.rentmanId]);
+        });
+        return t[root].children;
       })(completeMenuArr, null),
       shop = (r, { children = [], ...o }) => {
-        children = children.reduce(shop, [])
-        const sub = children.length ? { children } : {}
-        if (o.in_shop || sub.children) r.push({ ...o, ...sub })
-        return r
-      }
-    let finalMenu = menuSort.reduce(shop, [])
-    setMenu(sort(finalMenu)) // Layout menu setter
-    setIsLoading(false)
+        children = children.reduce(shop, []);
+        const sub = children.length ? { children } : {};
+        if (o.in_shop || sub.children) r.push({ ...o, ...sub });
+        return r;
+      };
+    let finalMenu = menuSort.reduce(shop, []);
+    setMenu(sort(finalMenu)); // Layout menu setter
+    setIsLoading(false);
 
-    recursiveFixMenu(finalMenu)
-  }
+    recursiveFixMenu(finalMenu);
+  };
 
-  const recursiveFixMenu = rentmanData => {
+  const recursiveFixMenu = (rentmanData) => {
     const recursive = (data, arr) => {
-      data.map(item => {
+      data.map((item) => {
         if (item.children) {
-          recursive(item.children, arr)
+          recursive(item.children, arr);
         } else {
-          arr.push(item)
+          arr.push(item);
         }
-      })
-    }
+      });
+    };
     rentmanData.map((i, index) => {
-      recursive(i.children, menuParentChildrenArr[index])
-    })
-    setChildren(menuParentChildrenArr)
-  }
+      recursive(i.children, menuParentChildrenArr[index]);
+    });
+    setChildren(menuParentChildrenArr);
+  };
 
-  const sort = arr => {
+  const sort = (arr) => {
     // SORT THE MENU BASED ON ORDER IN RENTMAN
-    return arr.sort((a, b) => a.order - b.order)
-  }
- 
+    return arr.sort((a, b) => a.order - b.order);
+  };
+
   return (
     <>
       {!isLoading ? (
         <>
           <div>
-            <Seo title="Dagslys Rental" />
+´            <SEO
+              title="Dagslys rental portal home"
+              description="Dagslys rental portal, a tool for lighting designers to book their own equipment"
+            />
             <Breadcrumb url={location.pathname} name={"Home"}></Breadcrumb>
             <Typography variant="h2">All equipment</Typography>
             <Line position={"flex-start"}></Line>
@@ -288,38 +290,37 @@ const CamerasPage = ({ location }) => {
                 //     </div>
                 //   )
                 // } else {
-                  return (
-                    <div key={item.id}>
-                      <Button
-                        onClick={e => navigate(item.urlPath)}
-                        style={headerButtonStyle}
-                        variant="text"
-                      >
-                        {item.displayname}
-                      </Button>
-                      <div className="page-flex">
-                        {children[index].map(rentalItem => {
-                          return (
-                            <RentalPageItem
-                              key={rentalItem.id}
-                              menuChildren={rentalItem}
-                            />
-                          )
-                        })}
-                      </div>
+                return (
+                  <div key={item.id}>
+                    <Button
+                      onClick={(e) => navigate(item.urlPath)}
+                      style={headerButtonStyle}
+                      variant="text"
+                    >
+                      {item.displayname}
+                    </Button>
+                    <div className="page-flex">
+                      {children[index].map((rentalItem) => {
+                        return (
+                          <RentalPageItem
+                            key={rentalItem.id}
+                            menuChildren={rentalItem}
+                          />
+                        );
+                      })}
                     </div>
-                  )
+                  </div>
+                );
                 // }
               })}
             </div>
           </div>
         </>
-        ) : (
+      ) : (
         <Loading></Loading>
       )}
     </>
-  )
-}
+  );
+};
 
-export default CamerasPage
-
+export default CamerasPage;

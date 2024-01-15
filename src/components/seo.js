@@ -5,89 +5,78 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import React from "react";
+import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
+import { useStaticQuery, graphql } from "gatsby";
 
-const Seo = ({ description, lang, meta, title }) => {
-  // const { wp, wpUser } = useStaticQuery(
-  //   graphql`
-  //     query {
-  //       wp {
-  //         generalSettings {
-  //           title
-  //           description
-  //         }
-  //       }
-
-  //       # if there's more than one user this would need to be filtered to the main user
-  //       wpUser {
-  //         twitter: name
-  //       }
-  //     }
-  //   `
-  // )
+const SEO = ({ title, description, image, slug, children }) => {
+  const { site, favicon } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            description
+            siteUrl
+            title
+          }
+        }
+        favicon: file(name: { eq: "favicon" }) {
+          publicURL
+        }
+      }
+    `
+  );
 
   // const metaDescription = description || wp.generalSettings?.description
   // const defaultTitle = wp.generalSettings?.title
+  const { siteMetadata } = site;
+  console.log("favicon", favicon);
+  console.log("site", site);
+  console.log("siteMetadata", siteMetadata);
 
   return (
     <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      // titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: "metaDescription",
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: "metaDescription",
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: "wpUser?.twitter "|| ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: "metaDescription",
-        },
-      ].concat(meta)}
-    />
-  )
-}
+      htmlAttributes={{ lang: `en` }}
+      titleTemplate={`%s | ${title}`}
+    >
+      <title>{siteMetadata.title}</title>
+      <link rel="shortcut icon" href={favicon.publicURL} />
 
-Seo.defaultProps = {
+      <meta name="og:title" content={siteMetadata.title} />
+      <meta
+        name="og:description"
+        content={description || siteMetadata.description}
+      />
+      <meta
+        name="og:image"
+        content={`${siteMetadata.siteUrl}${image || favicon.publicURL}`}
+      />
+      <meta name="og:type" content="website" />
+      <meta
+        name="og:url"
+        content={
+          slug ? `${siteMetadata.siteUrl}/${slug}` : `${siteMetadata.siteUrl}/`
+        }
+      />
+      <meta name="og:site_name" content={siteMetadata.title} />
+      {children}
+    </Helmet>
+  );
+};
+
+SEO.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
-}
+};
 
-Seo.propTypes = {
+SEO.propTypes = {
+  title: PropTypes.string,
   description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
-}
+  image: PropTypes.string,
+  slug: PropTypes.string,
+  children: PropTypes.node,
+};
 
-export default Seo
+export default SEO;

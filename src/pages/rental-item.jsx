@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react"
 import { graphql } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { Typography } from "@mui/material"
+import SEO from "../components/seo"
 
 import Line from "../components/line/line"
 import ImageContainer from "../components/imageContainer/imageContainer"
@@ -47,6 +48,9 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
 
   const pageItem = data
 
+  console.log(location)
+  console.log(pageItem)
+
 
   useEffect(() => {
     const isItemInCart = cart.find(
@@ -68,8 +72,15 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
   const removeItem = () => {
     removeFromCart(pageItem.brentRentalItem)
   }
+  console.log(pageItem)
   return (
     <div>
+      <SEO 
+        title={pageItem.brentRentalItem?.displayname}
+        description={pageItem.brentRentalItem?.shop_description_long || pageItem.brentRentalItem?.displayname}
+        image={pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src || ""}
+        slug=""
+        ></SEO>
       <Breadcrumb url={location.pathname} name={pageItem.brentRentalItem?.displayname}></Breadcrumb>
       <Typography variant="h2">{pageItem.brentRentalItem?.displayname}</Typography>
       <div style={inlineFlex}>
@@ -94,19 +105,19 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
         )}
       </div>
       <Line width={"100vw"} />
-      <div style={{ width: "20%" }}>{user ? 
-      <ItemCounter
-        price={pageItem.brentRentalItem.price}
-        addItem={addItem}
-        removeFromCart={removeItem}
-        quantity={quantity}
-        full
-        quiet={false}
-      /> : <></>}</div>
+      <div style={{ width: "20%" }}>{user ?
+        <ItemCounter
+          price={pageItem.brentRentalItem.price}
+          addItem={addItem}
+          removeFromCart={removeItem}
+          quantity={quantity}
+          full
+          quiet={false}
+        /> : <></>}</div>
 
 
       {/* <h5>{pageItem.brentRentalItem.shop_description_short}</h5> */}
-      <div style={{marginTop: "2rem"}}>
+      <div style={{ marginTop: "2rem" }}>
         <p dangerouslySetInnerHTML={{ __html: pageItem.brentRentalItem?.shop_description_long }} />
       </div>
       {/* <p>{}</p> */}

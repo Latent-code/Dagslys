@@ -56,6 +56,8 @@
 ## TODO´s
 
 ### Haster:
+- [ ] Inkludere Vehicles. vehicle page.jsx
+
 - [ ] Meny items har blå ikon og bakgrunn på trykk. Det kom etter Gatsby Link ble lagt inn for å løse navigering... FIX!
 
 - [ ] Bilder på mobil, height må testes til Auto
@@ -69,6 +71,9 @@
 
 
 ### Todo:
+
+- [x] Optimalisere SEO, etter data fra Rentman Kommer inn.
+
 
 - [ ] Gjøre parent i menyen bold, så man vet hvor man er?
 
@@ -107,6 +112,7 @@
 
 ### DONE:
 
+- [x] SEO er sett opp, kanskje ikke optimalt, her må vi se på hva som skjer med Live data, når alt er oppdatert.
 - [x] Fikse design på kategorier i "page.js" ser ikke helt topp ut...
 - [x] Skille mellom knappene, lenger linje?
 - [x] Legge inn Snackbar som sier success/failed osv.

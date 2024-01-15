@@ -9,8 +9,11 @@ const queries = require('./src/utils/algolia-queries')
 
 module.exports = {
   siteMetadata: {
-    title: `Dagslys rental`,
-    siteUrl: `https://www.dagslys.no`,
+    title: `Dagslys rental portal`,
+    description: `A web portal for light rental in Norway`,
+    twitterUsername: `@gatsbyjs`,
+    image: `/gatsby-icon.png`,
+    siteUrl: process.env.GATSBY_SITE_URL,
   },
   plugins: [
     "gatsby-plugin-image",
@@ -41,7 +44,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/Dagslys-favicon.png` ,
+        icon: `content/assets/favicon.png` ,
       },
     },
     {

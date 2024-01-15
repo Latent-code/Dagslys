@@ -2,7 +2,7 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
+import SEO from "../components/seo"
 
 // import "./404.css"
 
@@ -20,7 +20,7 @@ const NotFoundPage = props => {
         alignItems: "center",
       }}
     >
-      <Seo title="404: Not Found" />
+      <SEO title="404: Not Found" />
       <h1>404: Not Found</h1>
       <p>You just hit a page that doesn&#39;t exist... thats horrible.</p>
       <Link className="back-button" to="/">
