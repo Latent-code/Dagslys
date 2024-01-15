@@ -263,7 +263,7 @@ const CamerasPage = ({ location }) => {
       {!isLoading ? (
         <>
           <div>
-´            <SEO
+            <SEO
               title="Dagslys rental portal home"
               description="Dagslys rental portal, a tool for lighting designers to book their own equipment"
             />

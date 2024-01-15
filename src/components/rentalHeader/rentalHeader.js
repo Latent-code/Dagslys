@@ -15,6 +15,7 @@ import CartMenu from "../cart/cartMenu"
 import CustomizedModal from "../modal/modal"
 import SearchBar from "../search/searchBar"
 import dagslysLogo from "../../images/dagslys-logo.png"
+import dagslysLogoSvg from "../../images/Dagslys_noBackground.svg"
 import SignInPopup from "../signInPopup/SignInPopup"
 import "./rentalHeader.css"
 
@@ -49,7 +50,7 @@ const RentalHeader = ({ location, setMenuOpen }) => {
           style={{ marginLeft: "5vw", width: "200px" }}
           // className="rental-logo"
           onClick={() => navigate("/")}
-          src={dagslysLogo}
+          src={dagslysLogoSvg}
           alt="brent logo"
         ></img>
       </a>
