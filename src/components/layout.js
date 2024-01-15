@@ -68,6 +68,8 @@ const Layout = ({ pageResources, children, mobile, location }) => {
       setIsNonexistent(false);
     }
   });
+
+  
   return (
     <React.Fragment>
       <Helmet
