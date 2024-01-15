@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react"
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web"
-import SearchHitPreview from "./searchHitPreview"
-import algoliasearch from "algoliasearch/lite"
-import NoResultsBoundary from "./noResultBoundary"
-import { GatsbyImage } from "gatsby-plugin-image"
+import React, { useEffect, useState } from "react";
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web";
+import SearchHitPreview from "./searchHitPreview";
+import algoliasearch from "algoliasearch/lite";
+import NoResultsBoundary from "./noResultBoundary";
+import { GatsbyImage } from "gatsby-plugin-image";
 
-import "./search.css"
-import { object } from "prop-types"
+import "./search.css";
+import { object } from "prop-types";
 
 const imageStyle = {
   flexGrow: "1",
@@ -14,7 +14,7 @@ const imageStyle = {
   justifyContent: "flex-start",
   width: "100%",
   padding: "1rem 1rem 1rem 1rem",
-}
+};
 
 const hitImage = {
   position: "relative",
@@ -24,24 +24,27 @@ const hitImage = {
   zIndex: "9999",
   padding: "1rem",
   display: "flex",
-}
+};
 const searchHits = {
   width: "100%",
   textAlign: "start",
-}
+};
+
+let timerId = undefined;
+let timeout = 200;
 
 const SearchBar = ({}) => {
-  const [hoverImage, setHoverImage] = useState("")
-  const [title, setTitle] = useState("")
-  const [isSearchdEmpty, setIsSearchdEmpty] = useState(false)
-  const [isOpen, setOpen] = useState(false)
-  const [isEmpty, setIsEmpty] = useState()
-  const isBrowser = typeof window !== "undefined"
+  const [hoverImage, setHoverImage] = useState("");
+  const [title, setTitle] = useState("");
+  const [isSearchdEmpty, setIsSearchdEmpty] = useState(false);
+  const [isOpen, setOpen] = useState(false);
+  const [isEmpty, setIsEmpty] = useState();
+  const isBrowser = typeof window !== "undefined";
 
   const algoliaClient = algoliasearch(
     process.env.GATSBY_ALGOLIA_APP_ID,
-    process.env.GATSBY_ALGOLIA_API_KEY,
-  )
+    process.env.GATSBY_ALGOLIA_API_KEY
+  );
 
   const searchClient = {
     ...algoliaClient,
@@ -51,7 +54,7 @@ const SearchBar = ({}) => {
         requests.every(({ params }) => params?.query?.length < 1) ||
         !requests[0].params.query
       ) {
-        console.log("No search fired...")
+        console.log("No search fired...");
         return Promise.resolve({
           results: requests.map(() => ({
             hits: [],
@@ -64,85 +67,88 @@ const SearchBar = ({}) => {
             query: "",
             params: "",
           })),
-        })
+        });
       }
-      return algoliaClient.search(requests)
+      return algoliaClient.search(requests);
     },
-  }
+  };
+
+
+
   useEffect(() => {
-    const searchInput = document.querySelector(".ais-SearchBox-input")
+    const searchInput = document.querySelector(".ais-SearchBox-input");
     if (!isOpen && searchInput) {
-      searchInput.classList.remove("activeSearch")
-      searchInput.innerHTML = ""
-      setIsEmpty("")
-      setOpen(false)
-      setHoverImage(null)
+      searchInput.classList.remove("activeSearch");
+      searchInput.innerHTML = "";
+      setIsEmpty("");
+      setOpen(false);
+      setHoverImage(null);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === "Escape") {
-        const searchInput = document.querySelector(".ais-SearchBox-input")
+        const searchInput = document.querySelector(".ais-SearchBox-input");
 
-        setOpen(false)
-        setHoverImage(null)
+        setOpen(false);
+        setHoverImage(null);
         // searchInput.value = ""
-        searchInput.classList.remove("activeSearch")
+        searchInput.classList.remove("activeSearch");
       }
     }
-    document.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("keydown", handleKeyDown);
 
     return function cleanup() {
-      document.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [])
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
-  const mouseEnter = hover => {
+  const mouseEnter = (hover) => {
     if (hover.featuredImage != null) {
-      setHoverImage(hover.featuredImage)
-      setTitle(hover.title)
+      setHoverImage(hover.featuredImage);
+      setTitle(hover.title);
     }
-  }
+  };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     if (
       typeof event.uiState[process.env.GATSBY_ALGOLIA_INDEX_NAME] !== undefined
     ) {
       // console.log("after ", event)
-      const searchInput = document.querySelector(".ais-SearchBox-input")
+      const searchInput = document.querySelector(".ais-SearchBox-input");
       if (
         Object.keys(event.uiState[process.env.GATSBY_ALGOLIA_INDEX_NAME])
           .length !== 0
       ) {
-        setOpen(true)
-        searchInput.classList.add("activeSearch")
+        setOpen(true);
+        searchInput.classList.add("activeSearch");
       } else if (
         Object.keys(event.uiState[process.env.GATSBY_ALGOLIA_INDEX_NAME])
           .length === 0
       ) {
-        searchInput.classList.remove("activeSearch")
-        setHoverImage(null)
-        setOpen(false)
+        searchInput.classList.remove("activeSearch");
+        setHoverImage(null);
+        setOpen(false);
       }
-      setIsEmpty(event.uiState[process.env.GATSBY_ALGOLIA_INDEX_NAME].query)
+      setIsEmpty(event.uiState[process.env.GATSBY_ALGOLIA_INDEX_NAME].query);
     }
-  }
+  };
 
-  // Close search preview if user clicks outside 
+  // Close search preview if user clicks outside
   if (isBrowser) {
     window.addEventListener("click", function (e) {
-      const hitContainer = document.getElementById("searchHitContainer")
+      const hitContainer = document.getElementById("searchHitContainer");
       const searchInputArr = document.getElementsByClassName(
-        "ais-SearchBox-input",
-      )
-      const searchInput = searchInputArr[0]
+        "ais-SearchBox-input"
+      );
+      const searchInput = searchInputArr[0];
       if (hitContainer !== null) {
         if (!hitContainer.contains(e.target) || !searchInput === e.target) {
-          setOpen(false)
+          setOpen(false);
         }
       }
-    })
+    });
   }
 
   return (
@@ -155,16 +161,17 @@ const SearchBar = ({}) => {
       >
         <div className="SearchBox">
           <SearchBox
-            onChange={handleChange}
+            onChange={handleChange}   //Disable to create delay after typing.
+            // queryHook={queryHook}  //Enable to create delay after typing.
+
             placeholder="Search for products..."
           />
-        </div>
         {isOpen ? (
           <div id="searchHitContainer" className="searchHitContainer">
             <NoResultsBoundary>
               <Hits
                 style={searchHits}
-                hitComponent={e =>
+                hitComponent={(e) =>
                   SearchHitPreview(e, mouseEnter, setOpen, setIsSearchdEmpty)
                 }
               />
@@ -201,9 +208,18 @@ const SearchBar = ({}) => {
         ) : (
           <></>
         )}
+        </div>
       </InstantSearch>
     </div>
-  )
+  );
+};
+
+function queryHook(query, search) {
+  if (timerId) {
+    clearTimeout(timerId);
+  }
+
+  timerId = setTimeout(() => search(query), timeout);
 }
 
-export default SearchBar
+export default SearchBar;

@@ -60,7 +60,7 @@ const MenuItem = ({ item}) => {
                   backgroundColor: theme.palette.secondary.main,
                 },
                 ":hover": {
-                  backgroundColor: theme.palette.background.default.selected,
+                  backgroundColor: theme.palette.background.default.hover,
                 }
                 // "&.Mui-focusVisible": {
                 //   backgroundColor: "#2e8b57"
@@ -136,7 +136,7 @@ const MenuItem = ({ item}) => {
                 backgroundColor: theme.palette.secondary.main,
               },
               ":hover": {
-                backgroundColor: theme.palette.background.default.selected,
+                backgroundColor: theme.palette.background.default.hover,
               }
             }}
             onClick={(e) => {

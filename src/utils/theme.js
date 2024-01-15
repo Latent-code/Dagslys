@@ -15,7 +15,7 @@ let theme = createTheme()
 
 theme = createTheme({
   palette: {
-    type: "light",
+    type: "dark",
     // palette values for dark mode
     primary: { 
       main: "#504f4f", 
@@ -25,7 +25,8 @@ theme = createTheme({
     background: {
       default: { 
         main: "#171E22", 
-        selected: "#ffd11554",
+        selected: "#1d262b",
+        hover: "#1c2428",
         contrastText: "#fff" 
       },
       paper: { main: "#504f4f", contrastText: "#fff" },

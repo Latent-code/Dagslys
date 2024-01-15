@@ -64,7 +64,10 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(true);
   };
 
+  
+  
   useEffect(() => {
+    if(user){
     //THIS INITIATES REALTIME LISTENERS
     const userRef = collection(db, databaseName);
     const q = query(
@@ -90,8 +93,8 @@ const AppProvider = ({ children }) => {
       unsubscribe();
       console.log("unsubscribed!");
     };
+  }
   }, [databaseName, user]);
-
 
 
   useEffect(() => {

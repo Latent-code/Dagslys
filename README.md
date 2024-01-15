@@ -56,6 +56,7 @@
 ## TODO´s
 
 ### Haster:
+- [ ] Flytte cart fra Local Storage til Firestore.
 - [ ] Inkludere Vehicles. vehicle page.jsx
 
 - [ ] Meny items har blå ikon og bakgrunn på trykk. Det kom etter Gatsby Link ble lagt inn for å løse navigering... FIX!

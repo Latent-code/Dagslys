@@ -156,7 +156,7 @@ exports.createPages = async gatsbyUtilities => {
   let finalMenu = menuSort.reduce(shop, [])
 
   function setPath(o) {
-    o.urlPath = this.concat("/", o.name.replaceAll(" ", "-").replaceAll("|", "").toLowerCase().toLowerCase())
+    o.urlPath = this.concat("/", o.name.replaceAll(" ", "-").replaceAll("|", "").replaceAll("/", "-").toLowerCase().toLowerCase())
     Array.isArray(o.children) && o.children.forEach(setPath, o.urlPath)
   }
 
@@ -466,7 +466,7 @@ exports.sourceNodes = async ({
   let finalMenu = menuSort.reduce(shop, [])
 
   function setPath(o) {
-    o.urlPath = this.concat("/", o.name.replaceAll(" ", "-").replaceAll("|", "").toLowerCase())
+    o.urlPath = this.concat("/", o.name.replaceAll(" ", "-").replaceAll("|", "").replaceAll("/", "-").toLowerCase())
     Array.isArray(o.children) && o.children.forEach(setPath, o.urlPath)
   }
 
