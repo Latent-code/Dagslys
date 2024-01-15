@@ -72,7 +72,10 @@
 
 ### Todo:
 
-- [x] Optimalisere SEO, etter data fra Rentman Kommer inn.
+- [ ] Optimalisere SEO, etter data fra Rentman Kommer inn.
+- [ ] Håndtere brukere (bytte passord, bytte epost, redigere navn osv.)
+- [ ] Lagre pakker fra handlevognen i "saved orders" uten å måtte bestille de først.
+- [ ] Søke opp kunder fra Rentman API så lysmester kan velge kunde selv. (alternativt skrive inn en ny)
 
 
 - [ ] Gjøre parent i menyen bold, så man vet hvor man er?

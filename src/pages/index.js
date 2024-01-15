@@ -116,7 +116,8 @@ const CamerasPage = ({ location }) => {
   };
 
   const headerButtonStyle = {
-    marginTop: "1rem",
+    marginTop: "3em",
+    marginBottom: "1em",
     color: "#FFD115",
   };
 
@@ -294,8 +295,9 @@ const CamerasPage = ({ location }) => {
                   <div key={item.id}>
                     <Button
                       onClick={(e) => navigate(item.urlPath)}
-                      style={headerButtonStyle}
-                      variant="text"
+                      sx={headerButtonStyle}
+                      variant="outlined"
+                      color="secondary"
                     >
                       {item.displayname}
                     </Button>

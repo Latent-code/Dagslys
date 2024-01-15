@@ -28,7 +28,6 @@ const Page = ({ pageContext, location }) => {
   }
 
   const headerButtonStyle = {
-    marginTop: "1rem",
     color: "#FFD115",
     // fontSize: "2em",
     marginTop: "3em",
@@ -219,13 +218,11 @@ const Page = ({ pageContext, location }) => {
             {pageCategories ? pageCategories.map((item, index) => {
               return (
                 <div key={item.rentmanId}>
-
                   <Button
                     onClick={e => handleClick(item)}
                     sx={headerButtonStyle}
                     variant="outlined"
                     color="secondary"
-
                   >
                     {item.displayname}
                   </Button>
