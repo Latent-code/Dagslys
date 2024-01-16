@@ -32,8 +32,7 @@ const Breadcrumb = ({ url }) => {
   }
 
   useEffect(() => {
-    console.log(folderUrl);
-    // navigate(folderUrl);
+    navigate(folderUrl);
   }, [folderUrl]);
 
   return (
