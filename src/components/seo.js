@@ -43,7 +43,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       <link rel="shortcut icon" href={favicon.publicURL} />
 
       {/* FACEBOOK */}
-      <meta name="og:title" content={siteMetadata.title} />
+      <meta name="og:title" content={title ? title :siteMetadata.title} />
       <meta
         name="og:description"
         content={description || siteMetadata.description}
@@ -56,7 +56,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       <meta
         name="og:url"
         content={
-          slug ? `${siteMetadata.siteUrl}/${slug}` : `${siteMetadata.siteUrl}/`
+          slug ? `${siteMetadata.siteUrl}${slug}` : `${siteMetadata.siteUrl}/`
         }
       />
       <meta name="og:site_name" content={siteMetadata.title} />
@@ -66,9 +66,9 @@ const SEO = ({ title, description, image, slug, children }) => {
       <meta property="twitter:domain" content={siteMetadata.siteUrl} />
       <meta
         property="twitter:url"
-        content="https://rental.dagslys.no/control/dmx-cable/lumisplitt-2.10-dmx-rdm-5p/"
+        content={slug ? `${siteMetadata.siteUrl}${slug}` : `${siteMetadata.siteUrl}/`}
       />
-      <meta name="twitter:title" content={siteMetadata.title} />
+      <meta name="twitter:title" content={title ? title :siteMetadata.title} />
       <meta name="twitter:description" content={description || siteMetadata.description} />
       <meta
         name="twitter:image"

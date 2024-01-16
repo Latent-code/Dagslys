@@ -68,6 +68,8 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
   const removeItem = () => {
     removeFromCart(pageItem.brentRentalItem)
   }
+  
+  console.log(pageItem.brentRentalItem.urlPath)
   console.log(pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src)
 
   return (
@@ -76,7 +78,7 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
         title={pageItem.brentRentalItem?.displayname}
         description={pageItem.brentRentalItem?.shop_description_long || pageItem.brentRentalItem?.displayname}
         image={pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src || ""}
-        slug={pageItem.brentRentalItem.pageLinkBrent}
+        slug={pageItem.brentRentalItem.urlPath}
         ></SEO>
       <Breadcrumb url={location.pathname} name={pageItem.brentRentalItem?.displayname}></Breadcrumb>
       <Typography variant="h2">{pageItem.brentRentalItem?.displayname}</Typography>

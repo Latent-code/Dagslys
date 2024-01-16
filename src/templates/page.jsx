@@ -179,6 +179,7 @@ const Page = ({ pageContext, location }) => {
     setSelectedIndex(item.id)
     navigate(item.urlPath)
   }
+  console.log(pageContext.pageLinkBrent)
   return (
     <div>
       {
