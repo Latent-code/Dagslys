@@ -50,7 +50,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       />
       <meta
         name="og:image"
-        content={`${siteMetadata.siteUrl}${image} ||${favicon.publicURL}`}
+        content={`${siteMetadata.siteUrl}${image}` || `${favicon.publicURL}`}
       />
       <meta name="og:type" content="website" />
       <meta
@@ -72,7 +72,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       <meta name="twitter:description" content={description || siteMetadata.description} />
       <meta
         name="twitter:image"
-        content={`${siteMetadata.siteUrl}${image}`}
+        content={`${siteMetadata.siteUrl}${image}`  || `${favicon.publicURL}`}
       />
 
       {children}
