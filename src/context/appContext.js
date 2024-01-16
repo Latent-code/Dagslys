@@ -156,6 +156,7 @@ const AppProvider = ({ children }) => {
   };
 
 
+
   const output = {
     user: user,
     db: firebase,
