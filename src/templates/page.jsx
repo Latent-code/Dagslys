@@ -179,7 +179,6 @@ const Page = ({ pageContext, location }) => {
     setSelectedIndex(item.id)
     navigate(item.urlPath)
   }
-
   return (
     <div>
       {

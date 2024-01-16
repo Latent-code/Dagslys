@@ -32,14 +32,17 @@ const SEO = ({ title, description, image, slug, children }) => {
   // const defaultTitle = wp.generalSettings?.title
   const { siteMetadata } = site;
 
+  console.log(
+    `${siteMetadata.siteUrl}${image}`,
+    `and: ${siteMetadata.siteUrl}/`
+  );
+
   return (
-    <Helmet
-      htmlAttributes={{ lang: `en` }}
-      titleTemplate={`%s | ${title}`}
-    >
+    <Helmet htmlAttributes={{ lang: `en` }} titleTemplate={`%s | ${title}`}>
       <title>{siteMetadata.title}</title>
       <link rel="shortcut icon" href={favicon.publicURL} />
 
+      {/* FACEBOOK */}
       <meta name="og:title" content={siteMetadata.title} />
       <meta
         name="og:description"
@@ -47,7 +50,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       />
       <meta
         name="og:image"
-        content={`${siteMetadata.siteUrl}${image || favicon.publicURL}`}
+        content={`${siteMetadata.siteUrl}${image} ||${favicon.publicURL}`}
       />
       <meta name="og:type" content="website" />
       <meta
@@ -57,6 +60,21 @@ const SEO = ({ title, description, image, slug, children }) => {
         }
       />
       <meta name="og:site_name" content={siteMetadata.title} />
+
+      {/* TWITTER */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:domain" content={siteMetadata.siteUrl} />
+      <meta
+        property="twitter:url"
+        content="https://rental.dagslys.no/control/dmx-cable/lumisplitt-2.10-dmx-rdm-5p/"
+      />
+      <meta name="twitter:title" content={siteMetadata.title} />
+      <meta name="twitter:description" content={description || siteMetadata.description} />
+      <meta
+        name="twitter:image"
+        content={`${siteMetadata.siteUrl}${image}`}
+      />
+
       {children}
     </Helmet>
   );
