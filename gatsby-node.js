@@ -62,7 +62,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.createPages = async gatsbyUtilities => {
   
-  const folders = await getRentmanFolders(200, 0)
+  const folders = await getRentmanFolders()
   const items = await getRentalItems()
 
   const { editFolders, editItems } = restructureFoldersAndItems(
@@ -221,9 +221,9 @@ exports.sourceNodes = async ({
     return { id, image: id, url }
   }
 
-  const folders = await getRentmanFolders(200, 0)
-  const images = await fetchImageFromFile()
-  const items = await getRentalItems()
+  const folders = await getRentmanFolders();
+  const images = await fetchImageFromFile();
+  const items = await getRentalItems();
 
   const { editFolders, editItems } = restructureFoldersAndItems(
     folders,
