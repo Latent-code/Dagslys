@@ -36,6 +36,12 @@ const SEO = ({ title, description, image, slug, children }) => {
   const { siteMetadata } = site;
   const imageConst = image ? siteMetadata.siteUrl + image : siteMetadata.siteUrl + logo.publicURL
 
+  console.log(imageConst)
+
+  console.log(
+    `${siteMetadata.siteUrl}${image}`,
+    `and: ${siteMetadata.siteUrl}/`
+  );
 
   return (
     <Helmet htmlAttributes={{ lang: `en` }} titleTemplate={`%s | ${title}`}>
@@ -50,7 +56,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       />
       <meta
         name="og:image"
-        content={`${imageConst}`}
+        content={imageConst}
       />
       <meta name="og:type" content="website" />
       <meta
@@ -72,7 +78,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       <meta name="twitter:description" content={description || siteMetadata.description} />
       <meta
         name="twitter:image"
-        content={`${imageConst}`}
+        content={imageConst}
       />
 
       {children}
