@@ -68,7 +68,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       <meta name="og:site_name" content={siteMetadata.title} />
 
       {/* TWITTER */}
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" content="summary" />
       <meta property="twitter:domain" content={siteMetadata.siteUrl} />
       <meta
         property="twitter:url"
