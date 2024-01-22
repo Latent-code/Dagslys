@@ -80,14 +80,13 @@ exports.createPages = async gatsbyUtilities => {
   const items1 = await getRentalItems(100, 0)
   const items2 = await getRentalItems(100, 100)
   const items3 = await getRentalItems(100, 200)
-  const items4 = await getRentalItems(100, 0)
-  const items5 = await getRentalItems(100, 100)
-  const items6 = await getRentalItems(100, 200)
-  const items7 = await getRentalItems(100, 200)
-  const items8 = await getRentalItems(100, 200)
-  const items9 = await getRentalItems(100, 200)
-  const items10 = await getRentalItems(100, 200)
-  const items11 = await getRentalItems(100, 200)
+  const items4 = await getRentalItems(100, 300)
+  const items5 = await getRentalItems(100, 400)
+  const items6 = await getRentalItems(100, 500)
+  const items7 = await getRentalItems(100, 600)
+  const items8 = await getRentalItems(100, 700)
+  const items9 = await getRentalItems(100, 800)
+  const items10 = await getRentalItems(100, 900)
   const items = [
     ...items1.test.data.data,
     ...items2.test.data.data,
@@ -99,7 +98,6 @@ exports.createPages = async gatsbyUtilities => {
     ...items8.test.data.data,
     ...items9.test.data.data,
     ...items10.test.data.data,
-    ...items11.test.data.data,
   ]
 
   let completeMenuArr = []
@@ -371,29 +369,21 @@ exports.sourceNodes = async ({
   }
 
   const folders = await getRentmanFolders(200, 0)
-  const images1 = await fetchImageFromFile(50, 0)
-  const images2 = await fetchImageFromFile(50, 50)
-  const images3 = await fetchImageFromFile(50, 100)
-  const images4 = await fetchImageFromFile(50, 150)
-  const images5 = await fetchImageFromFile(50, 200)
+  const images1 = await fetchImageFromFile(100, 0)
+  const images2 = await fetchImageFromFile(100, 100)
+  const images3 = await fetchImageFromFile(100, 200)
+  const images4 = await fetchImageFromFile(100, 300)
+  const images5 = await fetchImageFromFile(100, 400)
   const items1 = await getRentalItems(100, 0)
   const items2 = await getRentalItems(100, 100)
   const items3 = await getRentalItems(100, 200)
-  const items4 = await getRentalItems(100, 0)
-  const items5 = await getRentalItems(100, 100)
-  const items6 = await getRentalItems(100, 200)
-  const items7 = await getRentalItems(100, 200)
-  const items8 = await getRentalItems(100, 200)
-  const items9 = await getRentalItems(100, 200)
-  const items10 = await getRentalItems(100, 200)
-  const items11 = await getRentalItems(100, 200)
-  const images = [
-    ...images1,
-    ...images2,
-    ...images3,
-    ...images4,
-    ...images5,
-  ]
+  const items4 = await getRentalItems(100, 300)
+  const items5 = await getRentalItems(100, 400)
+  const items6 = await getRentalItems(100, 500)
+  const items7 = await getRentalItems(100, 600)
+  const items8 = await getRentalItems(100, 700)
+  const items9 = await getRentalItems(100, 800)
+  const items10 = await getRentalItems(100, 900)
   const items = [
     ...items1.test.data.data,
     ...items2.test.data.data,
@@ -405,8 +395,15 @@ exports.sourceNodes = async ({
     ...items8.test.data.data,
     ...items9.test.data.data,
     ...items10.test.data.data,
-    ...items11.test.data.data,
   ]
+  const images = [
+    ...images1,
+    ...images2,
+    ...images3,
+    ...images4,
+    ...images5,
+  ]
+ 
 
   let completeMenuArr = []
 

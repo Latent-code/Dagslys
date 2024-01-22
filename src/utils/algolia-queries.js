@@ -18,7 +18,7 @@ query {
       }
       childFile {
         childImageSharp {
-          gatsbyImageData(quality: 100, placeholder: TRACED_SVG, layout: FULL_WIDTH)
+          gatsbyImageData(quality: 100, placeholder: DOMINANT_COLOR, layout: FULL_WIDTH)
         }
       }
     }
