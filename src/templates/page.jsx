@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useContext } from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { navigate } from "gatsby"
 import Breadcrumb from "../components/breadcrumb/breadcrumb"
-import Loading from "../components/loading/loading"
 import { Typography, Button } from "@mui/material"
 import { ActionButton } from "@adobe/react-spectrum"
-import ItemCounter from "../components/itemCounter/itemCounter"
 import RentalPageItem from "../components/rentalPage/rentalPageItem"
 import { AppContext } from "../context/appContext"
 

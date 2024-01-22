@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
 const SEO = ({ title, description, image, slug, children }) => {
-  const { site, favicon } = useStaticQuery(
+  const { site, favicon, logo } = useStaticQuery(
     graphql`
       query {
         site {
@@ -24,6 +24,9 @@ const SEO = ({ title, description, image, slug, children }) => {
         favicon: file(name: { eq: "favicon" }) {
           publicURL
         }
+        logo: file(name: { eq: "dagslys-logo" }) {
+          publicURL
+        }
       }
     `
   );
@@ -31,11 +34,8 @@ const SEO = ({ title, description, image, slug, children }) => {
   // const metaDescription = description || wp.generalSettings?.description
   // const defaultTitle = wp.generalSettings?.title
   const { siteMetadata } = site;
+  const imageConst = image ? siteMetadata.siteUrl + image : siteMetadata.siteUrl + logo.publicURL
 
-  console.log(
-    `${siteMetadata.siteUrl}${image}`,
-    `and: ${siteMetadata.siteUrl}/`
-  );
 
   return (
     <Helmet htmlAttributes={{ lang: `en` }} titleTemplate={`%s | ${title}`}>
@@ -50,7 +50,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       />
       <meta
         name="og:image"
-        content={`${siteMetadata.siteUrl}${image}`  || `${favicon.publicURL}`}
+        content={`${imageConst}`}
       />
       <meta name="og:type" content="website" />
       <meta
@@ -72,7 +72,7 @@ const SEO = ({ title, description, image, slug, children }) => {
       <meta name="twitter:description" content={description || siteMetadata.description} />
       <meta
         name="twitter:image"
-        content={`${siteMetadata.siteUrl}${image}`  || `${favicon.publicURL}`}
+        content={`${imageConst}`}
       />
 
       {children}
