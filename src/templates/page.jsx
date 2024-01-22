@@ -218,6 +218,7 @@ const Page = ({ pageContext, location }) => {
             {pageCategories ? pageCategories.map((item, index) => {
               return (
                 <div key={item.rentmanId}>
+                  {console.log(item)}
                   <Button
                     onClick={e => handleClick(item)}
                     sx={headerButtonStyle}
@@ -229,6 +230,7 @@ const Page = ({ pageContext, location }) => {
                   <div style={rentalItemFlex}>
                     {RentalData ? RentalData.map(i => {
                       if (item.rentmanId === i.parentFolderId) {
+                        {console.log(i)}
                         return (
                           <div className="page-flex" key={i.id}
                           >

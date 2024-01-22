@@ -56,6 +56,7 @@
 ## TODO´s
 
 ### Haster:
+- [ ] Gjøre page recursive, slik at alle items havner åpent under parent meny. F.eks Rigg, har underkategorier i underkategorier, så ingen items havner åpent i root (Rigg).
 - [ ] Flytte cart fra Local Storage til Firestore.
 - [ ] Inkludere Vehicles. vehicle page.jsx
 
