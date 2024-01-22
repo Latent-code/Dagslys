@@ -261,13 +261,13 @@ const CamerasPage = ({ location }) => {
 
   return (
     <>
+      <SEO
+        title="Dagslys rental portal home"
+        description="Dagslys rental portal, a tool for lighting designers to book their own equipment"
+      />
       {!isLoading ? (
         <>
           <div>
-            <SEO
-              title="Dagslys rental portal home"
-              description="Dagslys rental portal, a tool for lighting designers to book their own equipment"
-            />
             <Breadcrumb url={location.pathname} name={"Home"}></Breadcrumb>
             <Typography variant="h2">All equipment</Typography>
             <Line position={"flex-start"}></Line>
