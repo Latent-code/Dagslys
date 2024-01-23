@@ -85,7 +85,7 @@ const AppProvider = ({ children }) => {
             console.log(JSON.stringify(change.doc.data()) !== JSON.stringify(userData));
             if (JSON.stringify(change.doc.data()) !== JSON.stringify(userData)) {
               unsubscribe()
-              setSub(true)
+              // setSub(true)
             }
         }
         if (change.type === "removed") {
