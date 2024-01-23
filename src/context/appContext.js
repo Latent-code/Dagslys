@@ -36,8 +36,6 @@ const AppProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState("root");
-  const [sub, setSub] = useState(false)
-
 
 
   const handleClosePopup = (reason) =>
@@ -85,7 +83,6 @@ const AppProvider = ({ children }) => {
             console.log(JSON.stringify(change.doc.data()) !== JSON.stringify(userData));
             if (JSON.stringify(change.doc.data()) !== JSON.stringify(userData)) {
               unsubscribe()
-              // setSub(true)
             }
         }
         if (change.type === "removed") {
@@ -111,7 +108,7 @@ const AppProvider = ({ children }) => {
       console.log("unsubscribed!");
     };
   }
-  }, [databaseName, user, sub]);
+  }, [databaseName, user]);
 
 
   useEffect(() => {
