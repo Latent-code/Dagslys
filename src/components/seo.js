@@ -24,7 +24,7 @@ const SEO = ({ title, description, image, slug, children }) => {
         favicon: file(name: { eq: "favicon" }) {
           publicURL
         }
-        logo: file(name: { eq: "dagslys-og-imge" }) {
+        logo: file(name: { eq: "dagslys-logo" }) {
           publicURL
         }
       }
