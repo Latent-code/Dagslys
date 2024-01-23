@@ -69,8 +69,8 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
     removeFromCart(pageItem.brentRentalItem)
   }
   
-  console.log(pageItem.brentRentalItem.urlPath)
-  console.log(pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src)
+  // console.log(pageItem.brentRentalItem.urlPath)
+  // console.log(pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src)
 
   return (
     <div>

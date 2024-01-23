@@ -36,6 +36,7 @@ const AppProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState("root");
+  const [sub, setSub] = useState(false)
 
 
 
@@ -75,6 +76,22 @@ const AppProvider = ({ children }) => {
       where("email", "==", user ? user.email : "")
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+            console.log("Item added: ", change.doc.data());
+        }
+        if (change.type === "modified") {
+            console.log("Item modified: ", JSON.stringify(change.doc.data()));
+            console.log(JSON.stringify(change.doc.data()) !== JSON.stringify(userData));
+            if (JSON.stringify(change.doc.data()) !== JSON.stringify(userData)) {
+              unsubscribe()
+              setSub(true)
+            }
+        }
+        if (change.type === "removed") {
+            console.log("Item removed: ", change.doc.data());
+        }
+      });
       if (querySnapshot.empty && user) {
         
         addUser({ email: user.email, brentCollection: databaseName });
@@ -94,7 +111,7 @@ const AppProvider = ({ children }) => {
       console.log("unsubscribed!");
     };
   }
-  }, [databaseName, user]);
+  }, [databaseName, user, sub]);
 
 
   useEffect(() => {
