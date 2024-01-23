@@ -56,6 +56,7 @@
 ## TODO´s
 
 ### Haster:
+- [ ] SJEKK OM FIREBBASE MED TO TABS FORTSATT KJØRER READ/WRITE I 100 KMT
 - [ ] Gjøre page recursive, slik at alle items havner åpent under parent meny. F.eks Rigg, har underkategorier i underkategorier, så ingen items havner åpent i root (Rigg).
 
 - [ ] Flytte cart fra Local Storage til Firestore.
