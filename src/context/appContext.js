@@ -76,17 +76,16 @@ const AppProvider = ({ children }) => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       querySnapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-            console.log("Item added: ", change.doc.data());
+            // console.log("Item added: ", change.doc.data());
         }
         if (change.type === "modified") {
-            console.log("Item modified: ", JSON.stringify(change.doc.data()));
-            console.log(JSON.stringify(change.doc.data()) !== JSON.stringify(userData));
+            // console.log("Item modified: ", change.doc.data());
             if (JSON.stringify(change.doc.data()) !== JSON.stringify(userData)) {
               unsubscribe()
             }
         }
         if (change.type === "removed") {
-            console.log("Item removed: ", change.doc.data());
+            // console.log("Item removed: ", change.doc.data());
         }
       });
       if (querySnapshot.empty && user) {
