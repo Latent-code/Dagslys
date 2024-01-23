@@ -84,14 +84,14 @@ function Orders(props) {
       dragAndDropHooks={dragAndDropHooks}
     >
       <TableHeader columns={columns}>
-        {(column) => (
-          <Column
-            key={column.id}
-            align={column.id === "date" ? "end" : "start"}
-          >
-            {column.name}
-          </Column>
-        )}
+        <Column width="5%" key="itemId">
+          Id
+        </Column>
+        <Column width="13%" key="price">
+          price
+        </Column>
+        <Column key="name">Project Name</Column>
+        <Column key="remark">Project remark</Column>
       </TableHeader>
       <TableBody items={list.items}>
         {(item) => <Row>{(columnKey) => <Cell>{item[columnKey]}</Cell>}</Row>}
@@ -148,14 +148,14 @@ function SavedOrders(props) {
       dragAndDropHooks={dragAndDropHooks}
     >
       <TableHeader columns={columns}>
-        {(column) => (
-          <Column
-            key={column.id}
-            align={column.id === "date" ? "end" : "start"}
-          >
-            {column.name}
-          </Column>
-        )}
+        <Column width="5%" key="itemId">
+          Id
+        </Column>
+        <Column width="13%" key="price">
+          price
+        </Column>
+        <Column key="name">Project Name</Column>
+        <Column key="remark">Project remark</Column>
       </TableHeader>
       <TableBody items={list.items}>
         {(item) => <Row>{(columnKey) => <Cell>{item[columnKey]}</Cell>}</Row>}
