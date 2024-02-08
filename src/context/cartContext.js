@@ -25,7 +25,7 @@ const CartProvider = ({ children }) => {
 
   const getData = async (id, limit, offset) => {
     try {
-      const completeURL = `http://localhost:3000/api/fetch?endpoint=https://api.rentman.net/equipment/${id}&limit=${limit}&offset=${offset}`
+      const completeURL = `${process.env.GATSBY_API_URL}fetch?https://api.rentman.net/equipment/${id}&limit=${limit}&offset=${offset}`
 
       const response = await fetch(completeURL)
 
