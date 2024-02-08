@@ -12,7 +12,6 @@ function restructureFoldersAndItems (folders, items) {
   })
   console.log(completeMenuArr === test)
 
-  console.log("! REIEL FOLDERS INSIDE:",folders)
   folders.map((item, index) => {
     if (
       item.itemtype === "contact" ||

@@ -58,7 +58,7 @@ const Checkout = () => {
     removeItemFromCart,
   } = useContext(CartContext);
 
-  const { user, userData, setIsPopupOpen, handleClosePopup } =
+  const { user, userData, setIsPopupOpen, handleClosePopup, checkAuth } =
     useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
   const [projectName, setProjectName] = useState();
@@ -119,21 +119,21 @@ const Checkout = () => {
 
   // Gammel funksjon, Await.all gir en bedre opplevelse, hvis noe feiler. Da slipper vi at halve carten kommer til rentman, og resten bare blir borte.
   async function deleteProjectRequest(id) {
-    const url =
-      "https://corsproxy.io/?" +
-      encodeURIComponent(`https://api.rentman.net/projectrequests/${id}`);
-    const token = process.env.GATSBY_RENTMAN_API;
+    const authToken = checkAuth()
+    const url =encodeURIComponent(
+      `${process.env.GATSBY_API_URL}delete?endpoint=https://api.rentman.net/projectrequests/${id}`);
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${token}`);
+    var myHeaders = new Headers()
+    myHeaders.append("Content-Type", "application/json")
 
     var requestOptions = {
       method: "DELETE",
-      headers: myHeaders,
+      headers: {
+        Authorization: authToken,
+        "Content-Type": "application/json",
+      },
       redirect: "follow",
-    };
-
+    }
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -151,7 +151,6 @@ const Checkout = () => {
   //     encodeURIComponent(
   //       `https://api.rentman.net/projectrequests/${id}/projectrequestequipment`,
   //     )
-  //   const token = process.env.GATSBY_RENTMAN_API
 
   //   var myHeaders = new Headers()
   //   myHeaders.append("Content-Type", "application/json")
@@ -186,16 +185,6 @@ const Checkout = () => {
   // }
 
   async function addItemsToProject(id, fnCart) {
-    const url =
-      "https://corsproxy.io/?" +
-      encodeURIComponent(
-        `https://api.rentman.net/projectrequests/${id}/projectrequestequipment`
-      );
-    const token = process.env.GATSBY_RENTMAN_API;
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${token}`);
 
     const allItemResponse = await Promise.all(
       fnCart.map(async (item) => {
@@ -215,11 +204,13 @@ const Checkout = () => {
           order: "order",
         });
 
+        const authToken = await checkAuth()
+        const url = `${process.env.GATSBY_API_URL}post?endpoint=https://api.rentman.net/projectrequests/${id}/projectrequestequipment&projectData=${encodeURIComponent(cartItemData)}`;
+
         var requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: cartItemData,
-          redirect: "follow",
+          headers: {
+            Authorization: authToken
+          }
         };
 
         return fetch(url, requestOptions)
@@ -282,27 +273,22 @@ const Checkout = () => {
   async function createProjectRequest() {
     setIsLoading(true);
 
-    const url =
-      "https://corsproxy.io/?" +
-      encodeURIComponent("https://api.rentman.net/projectrequests/");
-    const token = process.env.GATSBY_RENTMAN_API;
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${token}`);
+    const authToken = await checkAuth()
 
     var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: projectData,
-      redirect: "follow",
+      headers: {
+        Authorization: authToken
+      }
     };
 
+    const url =`${process.env.GATSBY_API_URL}post?endpoint=https://api.rentman.net/projectrequests/&projectData=${encodeURIComponent(projectData)}`;
+    
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.log("RESULTAT",result)
 
-        addItemsToProject(result.data.id, cart);
+        addItemsToProject(result.body.data.id, cart)
         setIsLoading(false);
       })
       .then()
@@ -458,7 +444,7 @@ const Checkout = () => {
   }
 
   const getData = async (endpoint, limit, offset) => {
-    const completeURL = `${process.env.GATSBY_API_URL}endpoint=${endpoint}&limit=${limit}&offset=${offset}`;
+    const completeURL = `${process.env.GATSBY_API_URL}fetch?endpoint=${endpoint}&limit=${limit}&offset=${offset}`;
 
     try {
       const response = await fetch(completeURL, {
@@ -470,6 +456,7 @@ const Checkout = () => {
       }
 
       const data = await response.json();
+      console.log("DATA: ",data)
       return data;
     } catch (error) {
       console.error("Error in getData:", error.message);

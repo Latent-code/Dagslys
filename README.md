@@ -53,10 +53,11 @@
 
 - Index blir laget og gått gjennom under Gatsby Build prosessen. Mer info om hva som blir sendt dit finner man under utils/algolia-queries
 
-## TODO´s
 
+
+## TODO´s
 ### Haster:
-- [ ] SJEKK OM FIREBBASE MED TO TABS FORTSATT KJØRER READ/WRITE I 100 KMT
+- [ ] Pagination på alle sider, Dagslys har sykt mye varelinjer. Egentlig gjelder dette i menyen også...
 - [ ] Gjøre page recursive, slik at alle items havner åpent under parent meny. F.eks Rigg, har underkategorier i underkategorier, så ingen items havner åpent i root (Rigg).
 
 - [ ] Flytte cart fra Local Storage til Firestore.
@@ -120,6 +121,7 @@
 
 ### DONE:
 
+- [X] SJEKK OPP AUTH
 - [x] SEO er sett opp, kanskje ikke optimalt, her må vi se på hva som skjer med Live data, når alt er oppdatert.
 - [x] Fikse design på kategorier i "page.js" ser ikke helt topp ut...
 - [x] Skille mellom knappene, lenger linje?

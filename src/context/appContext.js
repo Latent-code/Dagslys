@@ -63,6 +63,23 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(true);
   };
 
+  const checkAuth = async () => {
+    try {
+      const idToken = await auth.currentUser.getIdToken(/* forceRefresh */ true);
+      // console.log(idToken);
+      return idToken;
+    } catch (error) {
+      console.log("Authentication issues: ", error);
+      setIsPopupOpen({
+        open: true,
+        message: "Authentication issues: " + error.message,
+        severity: "error",
+        closePopup: handleClosePopup,
+      });
+      // Handle error
+    }
+  }
+
   
   
   useEffect(() => {
@@ -187,7 +204,8 @@ const AppProvider = ({ children }) => {
     addUser,
     databaseName,
     selectedIndex,
-    setSelectedIndex
+    setSelectedIndex,
+    checkAuth
   };
 
   return <AppContext.Provider value={output}>{children}</AppContext.Provider>;

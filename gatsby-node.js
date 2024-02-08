@@ -316,7 +316,7 @@ async function getRentalItems() {
   async function fetchAll(limit, offset) {
     const items = [];
 
-    const token = process.env.GATSBY_RENTMAN_API;
+    const token = process.env.RENTMAN_API;
     let config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -364,7 +364,7 @@ async function getRentmanFolders() {
   async function fetchAll(limit, offset) {
     const items = [];
 
-    const token = process.env.GATSBY_RENTMAN_API;
+    const token = process.env.RENTMAN_API;
     let config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -411,7 +411,7 @@ async function fetchImageFromFile() {
   async function fetchAll(limit, offset) {
     const items = [];
 
-    const token = process.env.GATSBY_RENTMAN_API;
+    const token = process.env.RENTMAN_API;
     let config = {
       method: "get",
       maxBodyLength: Infinity,
