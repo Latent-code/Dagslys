@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { graphql, useStaticQuery, navigate } from "gatsby";
 import { Link } from "gatsby";
 import Layout from "../components/layout";
@@ -6,10 +6,10 @@ import SEO from "../components/seo";
 import ResponsiveDrawer from "../components/drawer/drawer";
 import { Button, Typography } from "@mui/material";
 import Line from "../components/line/line";
-
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
 import { CartContext } from "../context/cartContext";
-
+import PaginatedItemsWithProps from "../components/paginatedItemsWithProps/paginatedItemsWithProps";
+import Pagination from "@mui/material/Pagination";
 import ItemCounter from "../components/itemCounter/itemCounter";
 
 // import { firebase } from "../utils/firebase"
@@ -97,6 +97,8 @@ const CamerasPage = ({ location }) => {
     display: "flex",
     flexWrap: "wrap",
     gap: "0 6em",
+    flexDirection: "column",
+    alignItems: "flex-start",
   };
   const imageStyle = {
     margin: "1rem 1rem 1rem 1rem",
@@ -259,6 +261,113 @@ const CamerasPage = ({ location }) => {
     return arr.sort((a, b) => a.order - b.order);
   };
 
+  const Paginate = ({ array, item, pageSize }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handleChange = (event, value) => {
+      setCurrentPage(value);
+    };
+
+    const currentViewData = useMemo(() => {
+      const firstPageIndex = (currentPage - 1) * pageSize;
+      const lastPageIndex = firstPageIndex + pageSize;
+      return array.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
+
+    return (
+      <Pagination
+        sx={{
+          margin: "1em 0",
+          color: "black",
+          button: { color: "primary" },
+        }}
+        count={Math.ceil(array.length / pageSize)}
+        page={currentPage}
+        onChange={handleChange}
+        color="secondary"
+        variant="outlined"
+      />
+    );
+  };
+
+  // item={item}
+  // index={index}
+  // array={children[index]}
+  // const PageRentalItems = ({ item, array }) => {
+  //   const pageSize = 10;
+
+  //   const [currentPage, setCurrentPage] = useState(1);
+
+  //   const handleChange = (event, value) => {
+  //     setCurrentPage(value);
+  //   };
+
+  //   const currentViewData = useMemo(() => {
+  //     const firstPageIndex = (currentPage - 1) * pageSize;
+  //     const lastPageIndex = firstPageIndex + pageSize;
+  //     return array.slice(firstPageIndex, lastPageIndex);
+  //   }, [currentPage]);
+
+  //   // console.log(children[index])
+  //   return !(array.length <= pageSize) ? (
+  //     <>
+  //       <Button
+  //         onClick={(e) => navigate("/rental" + item.urlPath)}
+  //         style={headerButtonStyle}
+  //         variant="text"
+  //       >
+  //         {item.displayname}
+  //       </Button>
+  //         <Pagination
+  //           sx={{
+  //             margin: "1em 0",
+  //             color: "black",
+  //             button: { color: "primary" },
+  //           }}
+  //           count={Math.ceil(array.length / pageSize)}
+  //           page={currentPage}
+  //           onChange={handleChange}
+  //           color="secondary"
+  //           variant="outlined"
+  //         />
+  //       <div className="page-flex">
+  //         {currentViewData.map((rentalItem) => {
+  //           // console.log(children[index])
+  //           return (
+  //             <RentalPageItem
+  //               key={rentalItem.id}
+  //               menuChildren={rentalItem}
+  //               variant="standard"
+  //             />
+  //           );
+  //         })}
+  //       </div>
+  //     </>
+  //   ) : (
+  //     <>
+  //       <Button
+  //         onClick={(e) => navigate("/rental" + item.urlPath)}
+  //         style={headerButtonStyle}
+  //         variant="text"
+  //       >
+  //         {item.displayname}
+  //       </Button>
+  //       <div className="page-flex">
+  //         {currentViewData.map((rentalItem) => {
+  //           // console.log(children[index])
+  //           return (
+  //             <RentalPageItem
+  //               key={rentalItem.id}
+  //               menuChildren={rentalItem}
+  //               variant="standard"
+  //             />
+  //           );
+  //         })}
+  //       </div>
+  //     </>
+  //   );
+  
+
   return (
     <>
       <SEO
@@ -292,26 +401,97 @@ const CamerasPage = ({ location }) => {
                 //   )
                 // } else {
                 return (
-                  <div key={item.id}>
-                    <Button
-                      onClick={(e) => navigate(item.urlPath)}
-                      sx={headerButtonStyle}
-                      variant="outlined"
-                      color="secondary"
-                    >
-                      {item.displayname}
-                    </Button>
-                    <div className="page-flex">
-                      {children[index].map((rentalItem) => {
-                        return (
-                          <RentalPageItem
-                            key={rentalItem.id}
-                            menuChildren={rentalItem}
+                  <PaginatedItemsWithProps
+                    array={children[index]}
+                    renderItems={(array, pageSize, currentPage, handleChange, currentViewData) => {
+                      return !(array.length <= pageSize) ? (
+                        <>
+                          <Button
+                            onClick={(e) => navigate("/rental" + item.urlPath)}
+                            style={headerButtonStyle}
+                            variant="text"
+                          >
+                            {item.displayname}
+                          </Button>
+                          <Pagination
+                            sx={{
+                              margin: "1em 0",
+                              color: "black",
+                              button: { color: "primary" },
+                            }}
+                            count={Math.ceil(array.length / pageSize)}
+                            page={currentPage}
+                            onChange={handleChange}
+                            color="secondary"
+                            variant="outlined"
                           />
-                        );
-                      })}
-                    </div>
-                  </div>
+                          <div className="page-flex">
+                            {currentViewData.map((rentalItem) => {
+                              // console.log(children[index])
+                              return (
+                                <RentalPageItem
+                                  key={rentalItem.id}
+                                  menuChildren={rentalItem}
+                                  variant="standard"
+                                />
+                              );
+                            })}
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            onClick={(e) => navigate("/rental" + item.urlPath)}
+                            style={headerButtonStyle}
+                            variant="text"
+                          >
+                            {item.displayname}
+                          </Button>
+                          <div className="page-flex">
+                            {currentViewData.map((rentalItem) => {
+                              // console.log(children[index])
+                              return (
+                                <RentalPageItem
+                                  key={rentalItem.id}
+                                  menuChildren={rentalItem}
+                                  variant="standard"
+                                />
+                              );
+                            })}
+                          </div>
+                        </>
+                      );
+                    }}
+                  ></PaginatedItemsWithProps>
+                  // <div key={item.id}>
+                  //   <Button
+                  //     onClick={(e) => navigate(item.urlPath)}
+                  //     sx={headerButtonStyle}
+                  //     variant="outlined"
+                  //     color="secondary"
+                  //   >
+                  //     {item.displayname}
+                  //   </Button>
+                  //   {/* <Paginate
+                  //       arrayLength={children}
+                  //       item={item}
+                  //       pageSize={15}
+                  //       array
+                  //       index={index}
+                  //     >
+
+                  //     </Paginate> */}
+                  //   <div className="page-flex">
+                  //     {children[index].map((rentalItem) => {
+                  //       return (
+                  //         <RentalPageItem
+                  //           key={rentalItem.id}
+                  //           menuChildren={rentalItem}
+                  //         />
+                  //       );
+                  //     })}
+                  //   </div>
+                  // </div>
                 );
                 // }
               })}

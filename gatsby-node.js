@@ -328,7 +328,6 @@ async function getRentalItems() {
 
     try {
       const response = await axios.request(config);
-
       // Check if the response has data property and data is an array
       if (response.data && Array.isArray(response.data.data)) {
         items.push(...response.data.data);

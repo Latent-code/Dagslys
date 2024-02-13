@@ -59,21 +59,85 @@ const CustomizedListItemButton = styled(ListItemButton)`
 
 const drawerWidth = 300
 
+
 function ResponsiveDrawer(props, cameraQuery) {
-  const theme = useTheme()
-  const {setSelectedIndex, selectedIndex} = useContext(AppContext)
-  const { window, data, menuData, children, menuOpen, location } = props
-  const [isLoading, setIsLoading] = React.useState(true)
 
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [menu, setMenu] = React.useState(false)
-  const [rentalItems, setRentalItems] = React.useState(false)
 
-  const [searchOpen, setIsSearchOpen] = React.useState(false)
+const graphiqlData = useStaticQuery(graphql`
+query TEST {
+  allBrentRentalItem {
+    nodes {
+      displayname
+      id
+      image
+      name
+      rentmanId
+      shop_description_long
+      shop_description_short
+      title
+      in_shop
+      folder
+      urlPath
+      pageLinkBrent
+      childFile {
+        childImageSharp {
+          gatsbyImageData(
+            quality: 100
+            placeholder: DOMINANT_COLOR
+            layout: FULL_WIDTH
+          )
+        }
+      }
+    }
+  }
+  allBrentRentalFolder {
+    nodes {
+      displayname
+      id
+      urlPath
+      name
+      rentmanId
+      title
+      path
+      itemtype
+      order
+      pageLinkBrent
+      menuParentBrent
+    }
+  }
+}
+`)
 
-  useEffect(() => {
+
+let FolderData = graphiqlData.allBrentRentalFolder.nodes
+let RentalData = graphiqlData.allBrentRentalItem.nodes
+
+
+const theme = useTheme()
+const {setSelectedIndex, selectedIndex} = useContext(AppContext)
+const { window, data, menuData, children, menuOpen, location } = props
+const [isLoading, setIsLoading] = React.useState(true)
+
+const [mobileOpen, setMobileOpen] = React.useState(false)
+const [menu, setMenu] = React.useState(false)
+const [rentalItems, setRentalItems] = React.useState(false)
+
+const [searchOpen, setIsSearchOpen] = React.useState(false)
+
+useEffect(() => {
+  console.log(RentalData)
+  if (RentalData && FolderData) {
     setIsLoading(false)
-  }, [])
+  } else {
+    setIsLoading(true)
+
+  }
+  
+},[FolderData, RentalData])
+
+  // useEffect(() => {
+  //   setIsLoading(false)
+  // }, [])
 
   const searchClickListener = () => {
     setIsSearchOpen(prevValue => !prevValue)
@@ -139,7 +203,7 @@ function ResponsiveDrawer(props, cameraQuery) {
             <SearchIcon variant="outlined" />
           </IconButton> */}
         </CustomizedListItemButton>
-        <Menu menu={menu} setMenu={setMenu}></Menu>
+        <Menu FolderData={FolderData} RentalData={RentalData} menu={menu} setMenu={setMenu}></Menu>
 
         {/* {menuData.map(item => {
           return (
@@ -188,7 +252,7 @@ function ResponsiveDrawer(props, cameraQuery) {
             <SearchIcon variant="outlined" />
           </IconButton> */}
         </CustomizedListItemButton>
-        <Menu menu={menu} setMenu={setMenu}></Menu>
+        <Menu FolderData={FolderData} RentalData={RentalData} menu={menu} setMenu={setMenu}></Menu>
         {/* <CartMenu mobile={true}></CartMenu> */}
 
       </List>

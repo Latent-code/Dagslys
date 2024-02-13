@@ -4,60 +4,63 @@ import Loading from "../loading/loading"
 
 import MenuItem from "./menuItem"
 
-const Menu = ({ setMenu, menu }) => {
-  const graphiqlData = useStaticQuery(graphql`
-    query TEST {
-      allBrentRentalItem {
-        nodes {
-          displayname
-          id
-          image
-          name
-          rentmanId
-          shop_description_long
-          shop_description_short
-          title
-          in_shop
-          folder
-          urlPath
-          pageLinkBrent
-          childFile {
-            childImageSharp {
-              gatsbyImageData(
-                quality: 100
-                placeholder: DOMINANT_COLOR
-                layout: FULL_WIDTH
-              )
-            }
-          }
-        }
-      }
-      allBrentRentalFolder {
-        nodes {
-          displayname
-          id
-          urlPath
-          name
-          rentmanId
-          title
-          path
-          itemtype
-          order
-          pageLinkBrent
-          menuParentBrent
-        }
-      }
-    }
-  `)
+const Menu = ({ setMenu, menu, graphiqlData, FolderData, RentalData }) => {
+  // const graphiqlData = useStaticQuery(graphql`
+  //   query TEST {
+  //     allBrentRentalItem {
+  //       nodes {
+  //         displayname
+  //         id
+  //         image
+  //         name
+  //         rentmanId
+  //         shop_description_long
+  //         shop_description_short
+  //         title
+  //         in_shop
+  //         folder
+  //         urlPath
+  //         pageLinkBrent
+  //         childFile {
+  //           childImageSharp {
+  //             gatsbyImageData(
+  //               quality: 100
+  //               placeholder: DOMINANT_COLOR
+  //               layout: FULL_WIDTH
+  //             )
+  //           }
+  //         }
+  //       }
+  //     }
+  //     allBrentRentalFolder {
+  //       nodes {
+  //         displayname
+  //         id
+  //         urlPath
+  //         name
+  //         rentmanId
+  //         title
+  //         path
+  //         itemtype
+  //         order
+  //         pageLinkBrent
+  //         menuParentBrent
+  //       }
+  //     }
+  //   }
+  // `)
 
   const [isLoading, setIsLoading] = React.useState(true)
   const hiddenItems = [251, 45, 46, 47]
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   let completeMenuArr = []
-
-  let FolderData = graphiqlData.allBrentRentalFolder.nodes
-  let RentalData = graphiqlData.allBrentRentalItem.nodes
+  useEffect(() => {
+    
+    console.log("rerendered!!! !!! !  ! ! ! ! ! ! ! ! ! ! !")
+  },[])
+  // let FolderData = graphiqlData.allBrentRentalFolder.nodes
+  // let RentalData = graphiqlData.allBrentRentalItem.nodes
 
   const fixMenu = () => {
     // Change folder and parent to a number, not string

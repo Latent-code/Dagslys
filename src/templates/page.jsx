@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, memo } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { navigate } from "gatsby"
 import Breadcrumb from "../components/breadcrumb/breadcrumb"
@@ -7,14 +7,20 @@ import { ActionButton } from "@adobe/react-spectrum"
 import RentalPageItem from "../components/rentalPage/rentalPageItem"
 import { AppContext } from "../context/appContext"
 
+import Pagination from "@mui/material/Pagination";
+import PaginatedItemsWithProps from "../components/paginatedItemsWithProps/paginatedItemsWithProps";
+
+
 import SEO from "../components/seo"
 
 import "./page.css"
 import Line from "../components/line/line"
+// let count = 0;
 
 
-const Page = ({ pageContext, location }) => {
-
+const Page = memo(({ pageContext, location }) => {
+  // count++;
+  // console.log("component render number: ", count);
   const rentalItemFlex = {
     display: "flex",
     columnGap: "10px",
@@ -149,8 +155,6 @@ const Page = ({ pageContext, location }) => {
     setIsLoading(false)
   }
 
-
-
   const currentPageId = pageContext.page.id
   useEffect(() => {
     fixMenu()
@@ -176,7 +180,7 @@ const Page = ({ pageContext, location }) => {
     setSelectedIndex(item.id)
     navigate(item.urlPath)
   }
-  console.log(pageContext.pageLinkBrent)
+
   return (
     <div>
       {
@@ -187,7 +191,7 @@ const Page = ({ pageContext, location }) => {
             title={pageContext.page.name}
             description={pageContext.page.name}
             slug={pageContext.pageLinkBrent}
-            />
+          />
           <div>
             {pageCategories ? pageCategories.map((item, index) => {
               if (item.parentFolderId === currentPageId) {
@@ -213,9 +217,10 @@ const Page = ({ pageContext, location }) => {
           <Line position={"flex-start"}></Line>
           <div >
             {pageCategories ? pageCategories.map((item, index) => {
+
+              //  IF THERE ARE SUBCATEGORIES, THIS RENDERS
               return (
                 <div key={item.rentmanId}>
-                  {console.log(item)}
                   <Button
                     onClick={e => handleClick(item)}
                     sx={headerButtonStyle}
@@ -227,7 +232,6 @@ const Page = ({ pageContext, location }) => {
                   <div style={rentalItemFlex}>
                     {RentalData ? RentalData.map(i => {
                       if (item.rentmanId === i.parentFolderId) {
-                        {console.log(i)}
                         return (
                           <div className="page-flex" key={i.id}
                           >
@@ -248,8 +252,46 @@ const Page = ({ pageContext, location }) => {
               : <></>
             }
           </div>
-          <div className="page-flex-header main-menu">
-            {pageItems ? pageItems.map(item => {
+          {pageItems ? <PaginatedItemsWithProps
+            array={pageItems}
+            renderItems={(array, pageSize, currentPage, handleChange, currentViewData) => {
+              return (
+                <div>
+                  <Pagination
+                    sx={{
+                      margin: "1em 0",
+                      color: "black",
+                      button: { color: "primary" },
+                    }}
+                    count={Math.ceil(array.length / pageSize)}
+                    page={currentPage}
+                    onChange={handleChange}
+                    color="secondary"
+                    variant="outlined"
+                  />
+                  <div className="page-flex-header main-menu">
+                    {currentViewData.map(item => {
+
+                      //THEESE ARE CHILDREN OF A PAGE WITH ITEMS
+                      if (item.parentFolderId === currentPageId) {
+                        return (
+                          <div key={item.id}
+                          >
+                            <RentalPageItem
+                              menuChildren={item}
+                            />
+                            {/* <ItemCounter /> */}
+                          </div>
+                        )
+                      }
+                    })}
+                  </div>
+                </div>
+              )
+            }
+            }></PaginatedItemsWithProps> : <></>}
+          {/* {pageItems ? pageItems.map(item => {
+
               if (item.parentFolderId === currentPageId) {
                 return (
                   <div key={item.id}
@@ -257,21 +299,17 @@ const Page = ({ pageContext, location }) => {
                     <RentalPageItem
                       menuChildren={item}
                     />
-                    {/* <ItemCounter /> */}
                   </div>
                 )
               }
-            })
-              : <></>
-            }
+            }) */}
 
 
-          </div>
-        </div>
+        </div >
 
       }
-    </div>
+    </div >
   )
-}
+})
 
 export default Page

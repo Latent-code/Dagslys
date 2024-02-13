@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, memo } from "react";
 import { navigate, useLocation } from "@reach/router";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -8,7 +8,7 @@ import Collapse from "@mui/material/Collapse";
 import { Link } from "gatsby";
 import { useTheme } from "@mui/material";
 import { AppContext } from "../../context/appContext";
-const MenuItem = ({ item}) => {
+const MenuItem = memo(({ item}) => {
   const theme = useTheme()
   const { selectedIndex, setSelectedIndex } = useContext(AppContext);
 
@@ -102,7 +102,7 @@ const MenuItem = ({ item}) => {
               sx={{ paddingLeft: "0.5rem" }}
               in={isVisible}
               timeout="auto"
-              unmountOnExit
+              unmountOnExit={false}
               color="secondary"
             >
               {isVisible &&
@@ -152,6 +152,6 @@ const MenuItem = ({ item}) => {
       )}
     </>
   );
-};
+});
 
 export default MenuItem;
