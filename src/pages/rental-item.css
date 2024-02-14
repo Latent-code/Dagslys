@@ -12,9 +12,11 @@
     flex-direction: column-reverse;
   }
 
-  div.gatsby-image-wrapper {
+  div.gatsby-image-wrapper[data-gatsby-image-wrapper] {
     max-width: 80vw !important;
     padding-bottom: 0 !important;
+    height: 65px !important;
+
   }
 
   #image-parent-div {
