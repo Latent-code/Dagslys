@@ -288,7 +288,7 @@ useEffect(() => {
 
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Drawer
-              PaperProps={{ style: { maxWidth: "70%" } }}
+              PaperProps={{ style: { maxWidth: "70%", backgroundColor: "#171E22" } }}
               container={container}
               variant="temporary"
               open={mobileOpen}
