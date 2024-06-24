@@ -407,7 +407,7 @@ const CamerasPage = ({ location }) => {
                       return !(array.length <= pageSize) ? (
                         <>
                           <Button
-                            onClick={(e) => navigate("/rental" + item.urlPath)}
+                            onClick={(e) => navigate(item.urlPath)}
                             style={headerButtonStyle}
                             variant="text"
                           >
@@ -441,7 +441,7 @@ const CamerasPage = ({ location }) => {
                       ) : (
                         <>
                           <Button
-                            onClick={(e) => navigate("/rental" + item.urlPath)}
+                            onClick={(e) => navigate(item.urlPath)}
                             style={headerButtonStyle}
                             variant="text"
                           >
