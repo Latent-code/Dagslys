@@ -162,6 +162,8 @@ exports.onCreateNode = async ({
   if (node.internal.type === "BrentRentalItem" && node.imageContent) {
     const { createNode, createNodeField, createParentChildLink } = actions
 
+    console.log("REIEL", node)
+
     /* Download the image and create the File node. Using gatsby-plugin-sharp and gatsby-transformer-sharp the node will become an ImageSharp. */
     const fileNode = await createRemoteFileNode({
       url: node.imageContent.url, // string that points to the URL of the image
@@ -229,11 +231,11 @@ exports.sourceNodes = async ({
     folders,
     items,
     )
-    console.log("REIEL2 folders before",folders)
+    // console.log("REIEL2 folders before",folders)
     
     
     // console.log("REIEL items function",editItems)
-    console.log("REIEL2 folders function",editFolders)
+    // console.log("REIEL2 folders function",editFolders)
    
   editFolders.forEach(item => {
     // console.log(item)
