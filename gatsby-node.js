@@ -416,7 +416,7 @@ async function fetchImageFromFile() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://api.rentman.net/files?type[neq]=application/pdf&limit=${limit}&offset=${offset}`,
+      url: `https://api.rentman.net/files?itemtype=Materiaal&limit=${limit}&offset=${offset}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

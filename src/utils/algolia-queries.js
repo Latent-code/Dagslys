@@ -31,7 +31,7 @@ const queries = [
     query: myQuery,
     queryVariables: {}, // optional. Allows you to use graphql query variables in the query
     transformer: ({ data }) => data.RentalItems.nodes, // optional
-    indexName: 'dev_dagslys', // overrides main index name, optional
+    indexName: 'dagslys', // overrides main index name, optional
     settings: {
       attributesToSnippet: ["content:30"],
       snippetEllipsisText: "...",
