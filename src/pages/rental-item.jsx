@@ -83,7 +83,7 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
       <Breadcrumb url={location.pathname} name={pageItem.brentRentalItem?.displayname}></Breadcrumb>
       <Typography variant="h2">{pageItem.brentRentalItem?.displayname}</Typography>
       <div style={inlineFlex}>
-        {pageItem.brentRentalItem?.childFile?.childImageSharp.gatsbyImageData != null ? (
+        {pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData != null ? (
           <ImageContainer>
             <GatsbyImage
               image={
