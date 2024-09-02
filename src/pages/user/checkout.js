@@ -942,7 +942,7 @@ const Checkout = () => {
               isRequired={true}
             />
             <DatePicker label="Dropoff date" value={end} onChange={setEnd} /> */}
-            <DateRangePicker
+            {/* <DateRangePicker
               label="Check-out / Check-in"
               granularity="day"
               isRequired={true}
@@ -952,7 +952,7 @@ const Checkout = () => {
                 end: parseAbsoluteToLocal("2023-12-08T14:25:00Z"),
               }}
               onChange={setDate}
-            />
+            /> */}
           </Flex>
           <TextField
                     isDisabled

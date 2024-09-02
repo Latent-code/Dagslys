@@ -19,6 +19,7 @@ const SearchHitPreview = (hits, mouseEnter, setOpen, setIsSearchdEmpty) => {
   const hoverHit = () => {
     mouseEnter(hit)
   }
+  console.log(hit)
   return (
     <div key={hit} style={mainStyle}>
       <Button

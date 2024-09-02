@@ -1,6 +1,18 @@
 let hiddenItems = [251, 45, 46, 47]
 
-function restructureFoldersAndItems (folders, items) {
+const slugify = (name) => {
+  return name
+    .toString()
+    .normalize("NFD") // Normalize to handle special Unicode characters
+    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+    .replace(/[^a-zA-Z0-9\s-]/g, "") // Remove all non-alphanumeric characters except spaces and hyphens
+    .trim() // Trim leading and trailing spaces
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Replace multiple hyphens with a single hyphen
+    .toLowerCase(); // Convert to lowercase
+};
+
+function restructureFoldersAndItems(folders, items) {
   let completeMenuArr = []
   let testArr = []
 
@@ -10,7 +22,7 @@ function restructureFoldersAndItems (folders, items) {
       completeMenuArr.push(item)
     }
   })
-  console.log(completeMenuArr === test)
+  // console.log(completeMenuArr === test)
 
   folders.map((item, index) => {
     if (
@@ -58,15 +70,34 @@ function restructureFoldersAndItems (folders, items) {
     }
   let finalMenu = menuSort.reduce(shop, [])
 
-  function setPath(o) {
-    o.urlPath = this.concat(
-      "/",
-      o.name.replaceAll(" ", "-").replaceAll("|", "").toLowerCase(),
-    )
-    Array.isArray(o.children) && o.children.forEach(setPath, o.urlPath)
-  }
+  
 
-  finalMenu.map(i => setPath.bind("")(i))
+  function setPath(o, basePath = '') {
+    // Determine the name based on custom fields or default to the regular name
+    const nameVar = o.name;
+
+    // Sanitize the name to create a URL-friendly version
+    const sanitizedPart = slugify(o.name)
+
+    // nameVar
+    //     .replaceAll(" ", "-")
+    //     .replaceAll("|", "")
+    //     .replaceAll("/", "-")  // Replace slashes to avoid directory misinterpretation
+    //     .toLowerCase();
+
+    // Concatenate the base path with the sanitized part to form the full URL path
+    o.urlPath = `${basePath}/${sanitizedPart}`.replace(/\/\//g, '/'); // Remove any double slashes
+
+    // console.log("Current URL Path:", o.urlPath);  // Debugging output
+
+    // Recursively apply this function to all children, passing the current item's URL as the new base path
+    if (Array.isArray(o.children) && o.children.length > 0) {
+        o.children.forEach(child => setPath(child, o.urlPath));
+    }
+}
+
+// Assuming `finalMenu` is the root level array from where the paths should start
+finalMenu.forEach(item => setPath(item));
   // completeMenuArr.map(i => console.log("REIEL", i))
 
   const flatten = members => {
@@ -98,5 +129,4 @@ function restructureFoldersAndItems (folders, items) {
     editItems,
   }
 }
-module.exports = { restructureFoldersAndItems };
-
+module.exports = { restructureFoldersAndItems }

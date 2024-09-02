@@ -4,8 +4,10 @@
 
 require("dotenv").config({
   // path: `.env.${process.env.NODE_ENV}`
-})
-const queries = require('./src/utils/algolia-queries')
+});
+const queries = require("./src/utils/algolia-queries");
+
+const path = require("path"); // Add this line to import the path module
 
 module.exports = {
   siteMetadata: {
@@ -14,6 +16,9 @@ module.exports = {
     twitterUsername: `@gatsbyjs`,
     image: `/gatsby-icon.png`,
     siteUrl: process.env.GATSBY_SITE_URL,
+  },
+  flags: {
+    DEV_SSR: true
   },
   plugins: [
     "gatsby-plugin-image",
@@ -35,6 +40,12 @@ module.exports = {
       __key: "images",
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/gatsby-config.js`,
+      },
+    },
+    {
       // See https://www.gatsbyjs.com/plugins/gatsby-plugin-manifest/?=gatsby-plugin-manifest
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -44,7 +55,7 @@ module.exports = {
         background_color: `#171E22`,
         theme_color: `#171E22`,
         display: `minimal-ui`,
-        icon: `content/assets/favicon.png` ,
+        icon: `content/assets/favicon.png`,
       },
     },
     {
@@ -60,12 +71,11 @@ module.exports = {
           {
             name: `Poppins`,
             file: `https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap`,
-            
           },
         ],
       },
     },
-     
+
     {
       // This plugin must be placed last in your list of plugins to ensure that it can query all the GraphQL data
       resolve: `gatsby-plugin-algolia`,
@@ -77,7 +87,6 @@ module.exports = {
         queries,
         chunkSize: 10000, // default: 1000
         settings: {
-
           // optional, any index settings
           // Note: by supplying settings, you will overwrite all existing settings on the index
         },
@@ -88,6 +97,13 @@ module.exports = {
         algoliasearchOptions: undefined, // default: { timeouts: { connect: 1, read: 30, write: 30 } }, pass any different options to the algoliasearch constructor
       },
     },
+    // {
+    //   resolve: path.resolve(__dirname, 'plugins/gatsby-source-custom-images'),
+    //   options: {
+    //     name: 'images',
+    //     path: `${__dirname}/src/images`, // or any other path you need
+    //   },
+    // },
     {
       resolve: "gatsby-plugin-firebase-v9.0",
       options: {
@@ -98,11 +114,10 @@ module.exports = {
           storageBucket: process.env.GATSBY_FIREBASE_STORAGE_BUCKET,
           messagingSenderId: process.env.GATSBY_FIREBASE_MESSAGE_ID,
           appId: process.env.GATSBY_FIREBASE_APP_ID,
-          measurementId: process.env.GATSBY_FIREBASE_MEASURE
-        }
-      }
+          measurementId: process.env.GATSBY_FIREBASE_MEASURE,
+        },
+      },
     },
-    
 
     // See https://www.gatsbyjs.com/plugins/gatsby-plugin-react-helmet/?=gatsby-plugin-react-helmet
     `gatsby-plugin-react-helmet`,

@@ -1,0 +1,9 @@
+{
+  "name": "gatsby-source-custom-image",
+  "version": "1.0.0",
+  "main": "gatsby-node.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "gatsby-source-filesystem": "^3.0.0"
+  }
+}

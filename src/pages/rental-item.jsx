@@ -3,33 +3,26 @@ import { graphql } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import { Typography } from "@mui/material"
 import SEO from "../components/seo"
-
 import Line from "../components/line/line"
 import ImageContainer from "../components/imageContainer/imageContainer"
 import "./rental-item.css"
 import Breadcrumb from "../components/breadcrumb/breadcrumb"
-
 import { CartContext } from "../context/cartContext"
 import { AppContext } from "../context/appContext"
 import ItemCounter from "../components/itemCounter/itemCounter"
 
-
-
 const imageStyle = {
   width: "100vw",
-  maxWidth: "20vw"
+  maxWidth: "20vw",
 }
 
 const articleStyle = {
-  // borderRadius: "1rem 1rem 1rem 1rem",
-  padding: "1rem 1rem 1rem 1rem",
-  // border: "1px solid #EB5931",
-  backgroundColor: "white"
+  padding: "1rem",
+  backgroundColor: "white",
 }
 
-
 const secondFlex = {
-  margin: ".5em 0 .5em 0",
+  margin: ".5em 0",
   display: "flex",
   alignItems: "flex-start",
   flexDirection: "row",
@@ -40,56 +33,48 @@ const inlineFlex = {
   alignItems: "center",
 }
 
-
-const EquipmentItem = ({ data, location, pageContext: { post } }) => {
+const EquipmentItem = ({ data, location }) => {
   const { cart, addToCart, removeFromCart } = useContext(CartContext)
   const { user } = useContext(AppContext)
-  const [quantity, setQuantity] = useState()
+  const [quantity, setQuantity] = useState(0)
 
-  const pageItem = data
+  const { brentRentalItem } = data
 
   useEffect(() => {
-    const isItemInCart = cart.find(
-      cartItem => cartItem.rentmanId === pageItem.brentRentalItem.rentmanId,
-    ) // check if the item is already in the cart
-    if (isItemInCart) {
-      cart.map(cartItem => {
-        if (cartItem.rentmanId == pageItem.brentRentalItem.rentmanId) {
-          setQuantity(cartItem.quantity)
-        }
-      })
-    } else {
-      setQuantity(0)
+    if (brentRentalItem) {
+      const cartItem = cart.find(item => item.rentmanId === brentRentalItem.rentmanId);
+      setQuantity(cartItem ? cartItem.quantity : 0);
     }
-  }, [cart])
-  const addItem = (setQuantity) => {
-    addToCart(pageItem.brentRentalItem, setQuantity)
+  }, [cart, brentRentalItem?.rentmanId]);
+
+  const addItem = () => {
+    addToCart(brentRentalItem, setQuantity)
   }
+
   const removeItem = () => {
-    removeFromCart(pageItem.brentRentalItem)
+    removeFromCart(brentRentalItem)
   }
-  
-  // console.log(pageItem.brentRentalItem.urlPath)
-  // console.log(pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src)
+
+  console.log(data)
+  const imageData =
+    brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData
 
   return (
     <div>
-      <SEO 
-        title={pageItem.brentRentalItem?.displayname}
-        description={pageItem.brentRentalItem?.shop_description_long || pageItem.brentRentalItem?.displayname}
-        image={pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src || ""}
-        slug={pageItem.brentRentalItem.urlPath}
-        ></SEO>
-      <Breadcrumb url={location.pathname} name={pageItem.brentRentalItem?.displayname}></Breadcrumb>
-      <Typography variant="h2">{pageItem.brentRentalItem?.displayname}</Typography>
+      <SEO
+        title={brentRentalItem?.displayname}
+        description={brentRentalItem?.shop_description_long || brentRentalItem?.displayname}
+        image={imageData?.images?.fallback?.src || ""}
+        slug={brentRentalItem.urlPath}
+      />
+      <Breadcrumb url={location.pathname} name={brentRentalItem?.displayname} />
+      <Typography variant="h2">{brentRentalItem?.displayname}</Typography>
       <div style={inlineFlex}>
-        {pageItem.brentRentalItem?.childFile?.childImageSharp?.gatsbyImageData != null ? (
+        {imageData ? (
           <ImageContainer>
             <GatsbyImage
-              image={
-                pageItem.brentRentalItem.childFile.childImageSharp.gatsbyImageData
-              }
-              alt={pageItem.brentRentalItem.displayname}
+              image={imageData}
+              alt={brentRentalItem.displayname}
               style={imageStyle}
               imgStyle={{ objectFit: "contain" }}
             />
@@ -100,26 +85,29 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
             alt="no image present"
             style={imageStyle}
             imgStyle={{ objectFit: "contain" }}
-          ></StaticImage>
+          />
         )}
       </div>
       <Line width={"100vw"} />
-      <div style={{ width: "20%" }}>{user ?
-        <ItemCounter
-          price={pageItem.brentRentalItem.price}
-          addItem={addItem}
-          removeFromCart={removeItem}
-          quantity={quantity}
-          full
-          quiet={false}
-        /> : <></>}</div>
-
-
-      {/* <h5>{pageItem.brentRentalItem.shop_description_short}</h5> */}
-      <div style={{ marginTop: "2rem" }}>
-        <p dangerouslySetInnerHTML={{ __html: pageItem.brentRentalItem?.shop_description_long }} />
+      <div style={{ width: "20%" }}>
+        {user && (
+          <ItemCounter
+            price={brentRentalItem.price}
+            addItem={addItem}
+            removeFromCart={removeItem}
+            quantity={quantity}
+            full
+            quiet={false}
+          />
+        )}
       </div>
-      {/* <p>{}</p> */}
+      <div style={{ marginTop: "2rem" }}>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: brentRentalItem?.shop_description_long,
+          }}
+        />
+      </div>
     </div>
   )
 }
@@ -127,8 +115,8 @@ const EquipmentItem = ({ data, location, pageContext: { post } }) => {
 export default EquipmentItem
 
 export const pageQuery = graphql`
-query BrentItemQuery ($id: Int) {
-  brentRentalItem(rentmanId: {eq: $id}) {
+  query BrentItemQuery($id: Int) {
+    brentRentalItem(rentmanId: { eq: $id }) {
       displayname
       id
       urlPath
@@ -145,7 +133,11 @@ query BrentItemQuery ($id: Int) {
       urlPath
       childFile {
         childImageSharp {
-          gatsbyImageData(quality: 100, placeholder: DOMINANT_COLOR, layout: FULL_WIDTH)
+          gatsbyImageData(
+            quality: 100
+            placeholder: DOMINANT_COLOR
+            layout: FULL_WIDTH
+          )
         }
       }
     }

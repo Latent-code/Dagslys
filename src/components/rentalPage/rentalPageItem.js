@@ -85,7 +85,7 @@ const RentalPageItem = ({ menuChildren }) => {
           style={cssGridChild}
         >
           <div onClick={e => handleNavigate(menuChildren)}>
-            {menuChildren.childFile?.childImageSharp.gatsbyImageData != null ? (
+            {menuChildren.childFile?.childImageSharp?.gatsbyImageData != null ? (
               <GatsbyImage
                 image={menuChildren.childFile.childImageSharp.gatsbyImageData}
                 alt={menuChildren.displayname}
