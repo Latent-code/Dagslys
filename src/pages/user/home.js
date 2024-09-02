@@ -8,34 +8,41 @@ import PrivateRoute from "../../components/privateRoute/privateRoute";
 
 const Home = () => {
   const { userData, setIsPopupOpen, handleClosePopup } = useContext(AppContext);
+
   const [isPending, setIsPending] = useState(false);
 
-  // const buildHooks = useCallback(() => {
-  //   setIsPending(true);
-  //   axios
-  //     .get(process.env.GATSBY_BUILD_HOOK)
-  //     .then((response) => {
-  //       console.log(response);
-  //       setIsPopupOpen({
-  //         open: true,
-  //         message: "Website is building... should be ready in 5 to 10 minutes",
-  //         severity: "success",
-  //         closePopup: handleClosePopup,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //     .finally(() => {
-  //       setIsPending(false);
-  //     });
-  // }, [setIsPopupOpen, handleClosePopup]);
+  const buildHooks = useCallback(() => {
+    setIsPending(true);
 
-  // const handleButtonClick = () => {
-  //   if (typeof window !== 'undefined') {
-  //     buildHooks();
-  //   }
-  // };
+    fetch(process.env.GATSBY_BUILD_HOOK)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setIsPopupOpen({
+          open: true,
+          message: "Website is building... should be ready in 5 to 10 minutes",
+          severity: "success",
+          closePopup: handleClosePopup,
+        });
+      })
+      .catch((error) => {
+        console.error('There was a problem with the fetch operation:', error);
+      })
+      .finally(() => {
+        setIsPending(false);
+      });
+  }, [setIsPopupOpen, handleClosePopup]);
+
+  const handleButtonClick = () => {
+    if (typeof window !== 'undefined') {
+      buildHooks();
+    }
+  };
 
   // useEffect(() => {
   //   // No need for cleanup if we use React's onClick directly
@@ -52,14 +59,14 @@ const Home = () => {
             <Text>
               Use the build button with caution! It's made to rebuild the website only when relevant Rentman data has been updated or changed.
             </Text>
-            {/* <Button
+            <Button
               isPending={isPending}
               marginTop="size-250"
               width="size-2400"
               onClick={handleButtonClick}
             >
               Rebuild website
-            </Button> */}
+            </Button>
           </Flex>
         </Content>
       )}
